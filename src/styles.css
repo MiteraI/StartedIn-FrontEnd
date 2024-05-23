@@ -6,8 +6,19 @@
 html,
 body {
   height: 100%;
+  background-color: #F5F5F0;
 }
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.border-padding {
+  padding-left: 13%;
+  padding-right: 13%;
+}
+
+.border-margin {
+  margin-left: 13%;
+  margin-right: 13%;
 }
