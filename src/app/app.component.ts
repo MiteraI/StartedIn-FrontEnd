@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './layouts/header/header.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 
@@ -12,4 +12,18 @@ import { FooterComponent } from './layouts/footer/footer.component';
 })
 export class AppComponent {
   title = 'StartedIn-FrontEnd';
+  hideHeader = false;
+  hideFooter = false;
+
+  constructor(private router: Router) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        if (event.url.includes('/login')
+          || event.url.includes('register')) {
+          this.hideHeader = true;
+          this.hideFooter = true;
+        }
+      }
+    });
+  }
 }
