@@ -1,10 +1,20 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './pages/auth-pages/login/login.component';
 
 export const routes: Routes = [
   {
     path: 'login',
-    component: LoginComponent,
+    loadComponent: () =>
+      import('./pages/auth-pages/login/login.component').then(
+        (c) => c.LoginComponent
+      ),
     title: 'Login'
+  },
+  {
+    path: 'register',
+    loadComponent: () =>
+      import('./pages/auth-pages/register/register.component').then(
+        (c) => c.RegisterComponent
+      ),
+    title: 'Register'
   }
 ];

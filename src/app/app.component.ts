@@ -22,6 +22,9 @@ export class AppComponent {
           || event.url.includes('register')) {
           this.hideHeader = true;
           this.hideFooter = true;
+        } else {
+          this.hideHeader = false;
+          this.hideFooter = false;
         }
       }
     });
