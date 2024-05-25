@@ -1,0 +1,273 @@
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+h1 {
+  font-size: 70px;
+  font-weight: bold;
+}
+
+p,
+.description,
+.text-section {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  font-size: 26px;
+  font-weight: normal;
+}
+
+.container {
+  height: 100vh;
+  width: auto;
+  padding: 50px;
+}
+
+/* landing page section */
+/* first row */
+.landing {
+  height: 100vh;
+  display: flex; /* Display children in a row */
+  align-items: center; /* Align children vertically */
+}
+.text-section {
+  width: 45%;
+  padding-right: 40px; /* Space between text and image */
+
+  text-align: left;
+}
+
+.learn-more-btn {
+  padding: 20px 46px;
+  font-size: 16px;
+  border: none;
+  border-radius: 35px;
+  cursor: pointer;
+
+  /* Gradient background */
+  background: #d600b4;
+  color: white; /* Text color */
+}
+
+.image-section {
+  width: 55%;
+  display: flex;
+  align-items: right; /* Center image vertically */
+  justify-content: right; /* Center image horizontally */
+}
+
+.fixed-size-image {
+  width: 550px;
+  height: 530px;
+  object-fit: cover; /* Maintain aspect ratio and cover the specified dimensions */
+}
+
+/* second row */
+.text-box img {
+  opacity: 0.8;
+}
+
+.text-box h1 {
+  padding-top: 16px;
+  padding-bottom: 32px;
+  font-size: 36px; /* Change h1 font size */
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.text-box p {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  font-size: 24px; /* Change p font size */
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.landing-text-box-container {
+  padding: 50px; /* Add padding as needed */
+  background: linear-gradient(to right, #d600b4, #0a84ff); /* Gradient background */
+  border-radius: 25px;
+}
+
+.landing-text-box {
+  display: flex; /* Display children in a row */
+  justify-content: space-between; /* Space evenly between children */
+}
+
+.text-box {
+  width: 30%; /* Each text box takes equal width */
+  padding: 0px 10px;
+  border-radius: 10px; /* Add border radius for rounded corners */
+}
+
+/* carousel */
+.carousel-text {
+  padding: 0px 400px;
+  padding-top: 100px;
+}
+.carousel-text p {
+  text-align: center;
+}
+
+.carousel-board {
+  padding-top: 100px;
+  display: flex;
+}
+.board-text {
+  flex: 0 0 30%; /* Take up 30% of the width */
+  padding: 0px 50px;
+}
+
+.board-img {
+  flex: 1; /* Take up remaining space */
+}
+
+.board-img img {
+  max-width: 100%;
+}
+
+/* social media */
+.social-media-container {
+  padding-top: 200px;
+}
+
+.social-media {
+  display: flex;
+  background: linear-gradient(to right, #d600b440, #0a84ff); /* Gradient background */
+  align-items: center; /* Align children vertically */
+}
+
+.social-media-text-block {
+  width: 45%;
+  padding: 100px;
+}
+
+.social-media-text-block p {
+  font-size: 28px;
+  color: white;
+}
+
+.social-media-text-block h1 {
+  color: white;
+  font-size: 38px;
+}
+
+.social-media-img {
+  padding-left: 70px;
+}
+
+/* plan card */
+.plan-title {
+  display: flex;
+  justify-content: center;
+  margin-top: 200px;
+}
+
+.plan-title h1 {
+  font-size: 56px;
+  font-weight: 600;
+}
+
+.plan-container {
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between; /* Space out the cards */
+  margin-left: 10%;
+  margin-right: 10%;
+  padding: 100px 0px;
+}
+
+.plan-card {
+  background: #fff; /* White background for the cards */
+  border-radius: 18px; /* Rounded corners */
+  padding: 20px; /* Padding inside the cards */
+  box-shadow: 10px 10px 3px rgba(0, 0, 0, 0.1);
+  width: 300px; /* Fixed width for the cards */
+  display: flex; /* Flexbox for card content */
+  flex-direction: column; /* Column layout inside cards */
+  justify-content: space-between; /* Space out the content */
+  text-align: left; /* Center the text */
+}
+
+.price-number {
+  display: flex;
+  align-items: baseline;
+  justify-content: left;
+}
+
+.price-number h1 {
+  margin-right: 5px; /* Space between number and period */
+}
+.price-number p {
+  padding-top: 10px;
+  padding-bottom: 25px;
+}
+
+.bullet-list {
+  flex-grow: 1; /* Ensure this section takes up remaining space */
+  margin-bottom: 20px; /* Space between list and button */
+  text-align: left; /* Align bullet list text to the left */
+}
+
+.bullet-list p {
+  position: relative; /* Position relative for custom bullets */
+  padding-left: 30px; /* Space for custom bullet */
+  padding-top: 0;
+  padding-bottom: 10px;
+}
+
+.bullet-list p::before {
+  content: url('../../../assets/img/tick_icon.png'); /* Custom bullet icon */
+  position: absolute; /* Position bullet icon */
+  left: 0; /* Align icon to the left */
+  top: 50%; /* Center icon vertically */
+  transform: translateY(-50%); /* Adjust for proper centering */
+}
+
+.plan-card button {
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  width: 90%;
+  border-radius: 14px;
+  cursor: pointer;
+  align-self: center;
+  margin-top: 35px;
+}
+
+.plan-card h1 {
+  font-size: 30px; /* Specific font size for h1 inside plan-card */
+}
+
+.plan-card p {
+  font-size: 20px; /* Specific font size for p inside plan-card */
+}
+
+.bullet-list p {
+  font-size: 20px;
+}
+
+.lite-card h1,
+.lite-card .price .price-number p {
+  color: #8267bd; /* Example color for Lite card */
+}
+
+.lite-card button {
+  background-color: #8267bd;
+  color: #9880cb;
+}
+.premium-card h1,
+.premium-card .price .price-number p {
+  color: #00a389; /* Example color for Premium card */
+}
+
+.premium-card button {
+  background-color: #00a389;
+  color: white;
+}
+
+.business-card h1,
+.business-card .price .price-number p {
+  color: #fdbf60; /* Example color for Business card */
+}
+
+.business-card button {
+  background-color: #fdbf60;
+  color: white;
+}
