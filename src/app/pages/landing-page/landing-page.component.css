@@ -1,0 +1,301 @@
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+h1 {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+p {
+  font-size: 20px;
+  font-weight: normal;
+}
+
+.container {
+  height: 100vh;
+  width: auto;
+}
+
+/* landing page section */
+/* first row */
+.landing {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.text-section {
+  width: 45%;
+  padding-right: 40px;
+
+  text-align: left;
+}
+
+.description {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.learn-more-btn {
+  padding: 15px 40px;
+  font-size: 16px;
+  border: none;
+  border-radius: 35px;
+  cursor: pointer;
+  background: #d600b4;
+  color: white;
+}
+
+.image-section {
+  width: 55%;
+  display: flex;
+  align-items: right;
+  justify-content: right;
+}
+
+.fixed-size-image {
+  width: 550px;
+  height: 530px;
+  object-fit: cover;
+}
+
+/* second row */
+.text-box img {
+  opacity: 0.8;
+}
+
+.text-box h1 {
+  padding-top: 16px;
+  padding-bottom: 32px;
+  font-size: 28px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.text-box p {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.landing-text-box-container {
+  padding: 50px;
+  background: linear-gradient(to right, #d600b4, #0a84ff);
+  border-radius: 25px;
+}
+
+.landing-text-box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.text-box {
+  width: 30%;
+  padding: 0px 10px;
+  border-radius: 10px;
+}
+
+/* carousel */
+.carousel-text {
+  padding: 0px 300px;
+  padding-top: 100px;
+}
+.carousel-text p {
+  text-align: center;
+}
+
+.carousel-board {
+  padding-top: 100px;
+  display: flex;
+}
+.board-text {
+  flex: 0 0 30%;
+  padding: 0px 50px;
+}
+
+.board-img {
+  flex: 1;
+}
+
+.board-img img {
+  max-width: 100%;
+}
+
+/* social media */
+.social-media-container {
+  padding-top: 200px;
+}
+
+.social-media {
+  display: flex;
+  background: linear-gradient(to right, #d600b440, #0a84ff);
+  align-items: center;
+}
+
+.social-media-text-block {
+  width: 45%;
+  padding: 100px;
+}
+
+.social-media-text-block p {
+  padding-top: 10px;
+  font-size: 16px;
+  color: white;
+}
+
+.social-media-text-block h1 {
+  color: white;
+  font-size: 30px;
+}
+
+.social-media-img {
+  padding-left: 70px;
+}
+
+/* plan card */
+.plan-title {
+  display: flex;
+  justify-content: center;
+  margin-top: 200px;
+}
+
+.plan-container {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 8%;
+  margin-right: 8%;
+  padding: 100px 0px;
+}
+
+.plan-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 10px 10px 3px rgba(0, 0, 0, 0.1);
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  position: relative;
+}
+
+.price-number {
+  display: flex;
+  align-items: baseline;
+  justify-content: left;
+}
+
+.price-number h1 {
+  margin-right: 5px;
+}
+
+.price-number p {
+  padding-top: 10px;
+  padding-bottom: 25px;
+}
+
+.bullet-list {
+  flex-grow: 1;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.bullet-list p {
+  position: relative;
+  padding-left: 30px;
+  padding-top: 0;
+  padding-bottom: 10px;
+}
+
+.bullet-list p::before {
+  content: url('../../../assets/img/tick_icon.png');
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.plan-card button {
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  width: 90%;
+  border-radius: 14px;
+  cursor: pointer;
+  align-self: center;
+  margin-top: 35px;
+}
+
+.plan-card h1 {
+  font-size: 30px;
+}
+
+.plan-card p {
+  font-size: 20px;
+}
+
+.bullet-list p {
+  font-size: 20px;
+}
+
+.lite-card h1,
+.lite-card .price .price-number p {
+  color: #8267bd;
+}
+
+.lite-card button {
+  background-color: #8267bd;
+  color: #9880cb;
+}
+
+.premium-card h1,
+.premium-card .price .price-number p {
+  color: #00a389;
+}
+
+.premium-card button {
+  background-color: #00a389;
+  color: white;
+}
+
+.business-card h1,
+.business-card .price .price-number p {
+  color: #fdbf60;
+}
+
+.business-card button {
+  background-color: #fdbf60;
+  color: white;
+}
+
+.overlapped-card {
+  position: relative;
+  width: 280px;
+}
+
+.highlight-card {
+  background-color: #00a389;
+  border-radius: 18px;
+  padding: 10px;
+  padding-bottom: 40px;
+  width: 100%; /* Make highlight card the same width as its container */
+  text-align: center;
+  position: absolute;
+  top: -45px;
+  z-index: 1;
+}
+
+.premium-card {
+  position: relative;
+  z-index: 2;
+  margin-top: 40px; /* Adjust to ensure proper overlap */
+  width: 100%; /* Ensure the premium card is the same width as other cards */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  top: -40px;
+  height: 100%; /* Ensure the premium card takes full height */
+}
+
+.highlight-card p {
+  color: white;
+}

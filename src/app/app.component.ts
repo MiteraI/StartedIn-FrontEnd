@@ -16,11 +16,13 @@ export class AppComponent {
   hideFooter = false;
 
   constructor(private router: Router) {
-    this.router.events.subscribe((event) => {
+    this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        if (event.url.includes('/login')
-          || event.url.includes('register')) {
+        if (event.url.includes('/login') || event.url.includes('register')) {
           this.hideHeader = true;
+          this.hideFooter = true;
+        } else if (event.url.includes('')) {
+          this.hideHeader = false;
           this.hideFooter = true;
         } else {
           this.hideHeader = false;
