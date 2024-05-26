@@ -11,7 +11,7 @@ import { FooterComponent } from './layouts/footer/footer.component';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'StartedIn-FrontEnd';
+  title = 'StartedIn';
   hideHeader = false;
   hideFooter = false;
 
