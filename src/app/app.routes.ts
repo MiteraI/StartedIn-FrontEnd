@@ -19,4 +19,10 @@ export const routes: Routes = [
       import('./pages/landing-page/landing-page.component').then(c => c.LandingPageComponent),
     title: 'StartedIn - Phát Triển Startups',
   },
+  {
+    path: 'about-us',
+    loadComponent: () =>
+      import('./pages/about-us-page/about-us.component').then(c => c.AboutUsComponent),
+    title: 'Về chúng tôi',
+  },
 ];
