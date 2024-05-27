@@ -12,18 +12,6 @@ p {
   font-weight: normal;
 }
 
-.container {
-  height: 100vh;
-  width: auto;
-}
-
-/* landing page section */
-/* first row */
-.landing {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-}
 .text-section {
   width: 45%;
   padding-right: 40px;
@@ -77,9 +65,7 @@ p {
 }
 
 .landing-text-box-container {
-  padding: 50px;
   background: linear-gradient(to right, #d600b4, #0a84ff);
-  border-radius: 25px;
 }
 
 .landing-text-box {
@@ -102,13 +88,9 @@ p {
   text-align: center;
 }
 
-.carousel-board {
-  padding-top: 100px;
-  display: flex;
-}
 .board-text {
   flex: 0 0 30%;
-  padding: 0px 50px;
+  padding: 0px 5% 0px 0px;
 }
 
 .board-img {
@@ -117,11 +99,6 @@ p {
 
 .board-img img {
   max-width: 100%;
-}
-
-/* social media */
-.social-media-container {
-  padding-top: 200px;
 }
 
 .social-media {
@@ -154,15 +131,6 @@ p {
 .plan-title {
   display: flex;
   justify-content: center;
-  margin-top: 200px;
-}
-
-.plan-container {
-  display: flex;
-  justify-content: space-between;
-  margin-left: 8%;
-  margin-right: 8%;
-  padding: 100px 0px;
 }
 
 .plan-card {

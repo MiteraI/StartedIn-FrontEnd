@@ -21,9 +21,6 @@ export class AppComponent {
         if (event.url.includes('/login') || event.url.includes('register')) {
           this.hideHeader = true;
           this.hideFooter = true;
-        } else if (event.url.includes('')) {
-          this.hideHeader = false;
-          this.hideFooter = true;
         } else {
           this.hideHeader = false;
           this.hideFooter = false;
