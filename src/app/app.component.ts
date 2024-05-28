@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './layouts/header/header.component';
 import { FooterComponent } from './layouts/footer/footer.component';
-import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +10,7 @@ import { environment } from '../environments/environment';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'StartedIn';
   hideHeader = false;
   hideFooter = false;
@@ -28,8 +27,5 @@ export class AppComponent implements OnInit {
         }
       }
     });
-  }
-  ngOnInit(): void {
-    console.log(environment);
   }
 }
