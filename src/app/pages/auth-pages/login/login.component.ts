@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoginWindowComponent } from '../../../dialogs/loginWindow/loginWindow.component';
+import { LoginWindowComponent } from '../../../dialogs/login-window/login-window.component';
 
 @Component({
   selector: 'app-login',

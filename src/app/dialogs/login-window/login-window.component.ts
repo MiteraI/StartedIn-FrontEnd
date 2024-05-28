@@ -5,8 +5,8 @@ import { MatDialogContent } from '@angular/material/dialog';
   selector: 'app-login-window',
   standalone: true,
   imports: [MatDialogContent],
-  templateUrl: './loginWindow.component.html',
-  styleUrl: './loginWindow.component.css'
+  templateUrl: './login-window.component.html',
+  styleUrl: './login-window.component.css'
 })
 export class LoginWindowComponent {
 
