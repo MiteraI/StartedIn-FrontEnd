@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './layouts/header/header.component';
 import { FooterComponent } from './layouts/footer/footer.component';
+import { AuthJwtService } from './core/auth/auth-jwt.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,10 @@ export class AppComponent {
   hideHeader = false;
   hideFooter = false;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private jwtAuth: AuthJwtService
+  ) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         if (event.url.includes('/login') || event.url.includes('register')) {
