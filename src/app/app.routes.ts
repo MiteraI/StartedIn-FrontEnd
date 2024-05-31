@@ -25,4 +25,10 @@ export const routes: Routes = [
       import('./pages/about-us-page/about-us.component').then(c => c.AboutUsComponent),
     title: 'Về chúng tôi',
   },
+  {
+    path: 'post-list',
+    loadComponent: () =>
+      import('./pages/post-list-page/post-list.component').then(c => c.PostListComponent),
+    title: 'Mạng xã hội'
+  },
 ];
