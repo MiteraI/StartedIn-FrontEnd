@@ -18,9 +18,15 @@
   </div>
   <!-- Contents -->
   <div class="w-full mt-3 pl-5 pr-5">
-    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt molestiae repellendus, impedit beatae quod
-    explicabo est cum molestias atque. Officia unde, doloremque sapiente accusamus eum corrupti odio maiores maxime?
-    Culpa.
+    <div *ngIf="content.length > 100 && (expanded == false || expanded == undefined)">
+      {{content.substring(0, 100)}}...
+    </div>
+    <div *ngIf="expanded == true">{{content}}</div>
+    <div>
+      <a class="font-semibold" *ngIf="content.length > 100"
+        (click)="this.expanded = !this.expanded;">{{expanded ? 'Less' : 'View More'}}
+      </a>
+    </div>
   </div>
   <!-- Interaction count -->
   <div class="w-1/2 mt-3">
