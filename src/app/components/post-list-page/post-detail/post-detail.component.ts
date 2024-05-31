@@ -12,4 +12,6 @@ import { MatIconModule } from '@angular/material/icon';
 export class PostDetailComponent {
   content = "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt molestiae repellendus, impedit beatae quod explicabo est cum molestias atque. Officia unde, doloremque sapiente accusamus eum corrupti odio maiores maxime? Culpa.";
   expanded = false;
+
+
 }
