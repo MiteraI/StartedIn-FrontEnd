@@ -1,0 +1,26 @@
+<div class="flex flex-wrap">
+  <!-- User profile -->
+  <div class="flex items-center h-14 w-4/5 mt-3">
+    <img class="user-pfp rounded-full ml-5" src="https://i.pravatar.cc/300" />
+    <div class="ml-3">
+      <p class="font-semibold text-lg">Minh Phạm</p>
+    </div>
+  </div>
+  <!-- Close button -->
+  <div class="flex w-1/5 justify-end items-start mt-3">
+    <button mat-button mat-dialog-close>
+      <mat-icon fontIcon="close"></mat-icon>
+    </button>
+  </div>
+</div>
+<!-- Post Info -->
+<mat-dialog-content>
+  <mat-form-field class="w-[800px]">
+    <mat-label>Hãy chia sẻ những ý tưởng của bạn!</mat-label>
+    <textarea style="resize: none;" rows="10" matInput [(ngModel)]="data.content"></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Đóng</button>
+  <button mat-button [mat-dialog-close]="data.content" cdkFocusInitial>Đăng</button>
+</mat-dialog-actions>
