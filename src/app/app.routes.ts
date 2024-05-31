@@ -29,6 +29,12 @@ export const routes: Routes = [
     path: 'post-list',
     loadComponent: () =>
       import('./pages/post-list-page/post-list.component').then(c => c.PostListComponent),
-    title: 'Mạng xã hội'
+    title: 'Mạng xã hội',
+  },
+  {
+    path: 'network',
+    loadComponent: () =>
+      import('./pages/network-page/network-page.component').then(c => c.NetworkPageComponent),
+    title: 'Kết nối với người khác',
   },
 ];
