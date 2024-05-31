@@ -1,26 +1,43 @@
-<div class="flex flex-wrap">
-  <!-- User profile -->
-  <div class="flex items-center h-14 w-4/5 mt-3">
-    <img class="user-pfp rounded-full ml-5" src="https://i.pravatar.cc/300" />
-    <div class="ml-3">
-      <p class="font-semibold text-lg">Minh Phạm</p>
+<div class="create-post-dialog">
+  <div class="flex flex-wrap">
+    <!-- User profile -->
+    <div class="flex items-center h-14 w-4/5 mt-3">
+      <img class="user-pfp rounded-full ml-5" src="https://i.pravatar.cc/300" />
+      <div class="ml-3">
+        <p class="font-semibold text-lg">Minh Phạm</p>
+      </div>
+    </div>
+    <!-- Close button -->
+    <div class="flex flex-grow justify-end items-start mt-3 mr-5">
+      <button class="flex items-center rounded-md hover:bg-gray-200" (click)="onNoClick()">
+        <mat-icon fontIcon="close"></mat-icon>
+      </button>
     </div>
   </div>
-  <!-- Close button -->
-  <div class="flex w-1/5 justify-end items-start mt-3">
-    <button mat-button mat-dialog-close>
-      <mat-icon fontIcon="close"></mat-icon>
-    </button>
+  <!-- Post info -->
+  <div class="w-[800px] m-5">
+    <textarea
+      class="w-full resize-none p-3 bg-gray-200 rounded-lg"
+      placeholder="Hãy chia sẻ những ý tưởng của bạn!"
+      rows="10"
+      [(ngModel)]="data.content"
+    ></textarea>
   </div>
+  <!-- Image -->
+  <!-- TODO image preview -->
+  <div class="w-auto p-2 m-5 rounded-lg flex items-center justify-center cursor-pointer font-medium hover:bg-gray-200">
+    <mat-icon class="mr-1" fontIcon="image"></mat-icon>
+    Thêm ảnh vào bài viết của bạn
+  </div>
+  <!-- Line break -->
+  <div class="h-0 w-full mb-3 flex justify-center">
+    <hr class="w-11/12" />
+  </div>
+  <!-- Buttons -->
+  <div class="w-auto p-2 m-5 rounded-lg flex justify-center cursor-pointer font-medium bg-purple-300 hover:bg-purple-200" (click)="onPostClick()">
+    Đăng
+  </div>
+  <!-- <mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="data.content" cdkFocusInitial>Đăng</button>
+  </mat-dialog-actions> -->
 </div>
-<!-- Post Info -->
-<mat-dialog-content>
-  <mat-form-field class="w-[800px]">
-    <mat-label>Hãy chia sẻ những ý tưởng của bạn!</mat-label>
-    <textarea style="resize: none;" rows="10" matInput [(ngModel)]="data.content"></textarea>
-  </mat-form-field>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Đóng</button>
-  <button mat-button [mat-dialog-close]="data.content" cdkFocusInitial>Đăng</button>
-</mat-dialog-actions>

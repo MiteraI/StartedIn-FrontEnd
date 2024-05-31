@@ -1,13 +1,12 @@
 import { Component, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 
 export interface PostData {
   content: string;
+  // image
 }
 
 @Component({
@@ -16,8 +15,6 @@ export interface PostData {
   imports: [
     MatButtonModule,
     FormsModule,
-    MatInputModule,
-    MatFormFieldModule,
     MatDialogModule,
     MatIconModule
   ],
@@ -29,4 +26,13 @@ export class CreatePostDialogComponent {
     public dialogRef: MatDialogRef<CreatePostDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: PostData,
   ) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  onPostClick(): void {
+    //create post
+    this.dialogRef.close();
+  }
 }
