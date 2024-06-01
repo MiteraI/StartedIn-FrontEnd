@@ -4,6 +4,9 @@ import { HeaderComponent } from './layouts/header/header.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { AuthJwtService } from './core/auth/auth-jwt.service';
 import { HttpClient } from '@angular/common/http';
+import { StateStorageService } from './core/auth/state-storage.service';
+import { catchError, of, tap } from 'rxjs';
+import { AccountService } from './core/auth/account.service';
 
 @Component({
   selector: 'app-root',
@@ -19,9 +22,20 @@ export class AppComponent {
 
   constructor(
     private router: Router,
-    private jwtAuth: AuthJwtService,
-    private http: HttpClient
+    private authJwt: AuthJwtService,
+    private stateStorage: StateStorageService,
+    private accountService: AccountService,
   ) {
+    if (stateStorage.getRefreshToken()) {
+      authJwt
+        .refreshAccess()
+        .pipe(
+          tap(() => accountService.identity().subscribe()),
+          catchError(() => of(null))
+        )
+        .subscribe();
+    }
+
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         if (event.url.includes('/login') || event.url.includes('register')) {
@@ -33,9 +47,5 @@ export class AppComponent {
         }
       }
     });
-  }
-
-  test() {
-    this.http.get('http://localhost:5135/api/test').subscribe();
   }
 }

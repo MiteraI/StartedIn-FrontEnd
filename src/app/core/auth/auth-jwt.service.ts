@@ -16,7 +16,7 @@ export type Token = {
 export class AuthJwtService {
   constructor(
     private http: HttpClient,
-    private stateStorage: StateStorageService,
+    public stateStorage: StateStorageService,
     private applicationConfig: ApplicationConfigService
   ) {}
 

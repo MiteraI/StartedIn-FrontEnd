@@ -17,20 +17,9 @@ export class AccountService {
 
   constructor(
     private http: HttpClient,
-    private stateStorage: StateStorageService,
-    public authJwt: AuthJwtService,
-    private applicationConfigService: ApplicationConfigService
-  ) {
-    if (stateStorage.getRefreshToken()) {
-      authJwt
-        .refreshAccess()
-        .pipe(
-          tap(() => this.identity().subscribe()),
-          catchError(() => of(null))
-        )
-        .subscribe();
-    }
-  }
+    private applicationConfigService: ApplicationConfigService,
+    public authJwt: AuthJwtService
+  ) {}
 
   get isAuthenticated$(): Observable<boolean> {
     return this.isAuthenticatedSubject$.asObservable();

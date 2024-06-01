@@ -10,9 +10,8 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, filter, flatMap, switchMap, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
-import { StateStorageService } from '../auth/state-storage.service';
 import { AccountService } from '../auth/account.service';
-import { AuthJwtService, Token } from '../auth/auth-jwt.service';
+import { AuthJwtService } from '../auth/auth-jwt.service';
 
 @Injectable()
 export class AuthExpiredInterceptor implements HttpInterceptor {
@@ -20,7 +19,7 @@ export class AuthExpiredInterceptor implements HttpInterceptor {
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   constructor(
     private router: Router,
-    // private accountService: AccountService
+    private accountService: AccountService
   ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -29,9 +28,9 @@ export class AuthExpiredInterceptor implements HttpInterceptor {
         if (error instanceof HttpErrorResponse) {
           if (error.status === 401) {
             const isTokenExpired = error.headers.get('is-token-expired') === 'true';
-            // if (isTokenExpired || this.accountService.isAuthenticated$) {
-            //   return this.handleUnauthorizedError(request, next);
-            // }
+            if (isTokenExpired || this.accountService.isAuthenticated$) {
+              return this.handleUnauthorizedError(request, next);
+            }
           }
         }
         return throwError(error);
@@ -39,36 +38,49 @@ export class AuthExpiredInterceptor implements HttpInterceptor {
     );
   }
 
-//   private handleUnauthorizedError(
-//     request: HttpRequest<any>,
-//     next: HttpHandler
-//   ): Observable<HttpEvent<any>> {
-//     if (!this.isRefreshingToken) {
-//       this.isRefreshingToken = true;
-//       this.refreshTokenSubject.next(null);
+  private handleUnauthorizedError(
+    request: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    if (!this.isRefreshingToken) {
+      this.isRefreshingToken = true;
+      this.refreshTokenSubject.next(null);
 
-//       return this.accountService.authJwt.refreshAccess().pipe(
-//         switchMap((response) => {
-//           this.isRefreshingToken = false;
-//           this.refreshTokenSubject.next(response.accessToken);
-//           return this.retryRequest(request, next);
-//         }),
-//         catchError(error => {
-//           this.isRefreshingToken = false;
-//           this.accountService.logout();
-//           this.router.navigate(['/login']);
-//           return throwError(error);
-//         })
-//       );
-//     }
+      return this.accountService.authJwt.refreshAccess().pipe(
+        switchMap(response => {
+          this.isRefreshingToken = false;
+          this.refreshTokenSubject.next(response.accessToken);
+          return this.retryRequest(request, next, response.accessToken);
+        }),
+        catchError(error => {
+          if (this.isRefreshingToken === true) {
+            this.isRefreshingToken = false;
+            // Currently turn this off so that it won't logout the application for every fault ever
+            // If want to log out for sure then delete token in application and login again
+            // this.accountService.logout();
+            this.router.navigate(['/login']);
+          }
+          return throwError(error);
+        })
+      );
+    }
 
-//     return this.refreshTokenSubject.pipe(
-//       filter(accessToken => accessToken !== null),
-//       flatMap(() => this.retryRequest(request, next))
-//     );
-//   }
+    return this.refreshTokenSubject.pipe(
+      filter(accessToken => accessToken !== null),
+      flatMap(accessToken => this.retryRequest(request, next, accessToken))
+    );
+  }
 
-  private retryRequest(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  private retryRequest(
+    request: HttpRequest<any>,
+    next: HttpHandler,
+    accessToken: string
+  ): Observable<HttpEvent<any>> {
+    request = request.clone({
+      setHeaders: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     return next.handle(request);
   }
 }
