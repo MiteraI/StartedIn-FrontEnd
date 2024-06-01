@@ -1,0 +1,67 @@
+<div class="flex flex-wrap bg-white rounded-xl border h-fit mt-5">
+  <!-- Poster Info -->
+  <div class="flex items-center h-14 w-4/5 mt-3">
+    <img class="user-pfp rounded-full ml-5" src="https://i.pravatar.cc/300" />
+    <div class="ml-3">
+      <p><a class="font-semibold text-lg">Minh Phạm</a></p>
+      <p><a class="text-sm">2 giờ</a></p>
+    </div>
+  </div>
+  <!-- Quick Actions -->
+  <div class="flex w-1/5 justify-end items-start mt-3">
+    <button class="mr-3">
+      <mat-icon fontIcon="more_vert"></mat-icon>
+    </button>
+    <button class="mr-3">
+      <mat-icon fontIcon="close"></mat-icon>
+    </button>
+  </div>
+  <!-- Contents -->
+  <div class="w-full mt-3 pl-5 pr-5">
+    <div *ngIf="content.length > 100 && (expanded == false || expanded == undefined)">
+      {{content.substring(0, 100)}}...
+    </div>
+    <div *ngIf="expanded == true">{{content}}</div>
+    <div>
+      <a class="font-semibold" *ngIf="content.length > 100"
+        (click)="this.expanded = !this.expanded;">{{expanded ? 'Ẩn bớt' : 'Xem thêm'}}
+      </a>
+    </div>
+  </div>
+  <!-- Image -->
+  <div class="w-full mt-3">
+    <img class="w-full" src="https://picsum.photos/600/400" />
+  </div>
+  <!-- Interaction count -->
+  <div class="w-1/2 mt-3">
+    <p class="text-xs ml-10">
+      <img class="interaction-icon inline rounded-full" src="../../../../assets/icon/thumbs-up-icon.jpg" />
+      <img class="interaction-icon inline rounded-full" src="../../../../assets/icon/heart-icon.png" />
+      Minh và 96 người khác
+    </p>
+  </div>
+  <!-- Comment count -->
+  <div class="w-1/2 text-end text-xs mt-3">
+    <p class="mr-8">
+      69 bình luận
+    </p>
+  </div>
+  <!-- Line break -->
+  <div class="h-0 w-full mt-3 flex justify-center">
+    <hr class="w-11/12" />
+  </div>
+  <!-- Like button -->
+  <div class="w-1/2">
+    <div class="pt-2 pb-2 w-auto m-1 rounded-md flex items-center justify-center cursor-pointer font-medium hover:bg-gray-200">
+      <mat-icon class="mr-1" fontIcon="thumb_up"></mat-icon>
+      Thích
+    </div>
+  </div>
+  <!-- Comment button -->
+  <div class="w-1/2">
+    <div class="pt-2 pb-2 w-auto m-1 rounded-md flex items-center justify-center cursor-pointer font-medium hover:bg-gray-200">
+      <mat-icon class="mr-1" fontIcon="mode_comment"></mat-icon>
+      Bình luận
+    </div>
+  </div>
+</div>
