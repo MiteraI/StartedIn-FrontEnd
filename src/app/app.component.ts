@@ -3,6 +3,7 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './layouts/header/header.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { AuthJwtService } from './core/auth/auth-jwt.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,8 @@ export class AppComponent {
 
   constructor(
     private router: Router,
-    private jwtAuth: AuthJwtService
+    private jwtAuth: AuthJwtService,
+    private http: HttpClient
   ) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -31,5 +33,9 @@ export class AppComponent {
         }
       }
     });
+  }
+
+  test() {
+    this.http.get('http://localhost:5135/api/test').subscribe();
   }
 }
