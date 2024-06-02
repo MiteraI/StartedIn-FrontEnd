@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { PostDetail } from '../../../../shared/models/posts/postDetail.model';
 
 @Component({
   selector: 'app-post-detail',
@@ -10,8 +11,6 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './post-detail.component.css'
 })
 export class PostDetailComponent {
-  content = "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt molestiae repellendus, impedit beatae quod explicabo est cum molestias atque. Officia unde, doloremque sapiente accusamus eum corrupti odio maiores maxime? Culpa.";
+  @Input() postDetail: PostDetail | null = null;
   expanded = false;
-
-
 }

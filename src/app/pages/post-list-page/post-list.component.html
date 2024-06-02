@@ -1,17 +1,17 @@
 <!-- Left Sidebar -->
-<div class="w-1/5 h-full fixed top-14 left-0 bg-white border m-5 rounded-lg">
+<!-- <div class="w-1/5 h-4/5 fixed top-14 left-[3%] bg-white border m- rounded-lg">
 
-</div>
+</div> -->
 <!-- Right Sidebar -->
-<div class="w-1/5 h-full fixed top-14 right-0 bg-white border m-5 rounded-lg">
+<!-- <div class="w-1/5 h-4/5 fixed top-14 right-[3%] bg-white border m-5 rounded-lg">
 
-</div>
+</div> -->
 <!-- Main -->
-<div class="flex justify-center w-full">
-  <main class="w-1/2">
+<div class="border-margin flex justify-center w-auto">
+  <main class="w-full">
     <app-post-create></app-post-create>
-    <div *ngFor="let _ of [].constructor(20)">
-      <app-post-detail></app-post-detail>
+    <div *ngFor="let detail of postDetails">
+      <app-post-detail [postDetail]="detail"></app-post-detail>
     </div>
   </main>
 </div>

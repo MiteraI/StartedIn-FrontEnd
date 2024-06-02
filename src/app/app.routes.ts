@@ -26,7 +26,7 @@ export const routes: Routes = [
     title: 'Về chúng tôi',
   },
   {
-    path: 'post-list',
+    path: 'feed',
     loadComponent: () =>
       import('./pages/post-list-page/post-list.component').then(c => c.PostListComponent),
     title: 'Mạng xã hội'
