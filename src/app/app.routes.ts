@@ -37,4 +37,9 @@ export const routes: Routes = [
       import('./pages/network-page/network-page.component').then(c => c.NetworkPageComponent),
     title: 'Kết nối với người khác',
   },
+  {
+    path: 'team-member',
+    loadComponent: () =>
+      import('./pages/team-members/team-members.component').then(c => c.TeamMembersComponent),
+  }
 ];

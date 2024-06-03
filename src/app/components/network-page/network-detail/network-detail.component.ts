@@ -15,6 +15,8 @@ export class NetworkDetailComponent {
   constructor() {
     const profile: Profile = {
       image: 'https://randomuser.me/api/portraits/men/79.jpg',
+      backgroundImage:
+        'https://img.freepik.com/free-photo/gradient-dark-blue-futuristic-digital-background_53876-160646.jpg?w=1380&t=st=1717306890~exp=1717307490~hmac=a676596a0d8dce4d7b9f3ee380d74a07e547d990bc93898763d6300420e7663d',
       name: 'John Doe',
       detail: 'Software Engineer',
       numberConnections: 500,
