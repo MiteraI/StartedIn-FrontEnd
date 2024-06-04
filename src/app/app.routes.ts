@@ -29,6 +29,17 @@ export const routes: Routes = [
     path: 'feed',
     loadComponent: () =>
       import('./pages/post-list-page/post-list.component').then(c => c.PostListComponent),
-    title: 'Mạng xã hội'
+    title: 'Mạng xã hội',
   },
+  {
+    path: 'network',
+    loadComponent: () =>
+      import('./pages/network-page/network-page.component').then(c => c.NetworkPageComponent),
+    title: 'Kết nối với người khác',
+  },
+  {
+    path: 'team-member',
+    loadComponent: () =>
+      import('./pages/team-members/team-members.component').then(c => c.TeamMembersComponent),
+  }
 ];

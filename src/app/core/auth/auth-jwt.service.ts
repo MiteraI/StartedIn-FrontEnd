@@ -1,12 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { StateStorageService } from './state-storage.service';
 import { ApplicationConfigService } from '../config/application-config.service';
-import { Observable, map } from 'rxjs';
+import { EMPTY, Observable, catchError, map, of, throwError } from 'rxjs';
 import { Login } from '../../../shared/models/login.model';
 
-
-type Token = {
+export type Token = {
   accessToken: string;
   refreshToken: string;
 };
@@ -17,17 +16,35 @@ type Token = {
 export class AuthJwtService {
   constructor(
     private http: HttpClient,
-    private stateStorage: StateStorageService,
+    public stateStorage: StateStorageService,
     private applicationConfig: ApplicationConfigService
   ) {}
 
   login(credentials: Login): Observable<void> {
     return this.http
-      .post<Token>(this.applicationConfig.getEndpointFor('/api/authenticate'), credentials)
+      .post<Token>(this.applicationConfig.getEndpointFor('/api/login'), credentials)
       .pipe(map(response => this.authenticateSuccess(response)));
   }
 
+  refreshAccess() {
+    const token: Token = {
+      refreshToken: this.stateStorage.getRefreshToken(),
+      accessToken: '',
+    };
+    return this.http
+      .post<Token>(this.applicationConfig.getEndpointFor('/api/refresh-token'), token)
+      .pipe(
+        map(response => {
+          this.authenticateSuccess(response);
+          return response;
+        }),
+        catchError(error => {
+          return EMPTY;
+        })
+      );
+  }
+
   private authenticateSuccess(response: Token): void {
-    console.log(response);
+    this.stateStorage.storeAuthenticationToken(response.accessToken, response.refreshToken);
   }
 }
