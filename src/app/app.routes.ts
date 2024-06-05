@@ -1,8 +1,10 @@
 import { Routes } from '@angular/router';
+import { DefaultHomeGuard } from '../shared/guards/defaulthome.guard';
 
 export const routes: Routes = [
   {
     path: 'login',
+    canActivate: [DefaultHomeGuard],
     loadComponent: () =>
       import('./pages/auth-pages/login/login.component').then(c => c.LoginComponent),
     title: 'Đăng nhập vào StartedIn',
@@ -15,6 +17,7 @@ export const routes: Routes = [
   },
   {
     path: '',
+    canActivate: [DefaultHomeGuard],
     loadComponent: () =>
       import('./pages/landing-page/landing-page.component').then(c => c.LandingPageComponent),
     title: 'StartedIn - Phát Triển Startups',

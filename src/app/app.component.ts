@@ -38,7 +38,7 @@ export class AppComponent {
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        if (event.url.includes('/login') || event.url.includes('register')) {
+        if (event.url.includes('/login') || event.url.includes('/register')) {
           this.hideHeader = true;
           this.hideFooter = true;
         } else {

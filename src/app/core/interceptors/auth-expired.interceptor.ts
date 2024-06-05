@@ -29,7 +29,7 @@ export class AuthExpiredInterceptor implements HttpInterceptor {
           if (error.status === 401) {
             const isTokenExpired = error.headers.get('is-token-expired') === 'true';
             if (isTokenExpired || this.accountService.isAuthenticated$) {
-              return this.handleUnauthorizedError(request, next);
+              return this.handleTokenExpiredError(request, next);
             }
           }
         }
@@ -38,7 +38,7 @@ export class AuthExpiredInterceptor implements HttpInterceptor {
     );
   }
 
-  private handleUnauthorizedError(
+  private handleTokenExpiredError(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
@@ -55,9 +55,7 @@ export class AuthExpiredInterceptor implements HttpInterceptor {
         catchError(error => {
           if (this.isRefreshingToken === true) {
             this.isRefreshingToken = false;
-            // Currently turn this off so that it won't logout the application for every fault ever
-            // If want to log out for sure then delete token in application and login again
-            // this.accountService.logout();
+            this.accountService.logout();
             this.router.navigate(['/login']);
           }
           return throwError(error);

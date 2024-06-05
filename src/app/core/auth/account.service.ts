@@ -18,6 +18,7 @@ export class AccountService {
   constructor(
     private http: HttpClient,
     private applicationConfigService: ApplicationConfigService,
+    private router: Router,
     public authJwt: AuthJwtService
   ) {}
 
@@ -44,6 +45,8 @@ export class AccountService {
     this.account = null;
     this.accountSubject$.next(null);
     this.isAuthenticatedSubject$.next(false);
+    this.authJwt.stateStorage.clearAuthenticationToken();
+    this.router.navigate(['/'])
   }
 
   private fetch(): Observable<Account> {
