@@ -26,6 +26,10 @@ export class AccountService {
     return this.isAuthenticatedSubject$.asObservable();
   }
 
+  get account$(): Observable<Account | null> {
+    return this.accountSubject$.asObservable();
+  }
+
   identity(): Observable<Account | null> {
     return this.fetch().pipe(
       tap((account: Account) => {
