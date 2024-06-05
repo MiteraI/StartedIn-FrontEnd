@@ -1,6 +1,6 @@
 <div class="flex h-screen w-full flex-wrap justify-center">
   <!-- Logo -->
-  <div class="flex h-[15%] w-full cursor-pointer flex-wrap items-end justify-center" routerLink="">
+  <div class="flex h-16 w-full cursor-pointer flex-wrap items-end justify-center" routerLink="">
     <img
       class="app-icon h-[50px] rounded-lg"
       src="../../../../assets/img/logo-full.png"
@@ -9,7 +9,7 @@
   </div>
   <!-- Form containter -->
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <div class="mt-14 flex h-[600px] w-[600px] flex-wrap justify-center rounded-[40px] bg-white">
+    <div class="mt-10 flex h-[600px] w-[600px] flex-wrap justify-center rounded-[40px] bg-white">
       <!-- Title -->
       <div class="mt-[30px] font-['Inter'] text-2xl font-semibold text-violet-500">Đăng ký</div>
       <div class="h-0 w-full border border-zinc-400"></div>
@@ -19,20 +19,6 @@
         id="email"
         formControlName="email"
         placeholder="Email"
-        class="h-[50px] w-[80%] rounded-lg bg-slate-50 p-4 font-['Inter']"
-      />
-      <input
-        type="password"
-        id="password"
-        formControlName="password"
-        placeholder="Mật khẩu"
-        class="h-[50px] w-[80%] rounded-lg bg-slate-50 p-4 font-['Inter']"
-      />
-      <input
-        type="password"
-        id="confirmedPassword"
-        formControlName="confirmedPassword"
-        placeholder="Nhập lại mật khẩu"
         class="h-[50px] w-[80%] rounded-lg bg-slate-50 p-4 font-['Inter']"
       />
       <input
@@ -47,6 +33,20 @@
         id="phone"
         formControlName="phoneNumber"
         placeholder="Số điện thoại"
+        class="h-[50px] w-[80%] rounded-lg bg-slate-50 p-4 font-['Inter']"
+      />
+      <input
+        type="password"
+        id="password"
+        formControlName="password"
+        placeholder="Mật khẩu"
+        class="h-[50px] w-[80%] rounded-lg bg-slate-50 p-4 font-['Inter']"
+      />
+      <input
+        type="password"
+        id="confirmedPassword"
+        formControlName="confirmedPassword"
+        placeholder="Nhập lại mật khẩu"
         class="h-[50px] w-[80%] rounded-lg bg-slate-50 p-4 font-['Inter']"
       />
 

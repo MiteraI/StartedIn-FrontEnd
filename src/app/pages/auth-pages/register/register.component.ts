@@ -2,9 +2,11 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
+import { ApplicationConfigService } from '../../../core/config/application-config.service';
+import { RegisterRequest } from '../../../../shared/models/register-request.model';
 
 @Component({
   selector: 'app-register',
@@ -19,6 +21,7 @@ export class RegisterComponent {
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
+    private appConfigService: ApplicationConfigService,
     private router: Router,
     private snackBar: MatSnackBar
   ) {
@@ -42,35 +45,24 @@ export class RegisterComponent {
 
   onSubmit() {
     if (this.registerForm.valid) {
-      const { email, password, confirmedPassword, fullName, phoneNumber } =
-        this.registerForm.getRawValue();
-      this.register({ email, password, confirmedPassword, fullName, phoneNumber }).subscribe(
-        () => {
-          this.snackBar.open('Tạo tài khoản thành công', 'OK', {
-            duration: 3000,
-          });
-          this.router.navigate(['/login']);
-        },
-        error => {
-          this.snackBar.open('Tạo tài khoản thất bại: ' + error.message, 'OK', {
-            duration: 3000,
-          });
-        }
-      );
+      const registerData: RegisterRequest = this.registerForm.getRawValue();
+      this.register(registerData).subscribe();
     } else {
-      this.snackBar.open('Vui lòng điền tất các thông tin', 'OK', {
+      this.snackBar.open('Vui lòng điền tất các thông tin', 'Close  ', {
         duration: 3000,
       });
-    }
+    } 
   }
 
-  register(user: any): Observable<any> {
-    const apiUrl = 'https://startedin-21a210f33eba.herokuapp.com/api/register';
-    console.log('Registering user:', user);
-    return this.http.post<any>(apiUrl, user).pipe(
-      catchError((error: HttpErrorResponse) => {
-        console.error('API call error: ', error);
-        throw error;
+  register(registerData: RegisterRequest): Observable<any> {
+    return this.http.post(this.appConfigService.getEndpointFor('/api/register'), registerData, { responseType: 'text' }).pipe(
+      tap((response: string) => {
+        this.snackBar.open(response, 'Close', { duration: 3000 });
+        this.router.navigate(['/login']);
+      }),
+      catchError((error) => {
+        this.snackBar.open(error.error.message, 'Close', { duration: 3000 });
+        return throwError(error);
       })
     );
   }
