@@ -28,7 +28,7 @@ export class ProfileDropdownComponent {
   ngOnInit() {
     this.accountService.account$
       .pipe(takeUntil(this.destroyed$))
-      .subscribe(account => {this.account = account; console.log(this.account)});
+      .subscribe(account => this.account = account);
   }
 
   ngOnDestroy() {

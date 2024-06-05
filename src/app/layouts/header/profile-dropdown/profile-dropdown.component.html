@@ -1,4 +1,4 @@
-<div *ngIf="account != null; then profileDropdown else loginRegister"></div>
+<div *ngIf="account; then profileDropdown else loginRegister"></div>
 
 <ng-template #loginRegister>
   <div class="flex items-center space-x-4">
