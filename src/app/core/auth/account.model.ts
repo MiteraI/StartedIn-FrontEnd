@@ -4,6 +4,6 @@ export class Account {
     public email: string,
     public bio: string,
     public fullName: string,
-    public imageUrl: string | null
+    public profilePicture: string | null
   ) {}
 }
