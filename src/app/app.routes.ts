@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { DefaultHomeGuard } from '../shared/guards/defaulthome.guard';
+import { AuthenticatedGuard } from '../shared/guards/authenticated.guard';
 
 export const routes: Routes = [
   {
@@ -30,6 +31,7 @@ export const routes: Routes = [
   },
   {
     path: 'feed',
+    canActivate: [AuthenticatedGuard],
     loadComponent: () =>
       import('./pages/post-list-page/post-list.component').then(c => c.PostListComponent),
     title: 'Mạng xã hội',
