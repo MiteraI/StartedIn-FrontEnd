@@ -1,8 +1,11 @@
 import { Routes } from '@angular/router';
+import { DefaultHomeGuard } from '../shared/guards/defaulthome.guard';
+import { AuthenticatedGuard } from '../shared/guards/authenticated.guard';
 
 export const routes: Routes = [
   {
     path: 'login',
+    canActivate: [DefaultHomeGuard],
     loadComponent: () =>
       import('./pages/auth-pages/login/login.component').then(c => c.LoginComponent),
     title: 'Đăng nhập vào StartedIn',
@@ -15,6 +18,7 @@ export const routes: Routes = [
   },
   {
     path: '',
+    canActivate: [DefaultHomeGuard],
     loadComponent: () =>
       import('./pages/landing-page/landing-page.component').then(c => c.LandingPageComponent),
     title: 'StartedIn - Phát Triển Startups',
@@ -26,9 +30,21 @@ export const routes: Routes = [
     title: 'Về chúng tôi',
   },
   {
-    path: 'post-list',
+    path: 'feed',
+    canActivate: [AuthenticatedGuard],
     loadComponent: () =>
       import('./pages/post-list-page/post-list.component').then(c => c.PostListComponent),
-    title: 'Mạng xã hội'
+    title: 'Mạng xã hội',
   },
+  {
+    path: 'network',
+    loadComponent: () =>
+      import('./pages/network-page/network-page.component').then(c => c.NetworkPageComponent),
+    title: 'Kết nối với người khác',
+  },
+  {
+    path: 'team-member',
+    loadComponent: () =>
+      import('./pages/team-members/team-members.component').then(c => c.TeamMembersComponent),
+  }
 ];

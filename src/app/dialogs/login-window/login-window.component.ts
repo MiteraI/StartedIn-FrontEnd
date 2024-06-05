@@ -33,9 +33,8 @@ export class LoginWindowComponent {
       next: () => {
         this.authenticationError = false;
         if (!this.router.getCurrentNavigation()) {
-          this.router.navigate(['']).then(() => {
-            window.location.reload();
-          });
+          this.router.navigate(['/']);
+          location.reload();
         }
       },
       error: () => (this.authenticationError = true),
