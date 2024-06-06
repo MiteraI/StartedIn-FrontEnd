@@ -11,7 +11,6 @@ import { catchError, filter, flatMap, switchMap, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 import { AccountService } from '../auth/account.service';
-import { AuthJwtService } from '../auth/auth-jwt.service';
 
 @Injectable()
 export class AuthExpiredInterceptor implements HttpInterceptor {
