@@ -28,7 +28,7 @@ export class TokenRevokedInterceptor implements HttpInterceptor {
               this.router.navigate(['/login']);
               this.snackBar.open(
                 'Bạn đã đăng xuất quyền truy cập trên thiết bị khác, hãy đăng nhập lại',
-                'close',
+                'Close',
                 { duration: 3000 }
               );
             }
