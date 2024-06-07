@@ -15,17 +15,12 @@ import { AccountService } from '../auth/account.service';
 @Injectable()
 export class AuthExpiredInterceptor implements HttpInterceptor {
   private isRefreshingToken = false;
-  private isAuthenticated = true;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor(
     private router: Router,
     private accountService: AccountService
   ) {}
-
-  ngOnInit() {
-    this.accountService.isAuthenticated$.subscribe(i => {this.isAuthenticated = i; console.log(i);});
-  }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
@@ -35,10 +30,6 @@ export class AuthExpiredInterceptor implements HttpInterceptor {
             const isTokenExpired = error.headers.get('is-token-expired') === 'true';
             if (isTokenExpired || this.accountService.isAuthenticated$) {
               return this.handleTokenExpiredError(request, next);
-            }
-            if (!this.isAuthenticated) {
-              this.accountService.logout();
-              this.router.navigate(['/login']);
             }
           }
         }

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { PostDetail } from '../../../../shared/models/posts/postDetail.model';
+import { PostDetail } from '../../../../shared/models/post-detail.model';
 
 @Component({
   selector: 'app-post-detail',
