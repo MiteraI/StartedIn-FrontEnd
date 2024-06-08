@@ -11,12 +11,12 @@ export const httpInterceptorProviders = [
   },
   {
     provide: HTTP_INTERCEPTORS,
-    useClass: TokenRevokedInterceptor,
+    useClass: AuthExpiredInterceptor,
     multi: true,
   },
   {
     provide: HTTP_INTERCEPTORS,
-    useClass: AuthExpiredInterceptor,
+    useClass: TokenRevokedInterceptor,
     multi: true,
   },
 ];

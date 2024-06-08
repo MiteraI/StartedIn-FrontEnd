@@ -5,7 +5,10 @@
     <img class="user-pfp rounded-full ml-5" [src]="postDetail?.userImgUrl" />
     <div class="ml-3">
       <p><a class="font-semibold text-lg">{{postDetail?.userFullName}}</a></p>
-      <p><a class="text-sm">{{postDetail?.lastUpdatedTime ?? postDetail?.createdTime}}</a></p>
+      <p>
+        <a class="text-sm">{{shownDate | isoToVnLocale}}</a>
+        <span *ngIf="updated" class="text-sm ml-2">Đã chỉnh sửa</span>
+      </p>
     </div>
   </div>
   <!-- Quick Actions -->

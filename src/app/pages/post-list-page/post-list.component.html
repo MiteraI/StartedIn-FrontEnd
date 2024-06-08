@@ -13,5 +13,7 @@
     <div *ngFor="let detail of postDetails">
       <app-post-detail [postDetail]="detail"></app-post-detail>
     </div>
+    <button (click)="loadPosts()">moar</button>
+    <div *ngIf="finished">oof</div>
   </main>
 </div>

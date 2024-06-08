@@ -13,7 +13,7 @@ export class PostService {
     private applicationConfigService: ApplicationConfigService
   ) {}
 
-  getPostList(pageIndex: number = 1, pageSize: number = 10): Observable<PostDetail[]> {
+  getPostList(pageIndex: number = 1, pageSize: number = 10): Observable<any> {
     let query = `pageIndex=${pageIndex}&pageSize=${pageSize}`;
     return this.http.get<PostDetail[]>(this.applicationConfigService.getEndpointFor(`/api/posts/active-posts?${query}`));
   }

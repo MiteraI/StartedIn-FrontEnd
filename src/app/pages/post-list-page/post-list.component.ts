@@ -4,7 +4,8 @@ import { PostCreateComponent } from '../../components/post-list-page/post-create
 import { CommonModule } from '@angular/common';
 import { PostDetail } from '../../../shared/models/post-detail.model';
 import { PostService } from '../../services/post.service';
-import { BehaviorSubject, Observable, concat } from 'rxjs';
+import { BehaviorSubject, catchError, throwError } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-post-list',
@@ -16,24 +17,16 @@ import { BehaviorSubject, Observable, concat } from 'rxjs';
 export class PostListComponent {
   postDetailsSubject$: BehaviorSubject<PostDetail[]> = new BehaviorSubject(new Array<PostDetail>());
   postDetails: PostDetail[] = new Array<PostDetail>();
-  pageIndex: number = 1;
-  pageSize: number = 10;
   finished: boolean = false;
+  private pageIndex: number = 1;
+  private pageSize: number = 1;
+  private postsShownCount: number = 0;
+  private maxPostsShown: number = 3;
 
   constructor(private postService: PostService) { }
-    /* const detail: PostDetail = {
-      id: "id",
-      authorId: "Minh Phạm",
-      createdTime: new Date("2024-05-31T00:00:00Z"),
-      updatedTime: null,
-      content: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt molestiae repellendus, impedit beatae quod explicabo est cum molestias atque. Officia unde, doloremque sapiente accusamus eum corrupti odio maiores maxime? Culpa.",
-      imageUrl: "https://picsum.photos/300/200",
-      interactionCount: 96,
-      commentCount: 69
-    }
-    this.postDetails = new Array<PostDetail>(20);
-    this.postDetails.fill(detail, 0, 20); */
+
   ngOnInit() {
+    this.postDetailsSubject$.subscribe(posts => this.postDetails = posts);
     this.loadPosts();
   }
 
@@ -43,13 +36,27 @@ export class PostListComponent {
     }
     this.postService
       .getPostList(this.pageIndex, this.pageSize)
+      .pipe(
+        catchError(error => {
+          if (error instanceof HttpErrorResponse && error.status === 404) {
+            this.finished = true;
+          }
+          return throwError(() => new Error(error.error));
+        })
+      )
       .subscribe(posts => {
         if (!posts || !posts.length) {
           this.finished = true;
           return;
         }
-        this.postDetailsSubject$.next([...this.postDetails, ...posts]);
-        this.postDetails = this.postDetailsSubject$.getValue();
+        this.pageIndex++;
+        this.postsShownCount += this.pageSize;
+        if (this.postsShownCount > this.maxPostsShown) {
+          this.postDetailsSubject$.next([...this.postDetails, ...posts].slice(-this.maxPostsShown));
+          this.postsShownCount -= this.pageSize;
+        } else {
+          this.postDetailsSubject$.next([...this.postDetails, ...posts]);
+        }
       });
   }
 }
