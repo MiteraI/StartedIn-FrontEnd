@@ -41,8 +41,8 @@
     </div>
   </ng-template>
   <!-- Image -->
-  <div class="w-full mt-3">
-    <img class="w-full" [src]="postDetail?.postImgUrl" />
+  <div *ngIf="postDetail && postDetail.postImgUrl && postDetail.postImgUrl.length" class="w-full mt-3">
+    <img *ngFor="let url of postDetail.postImgUrl" class="w-full" [src]="url" />
   </div>
   <!-- Interaction count -->
   <!-- TODO check like, love and latest reactor -->

@@ -15,7 +15,7 @@
     </div>
     <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="1000" (scrolled)="loadPosts()"></div>
     <div *ngIf="!finished" class="flex justify-center my-20">
-      <mat-spinner></mat-spinner>
+      <mat-spinner diameter="70"></mat-spinner>
     </div>
     <div *ngIf="finished">
       <div class="flex flex-wrap bg-white rounded-xl border h-fit mt-5">

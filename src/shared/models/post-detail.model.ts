@@ -6,7 +6,7 @@ export interface PostDetail {
   createdTime: Date,
   lastUpdatedTime: Date | null,
   content: string,
-  postImgUrl: string | null,
+  postImgUrl: string[],
   commentCount: number,
   interactionCount: number
 }
