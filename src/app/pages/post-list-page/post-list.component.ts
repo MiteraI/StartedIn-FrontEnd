@@ -6,11 +6,19 @@ import { PostDetail } from '../../../shared/models/post-detail.model';
 import { PostService } from '../../services/post.service';
 import { BehaviorSubject, catchError, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-post-list',
   standalone: true,
-  imports: [PostDetailComponent, PostCreateComponent, CommonModule],
+  imports: [
+    PostDetailComponent,
+    PostCreateComponent,
+    CommonModule,
+    InfiniteScrollModule,
+    MatProgressSpinnerModule,
+  ],
   templateUrl: './post-list.component.html',
   styleUrl: './post-list.component.css'
 })
