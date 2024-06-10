@@ -45,14 +45,14 @@ export class CreatePostDialogComponent {
   }
 
   onPostClick() {
-    this.postService
+    /* this.postService
       .createPost(this.data)
       .pipe(
         catchError(error => {
           return throwError(() => new Error(error));
         })
       )
-      .subscribe();
+      .subscribe(); */
     this.dialogRef.close(this.data);
   }
 
