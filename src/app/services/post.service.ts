@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { PostDetail } from '../../shared/models/post-detail.model';
 import { HttpClient } from '@angular/common/http';
 import { ApplicationConfigService } from '../core/config/application-config.service';
+import { CreatePost } from '../../shared/models/create-post.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,16 @@ export class PostService {
   ) {}
 
   getPostList(pageIndex: number = 1, pageSize: number = 10): Observable<any> {
-    let query = `pageIndex=${pageIndex}&pageSize=${pageSize}`;
+    const query = `pageIndex=${pageIndex}&pageSize=${pageSize}`;
     return this.http.get<PostDetail[]>(this.applicationConfigService.getEndpointFor(`/api/posts/active-posts?${query}`));
+  }
+
+  createPost(model: CreatePost): Observable<any> {
+    const formData = new FormData();
+    formData.append('content', model.content);
+    for (const file of model.postImageFiles) {
+      formData.append('postImageFiles', file);
+    }
+    return this.http.post(this.applicationConfigService.getEndpointFor('/api/posts'), formData);
   }
 }
