@@ -2,9 +2,9 @@
   <div class="flex flex-wrap">
     <!-- User profile -->
     <div class="flex items-center h-14 w-4/5 mt-3">
-      <img class="user-pfp rounded-full ml-5" src="https://i.pravatar.cc/300" />
+      <img class="user-pfp rounded-full ml-5" [src]="account?.profilePicture" />
       <div class="ml-3">
-        <p class="font-semibold text-lg">Minh Phạm</p>
+        <p class="font-semibold text-lg">{{account?.fullName}}</p>
       </div>
     </div>
     <!-- Close button -->
@@ -15,26 +15,34 @@
     </div>
   </div>
   <!-- Post info -->
-  <div class="w-[800px] m-5">
-    <textarea
-      class="w-full resize-none p-3 bg-gray-200 rounded-lg"
-      placeholder="Hãy chia sẻ những ý tưởng của bạn!"
-      rows="10"
-      [(ngModel)]="data.content"
-    ></textarea>
-  </div>
-  <!-- Image -->
-  <!-- TODO image preview -->
-  <div class="w-auto p-2 m-5 rounded-lg flex items-center justify-center cursor-pointer font-medium hover:bg-gray-200">
-    <mat-icon class="mr-1" fontIcon="image"></mat-icon>
-    Thêm ảnh vào bài viết của bạn
-  </div>
-  <!-- Line break -->
-  <div class="h-0 w-full mb-3 flex justify-center">
-    <hr class="w-11/12" />
-  </div>
+  <mat-dialog-content>
+    <!-- Content -->
+    <div class="w-[800px] m-5">
+      <textarea
+        class="w-full resize-none p-3 bg-gray-200 rounded-lg"
+        placeholder="Hãy chia sẻ những ý tưởng của bạn!"
+        rows="10"
+        [(ngModel)]="data.content">
+      </textarea>
+    </div>
+    <!-- Image -->
+    <div>
+      <div class="w-auto flex justify-center">
+        <input class="hidden" type="file" id="post-image" accept="image/*" (change)="loadFile($event)" />
+        <img class="w-[750px]" [src]="imageUrl" />
+      </div>
+      <label
+        for="post-image"
+        class="w-auto p-2 mx-5 my-2 rounded-lg flex items-center justify-center cursor-pointer font-medium hover:bg-gray-200">
+        <mat-icon class="mr-1" fontIcon="image"></mat-icon>
+        {{imageUrl === "" ? "Thêm ảnh vào bài viết của bạn" : "Đổi ảnh"}}
+      </label>
+    </div>
+  </mat-dialog-content>
   <!-- Buttons -->
-  <div class="w-auto p-2 m-5 rounded-lg flex justify-center cursor-pointer font-medium bg-purple-300 hover:bg-purple-200" (click)="onPostClick()">
+  <div
+    class="w-auto p-2 m-5 rounded-lg flex justify-center cursor-pointer font-medium bg-purple-300 hover:bg-purple-200"
+    (click)="onPostClick()">
     Đăng
   </div>
   <!-- <mat-dialog-actions align="end">
