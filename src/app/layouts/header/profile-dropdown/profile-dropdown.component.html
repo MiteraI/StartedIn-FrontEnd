@@ -12,11 +12,11 @@
 </ng-template>
 
 <ng-template #profileDropdown>
-  <img [matMenuTriggerFor]="profileMenu" class="user-pfp rounded-full cursor-pointer" src="https://startedin.blob.core.windows.net/avatars/a341cadb-17da-471a-8192-8bdee6a58e5d.png" />
+  <img [matMenuTriggerFor]="profileMenu" class="user-pfp rounded-full cursor-pointer" [src]="account?.profilePicture" />
   <mat-menu #profileMenu="matMenu">
     <div class="flex px-3 w-full">
       <div class="w-1/5">
-        <img class="user-pfp mt-2 rounded-full cursor-pointer" src="{{account?.profilePicture}}" />
+        <img class="user-pfp mt-2 rounded-full cursor-pointer" [src]="account?.profilePicture" />
       </div>
       <div class="ml-3 w-auto">
         <p class="text-lg font-semibold mb-1 font-['Inter']">{{account?.fullName}}</p>
