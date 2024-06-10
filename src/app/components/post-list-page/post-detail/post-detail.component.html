@@ -1,10 +1,14 @@
 <div class="flex flex-wrap bg-white rounded-xl border h-fit mt-5">
   <!-- Poster Info -->
+  <!-- TODO link user profile -->
   <div class="flex items-center h-14 w-4/5 mt-3">
-    <img class="user-pfp rounded-full ml-5" src="https://i.pravatar.cc/300" />
+    <img class="user-pfp rounded-full ml-5" [src]="postDetail?.userImgUrl" />
     <div class="ml-3">
-      <p><a class="font-semibold text-lg">{{postDetail?.authorId}}</a></p>
-      <p><a class="text-sm">{{postDetail?.updatedTime ?? postDetail?.createdTime }}</a></p>
+      <p><a class="font-semibold text-lg">{{postDetail?.userFullName}}</a></p>
+      <p>
+        <a class="text-sm">{{shownDate | isoToVnLocale}}</a>
+        <span *ngIf="updated" class="text-sm ml-2">Đã chỉnh sửa</span>
+      </p>
     </div>
   </div>
   <!-- Quick Actions -->
@@ -17,27 +21,37 @@
     </button>
   </div>
   <!-- Contents -->
-  <div class="w-full mt-3 pl-5 pr-5">
-    <div *ngIf="postDetail?.content?.length ?? 0 > 100 && (expanded == false || expanded == undefined)">
-      {{postDetail?.content?.substring(0, 100)}}...
+  <div *ngIf="(postDetail?.content?.length ?? 0) > 100; then longContent else shortContent"></div>
+  <ng-template #shortContent>
+    <div class="w-full mt-3 pl-5 pr-5">
+      {{postDetail?.content}}
     </div>
-    <div *ngIf="expanded == true">{{postDetail?.content}}</div>
-    <div>
-      <a class="font-semibold" *ngIf="postDetail?.content?.length ?? 0 > 100"
-        (click)="this.expanded = !this.expanded;">{{expanded ? 'Ẩn bớt' : 'Xem thêm'}}
-      </a>
+  </ng-template>
+  <ng-template #longContent>
+    <div class="w-full mt-3 pl-5 pr-5">
+      <div *ngIf="(expanded == false || expanded == undefined)">
+        {{postDetail?.content?.substring(0, 100)}}...
+      </div>
+      <div *ngIf="expanded == true">{{postDetail?.content}}</div>
+      <div>
+        <a class="font-semibold" *ngIf="(postDetail?.content?.length ?? 0) > 100"
+          (click)="this.expanded = !this.expanded;">{{expanded ? 'Ẩn bớt' : 'Xem thêm'}}
+        </a>
+      </div>
     </div>
-  </div>
+  </ng-template>
   <!-- Image -->
-  <div class="w-full mt-3">
-    <img class="w-full" [src]="postDetail?.imageUrl" />
+  <div *ngIf="postDetail && postDetail.postImgUrl && postDetail.postImgUrl.length" class="w-full mt-3">
+    <img *ngFor="let url of postDetail.postImgUrl" class="w-full" [src]="url" />
   </div>
   <!-- Interaction count -->
+  <!-- TODO check like, love and latest reactor -->
   <div *ngIf="postDetail?.interactionCount ?? 0 > 0" class="w-1/2 mt-3">
     <p class="text-xs ml-10">
       <img class="interaction-icon inline rounded-full" src="../../../../assets/icon/thumbs-up-icon.jpg" />
       <img class="interaction-icon inline rounded-full" src="../../../../assets/icon/heart-icon.png" />
-      Minh và {{postDetail?.interactionCount}} người khác
+      {{postDetail?.interactionCount}} người đã bày tỏ cảm xúc
+      <!-- Minh và {{postDetail?.interactionCount}} người khác -->
     </p>
   </div>
   <!-- Comment count -->
