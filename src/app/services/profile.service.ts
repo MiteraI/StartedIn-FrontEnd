@@ -44,4 +44,22 @@ export class ProfileService {
   edit(editData: EditProfile): Observable<any> {
     return this.http.put(this.appConfigService.getEndpointFor('/api/profile/edit'), editData);
   }
+
+  uploadProfileImage(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('avatar', file);
+    return this.http.post(this.appConfigService.getEndpointFor('/api/profile/avatar'), formData, {
+      responseType: 'text',
+    });
+  }
+
+  uploadCoverPhoto(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('coverPhoto', file);
+    return this.http.post(
+      this.appConfigService.getEndpointFor('/api/profile/cover-photo'),
+      formData,
+      { responseType: 'text' }
+    );
+  }
 }

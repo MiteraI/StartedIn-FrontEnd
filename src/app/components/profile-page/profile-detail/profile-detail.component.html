@@ -1,10 +1,11 @@
 <div class="mb-28">
   <!-- Cover photo -->
-  <div>
+  <div class="relative">
     <img
       [src]="account?.coverPhoto || '../../../../assets/img/default-cover-1.jpg'"
       alt="cover image"
-      class="h-[300px] w-full rounded-[12px] object-cover"
+      class="h-[300px] w-full cursor-pointer rounded-[12px] object-cover"
+      (click)="openCoverImageUploadDialog()"
     />
   </div>
   <div class="flex">
@@ -12,7 +13,8 @@
     <img
       [src]="account?.profilePicture || '../../../../assets/img/default-profile.jpg'"
       alt="profile-image"
-      class="size-44 -translate-y-1/4 translate-x-1/4 rounded-full border-[3px] border-white"
+      class="size-44 -translate-y-1/4 translate-x-1/4 cursor-pointer rounded-full border-[3px] border-white"
+      (click)="openProfileImageUploadDialog()"
     />
     <div class="ml-16 mt-3 flex w-full flex-col lg:flex-row">
       <!-- Content & bio -->
