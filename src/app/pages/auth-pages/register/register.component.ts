@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, tap } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { RegisterRequest } from '../../../../shared/models/register-request.mode
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
@@ -51,19 +51,23 @@ export class RegisterComponent {
       this.snackBar.open('Vui lòng điền tất các thông tin', 'Close  ', {
         duration: 3000,
       });
-    } 
+    }
   }
 
   register(registerData: RegisterRequest): Observable<any> {
-    return this.http.post(this.appConfigService.getEndpointFor('/api/register'), registerData, { responseType: 'text' }).pipe(
-      tap((response: string) => {
-        this.snackBar.open(response, 'Close', { duration: 3000 });
-        this.router.navigate(['/login']);
-      }),
-      catchError((error) => {
-        this.snackBar.open(error.error.message, 'Close', { duration: 3000 });
-        return throwError(error);
+    return this.http
+      .post(this.appConfigService.getEndpointFor('/api/register'), registerData, {
+        responseType: 'text',
       })
-    );
+      .pipe(
+        tap((response: string) => {
+          this.snackBar.open(response, 'Close', { duration: 3000 });
+          this.router.navigate(['/login']);
+        }),
+        catchError(error => {
+          this.snackBar.open(error.error.message, 'Close', { duration: 3000 });
+          return throwError(error);
+        })
+      );
   }
 }

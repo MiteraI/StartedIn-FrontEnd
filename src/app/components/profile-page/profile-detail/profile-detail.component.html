@@ -1,0 +1,51 @@
+<div class="mb-28">
+  <!-- Cover photo -->
+  <div class="relative">
+    <img
+      [src]="account?.coverPhoto || '../../../../assets/img/default-cover-1.jpg'"
+      alt="cover image"
+      class="h-[300px] w-full cursor-pointer rounded-[12px] object-cover"
+      (click)="openCoverImageUploadDialog()"
+    />
+  </div>
+  <div class="flex">
+    <!-- Profile photo -->
+    <img
+      [src]="account?.profilePicture || '../../../../assets/img/default-profile.jpg'"
+      alt="profile-image"
+      class="size-44 -translate-y-1/4 translate-x-1/4 cursor-pointer rounded-full border-[3px] border-white"
+      (click)="openProfileImageUploadDialog()"
+    />
+    <div class="ml-16 mt-3 flex w-full flex-col lg:flex-row">
+      <!-- Content & bio -->
+      <div class="w-3/4">
+        <h1 class="text-lg font-semibold">{{ account?.fullName }}</h1>
+        <p>
+          {{ account?.bio }}
+        </p>
+        <p>
+          {{ account?.content }}
+        </p>
+        <p class="text-purple-400">169 ket noi</p>
+      </div>
+      <!-- Edit dialog button -->
+      <button
+        (click)="openDialog()"
+        class="mt-2 h-fit w-fit rounded-[10px] bg-purple-400 px-2 py-1 text-white hover:bg-opacity-90 lg:ml-auto lg:mt-0"
+      >
+        Sửa hồ sơ
+      </button>
+    </div>
+  </div>
+  <div class="ml-20 mr-40 -translate-y-6 space-y-3">
+    <p class="text-lg">Thông tin liên lạc</p>
+    <div class="flex flex-row text-purple-400">
+      <mat-icon>call</mat-icon>
+      <p class="ml-4">{{ account?.phoneNumber }}</p>
+    </div>
+    <div class="flex flex-row text-purple-400">
+      <mat-icon>email</mat-icon>
+      <p class="ml-4">{{ account?.email }}</p>
+    </div>
+  </div>
+</div>
