@@ -34,7 +34,7 @@
       </div>
       <div *ngIf="expanded == true">{{postDetail?.content}}</div>
       <div>
-        <a class="font-semibold" *ngIf="(postDetail?.content?.length ?? 0) > 100"
+        <a class="font-semibold cursor-pointer" *ngIf="(postDetail?.content?.length ?? 0) > 100"
           (click)="this.expanded = !this.expanded;">{{expanded ? 'Ẩn bớt' : 'Xem thêm'}}
         </a>
       </div>
