@@ -13,5 +13,16 @@
     <div *ngFor="let detail of postDetails">
       <app-post-detail [postDetail]="detail"></app-post-detail>
     </div>
+    <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="1000" (scrolled)="loadPosts()"></div>
+    <div *ngIf="!finished" class="flex justify-center my-20">
+      <mat-spinner diameter="70"></mat-spinner>
+    </div>
+    <div *ngIf="finished">
+      <div class="flex flex-wrap bg-white rounded-xl border h-fit mt-5">
+        <div class="w-full text-center text-3xl font-semibold text-purple-400 m-5">
+          Bạn đã xem hết các bài viết!
+        </div>
+      </div>
+    </div>
   </main>
 </div>

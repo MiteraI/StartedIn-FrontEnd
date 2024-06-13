@@ -3,11 +3,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-
-export interface PostData {
-  content: string;
-  // image
-}
+import { AccountService } from '../../core/auth/account.service';
+import { ReplaySubject, catchError, takeUntil, throwError } from 'rxjs';
+import { Account } from '../../core/auth/account.model';
+import { CreatePost } from '../../../shared/models/create-post.model';
+import { PostService } from '../../services/post.service';
 
 @Component({
   selector: 'app-create-post-dialog',
@@ -22,17 +22,48 @@ export interface PostData {
   styleUrl: './create-post-dialog.component.css'
 })
 export class CreatePostDialogComponent {
+  account: Account | null = null;
+  imageUrl: string = "";
+  private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
+
   constructor(
+    private accountService: AccountService,
+    private postService: PostService,
     public dialogRef: MatDialogRef<CreatePostDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: PostData,
+    @Inject(MAT_DIALOG_DATA) public data: CreatePost,
   ) {}
 
-  onNoClick(): void {
+  loadFile(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const files = target.files as FileList;
+    this.data.postImageFiles[0] = files[0];
+    this.imageUrl = URL.createObjectURL(files[0]);
+  }
+
+  onNoClick() {
     this.dialogRef.close();
   }
 
-  onPostClick(): void {
-    //create post
-    this.dialogRef.close();
+  onPostClick() {
+    /* this.postService
+      .createPost(this.data)
+      .pipe(
+        catchError(error => {
+          return throwError(() => new Error(error));
+        })
+      )
+      .subscribe(); */
+    this.dialogRef.close(this.data);
+  }
+
+  ngOnInit() {
+    this.accountService.account$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(account => this.account = account);
+  }
+
+  ngOnDestroy() {
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
   }
 }

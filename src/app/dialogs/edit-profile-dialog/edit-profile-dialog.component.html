@@ -1,0 +1,27 @@
+<div class="flex w-[30rem] flex-col space-y-5 p-5">
+  <div class="border-b pb-3">
+    <p>Sửa hồ sơ</p>
+  </div>
+  <div>
+    <p>Bio</p>
+    <input type="text" class="w-full rounded-md border border-black" [(ngModel)]="data.bio" />
+  </div>
+  <div>
+    <p>Nội dung</p>
+    <input type="text" class="w-full rounded-md border border-black" [(ngModel)]="data.content" />
+  </div>
+  <div>
+    <p>Số điện thoại</p>
+    <input
+      type="text"
+      class="w-full rounded-md border border-black"
+      [(ngModel)]="data.phoneNumber"
+    />
+  </div>
+  <button
+    class="ml-auto h-fit w-fit rounded-lg bg-purple-400 px-4 py-1 text-white"
+    (click)="onSubmit()"
+  >
+    Lưu
+  </button>
+</div>

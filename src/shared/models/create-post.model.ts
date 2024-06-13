@@ -1,4 +1,4 @@
 export interface CreatePost {
   content: string;
-  // image
+  postImageFiles: File[];
 }

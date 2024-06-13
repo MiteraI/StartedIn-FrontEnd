@@ -1,0 +1,23 @@
+<div class="p-5">
+  <h1 mat-dialog-title class="text-lg">Chọn Ảnh</h1>
+  <div mat-dialog-content>
+    <form (ngSubmit)="onSubmit()">
+      <input type="file" (change)="onFileSelected($event)" accept="image/*" required />
+      <div
+        class="flex size-[300px] w-auto items-center justify-center border border-slate-600 bg-slate-500"
+      >
+        <div *ngIf="previewUrl" class="">
+          <img [src]="previewUrl" alt="Selected Image" class="preview-image size-[300px]" />
+        </div>
+      </div>
+      <button
+        mat-raised-button
+        class="m-2 rounded-md bg-purple-400 px-4 py-2 text-white hover:bg-opacity-90"
+        type="submit"
+        [disabled]="!selectedFile"
+      >
+        Đăng ảnh
+      </button>
+    </form>
+  </div>
+</div>
