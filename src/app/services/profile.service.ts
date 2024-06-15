@@ -4,7 +4,7 @@ import { AccountProfile } from '../../shared/models/profile/profileDetail.model'
 import { FullProfileDetail } from '../../shared/models/profile/fullProfileDetail.model';
 import { ApplicationConfigService } from '../core/config/application-config.service';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 import { EditProfile } from '../../shared/models/profile/editProfile.model';
 
 @Injectable({
@@ -16,13 +16,19 @@ export class ProfileService {
     private http: HttpClient
   ) {}
 
+  private _refreshNeeded$ = new Subject<void>();
+
+  get refreshNeeded$() {
+    return this._refreshNeeded$;
+  }
+
   mapToFullProfileDetail(account: Account, accountProfile: AccountProfile): FullProfileDetail {
     return {
       authorities: account.authorities,
       email: account.email,
       fullName: account.fullName,
-      bio: account.bio,
-      profilePicture: account.profilePicture,
+      bio: accountProfile.bio,
+      profilePicture: accountProfile.profilePicture,
       phoneNumber: accountProfile.phoneNumber,
       content: accountProfile.content,
       coverPhoto: accountProfile.coverPhoto,
@@ -42,24 +48,38 @@ export class ProfileService {
   }
 
   edit(editData: EditProfile): Observable<any> {
-    return this.http.put(this.appConfigService.getEndpointFor('/api/profile/edit'), editData);
+    return this.http.put(this.appConfigService.getEndpointFor('/api/profile/edit'), editData).pipe(
+      tap(() => {
+        this._refreshNeeded$.next();
+      })
+    );
   }
 
   uploadProfileImage(file: File): Observable<any> {
     const formData = new FormData();
     formData.append('avatar', file);
-    return this.http.post(this.appConfigService.getEndpointFor('/api/profile/avatar'), formData, {
-      responseType: 'text',
-    });
+    return this.http
+      .post(this.appConfigService.getEndpointFor('/api/profile/avatar'), formData, {
+        responseType: 'text',
+      })
+      .pipe(
+        tap(() => {
+          this._refreshNeeded$.next();
+        })
+      );
   }
 
   uploadCoverPhoto(file: File): Observable<any> {
     const formData = new FormData();
     formData.append('coverPhoto', file);
-    return this.http.post(
-      this.appConfigService.getEndpointFor('/api/profile/cover-photo'),
-      formData,
-      { responseType: 'text' }
-    );
+    return this.http
+      .post(this.appConfigService.getEndpointFor('/api/profile/cover-photo'), formData, {
+        responseType: 'text',
+      })
+      .pipe(
+        tap(() => {
+          this._refreshNeeded$.next();
+        })
+      );
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, contentChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FullProfileDetail } from '../../../../shared/models/profile/fullProfileDetail.model';
 import { CommonModule } from '@angular/common';
@@ -26,7 +26,14 @@ export class ProfileDetailComponent {
   ) {}
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(EditProfileDialogComponent, {});
+    const dialogRef = this.dialog.open(EditProfileDialogComponent, {
+      width: '500px',
+      data: {
+        bio: this.account?.bio,
+        content: this.account?.content,
+        phoneNumber: this.account?.phoneNumber,
+      },
+    });
   }
 
   openProfileImageUploadDialog(): void {
@@ -42,9 +49,6 @@ export class ProfileDetailComponent {
           .pipe(
             tap((response: string) => {
               this.snackBar.open(response, 'Close', { duration: 3000 });
-              setTimeout(() => {
-                window.location.reload();
-              }, 3000);
             }),
             catchError(error => {
               console.error(result.avatar, error);
@@ -69,9 +73,6 @@ export class ProfileDetailComponent {
           .pipe(
             tap((response: string) => {
               this.snackBar.open(response, 'Close', { duration: 3000 });
-              setTimeout(() => {
-                window.location.reload();
-              }, 3000);
             }),
             catchError(error => {
               console.error(result.avatar, error);

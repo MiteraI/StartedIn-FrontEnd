@@ -27,6 +27,13 @@ export class ProfilePageComponent {
   ) {}
 
   ngOnInit() {
+    this.profileService.refreshNeeded$.subscribe(() => {
+      this.getFullProfile();
+    });
+    this.getFullProfile();
+  }
+
+  private getFullProfile() {
     this.accountService.account$
       .pipe(takeUntil(this.destroyed$))
       .subscribe(account => (this.account = account));
