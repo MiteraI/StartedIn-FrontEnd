@@ -14,11 +14,9 @@ import { IsoToVnLocalePipe } from '../../../../shared/pipes/iso-to-locale-string
 export class PostDetailComponent {
   @Input({required: true}) postDetail: PostDetail | null = null;
   shownDate: Date;
-  updated: boolean;
   expanded = false;
 
   constructor() {
-    this.updated = (this.postDetail == null) || (this.postDetail.lastUpdatedTime == null);
-    this.shownDate = this.postDetail?.lastUpdatedTime ?? this.postDetail?.createdTime ?? new Date();
+    this.shownDate = this.postDetail?.lastUpdatedTime ?? new Date();
   }
 }
