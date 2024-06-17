@@ -23,14 +23,11 @@
         <p>
           {{ account?.bio }}
         </p>
-        <p>
-          {{ account?.content }}
-        </p>
         <p class="text-purple-400">169 ket noi</p>
       </div>
       <!-- Edit dialog button -->
       <button
-        (click)="openDialog()"
+        (click)="openEditProfileDialog()"
         class="mt-2 h-fit w-fit rounded-[10px] bg-purple-400 px-2 py-1 text-white hover:bg-opacity-90 lg:ml-auto lg:mt-0"
       >
         Sửa hồ sơ
