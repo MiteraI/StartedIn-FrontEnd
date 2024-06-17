@@ -30,14 +30,12 @@ export class ProfileService {
       bio: accountProfile.bio,
       profilePicture: accountProfile.profilePicture,
       phoneNumber: accountProfile.phoneNumber,
-      content: accountProfile.content,
       coverPhoto: accountProfile.coverPhoto,
     };
   }
 
   mapToEditProfile(profile: AccountProfile): EditProfile {
     return {
-      content: profile.content,
       bio: profile.bio,
       phoneNumber: profile.phoneNumber,
     };

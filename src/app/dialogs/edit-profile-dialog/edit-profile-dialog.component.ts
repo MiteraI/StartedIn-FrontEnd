@@ -16,7 +16,6 @@ import { Router } from '@angular/router';
 })
 export class EditProfileDialogComponent {
   data: EditProfile = {
-    content: '',
     bio: '',
     phoneNumber: '',
   };
@@ -30,7 +29,6 @@ export class EditProfileDialogComponent {
   ) {
     if (injectedData) {
       this.data.bio = injectedData.bio;
-      this.data.content = injectedData.content;
       this.data.phoneNumber = injectedData.phoneNumber;
     }
   }

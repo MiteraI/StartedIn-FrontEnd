@@ -30,7 +30,6 @@ export class ProfileDetailComponent {
       width: '500px',
       data: {
         bio: this.account?.bio,
-        content: this.account?.content,
         phoneNumber: this.account?.phoneNumber,
       },
     });
