@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Account } from '../core/auth/account.model';
 import { AccountProfile } from '../../shared/models/profile/profileDetail.model';
-import { FullProfileDetail } from '../../shared/models/profile/fullProfileDetail.model';
 import { ApplicationConfigService } from '../core/config/application-config.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, tap } from 'rxjs';
@@ -20,18 +18,6 @@ export class ProfileService {
 
   get refreshNeeded$() {
     return this._refreshNeeded$;
-  }
-
-  mapToFullProfileDetail(account: Account, accountProfile: AccountProfile): FullProfileDetail {
-    return {
-      authorities: account.authorities,
-      email: account.email,
-      fullName: account.fullName,
-      bio: accountProfile.bio,
-      profilePicture: accountProfile.profilePicture,
-      phoneNumber: accountProfile.phoneNumber,
-      coverPhoto: accountProfile.coverPhoto,
-    };
   }
 
   mapToEditProfile(profile: AccountProfile): EditProfile {

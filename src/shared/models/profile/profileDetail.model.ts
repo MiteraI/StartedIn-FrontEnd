@@ -4,4 +4,6 @@ export interface AccountProfile {
   content: string;
   bio: string;
   phoneNumber: string;
+  email: string;
+  fullName: string;
 }
