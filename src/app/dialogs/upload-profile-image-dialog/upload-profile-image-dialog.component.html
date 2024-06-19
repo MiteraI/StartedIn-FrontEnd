@@ -4,7 +4,7 @@
     <form (ngSubmit)="onSubmit()">
       <input type="file" (change)="onFileSelected($event)" accept="image/*" required />
       <div
-        class="flex size-[300px] w-auto items-center justify-center border border-slate-600 bg-slate-500"
+        class="mt-1 flex size-[300px] w-auto items-center justify-center border border-slate-600 bg-slate-500"
       >
         <div *ngIf="previewUrl" class="">
           <img [src]="previewUrl" alt="Selected Image" class="preview-image size-[300px]" />

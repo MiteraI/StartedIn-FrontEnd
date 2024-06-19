@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
-import { Profile } from '../../../../shared/models/network-profile.model';
+import { AccountProfile } from '../../../../shared/models/profile/profileDetail.model';
 
 @Component({
   selector: 'app-network-profile-card',
@@ -10,5 +10,5 @@ import { Profile } from '../../../../shared/models/network-profile.model';
   styleUrl: './network-profile-card.component.css',
 })
 export class NetworkProfileCardComponent {
-  @Input() profile!: Profile;
+  @Input() profile!: AccountProfile;
 }
