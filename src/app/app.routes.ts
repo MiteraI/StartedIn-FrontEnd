@@ -51,5 +51,11 @@ export const routes: Routes = [
     path: 'profile',
     loadComponent: () =>
       import('./pages/profile-page/profile-page.component').then(c => c.ProfilePageComponent),
+  },
+  {
+    path: 'startup/1',
+    loadComponent: () =>
+      import('./pages/phase-list-page/phase-list-page.component').then(c => c.PhaseListPageComponent),
+    title: "StartedIn"
   }
 ];
