@@ -5,7 +5,7 @@ import { CreatePostDialogComponent } from '../../../dialogs/create-post-dialog/c
 import { Account } from '../../../core/auth/account.model';
 import { ReplaySubject, catchError, takeUntil, tap, throwError } from 'rxjs';
 import { AccountService } from '../../../core/auth/account.service';
-import { CreatePost } from '../../../../shared/models/create-post.model';
+import { CreatePost } from '../../../../shared/models/post/create-post.model';
 import { PostService } from '../../../services/post.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 

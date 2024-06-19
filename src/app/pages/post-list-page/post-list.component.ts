@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { PostDetailComponent } from '../../components/post-list-page/post-detail/post-detail.component';
 import { PostCreateComponent } from '../../components/post-list-page/post-create/post-create.component';
 import { CommonModule } from '@angular/common';
-import { PostDetail } from '../../../shared/models/post-detail.model';
+import { PostDetail } from '../../../shared/models/post/post-detail.model';
 import { PostService } from '../../services/post.service';
 import { BehaviorSubject, catchError, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
