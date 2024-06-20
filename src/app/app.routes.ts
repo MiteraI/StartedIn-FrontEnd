@@ -57,5 +57,11 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/phase-list-page/phase-list-page.component').then(c => c.PhaseListPageComponent),
     title: "StartedIn"
+  },
+  {
+    path: 'phase/1',
+    loadComponent: () =>
+      import('./pages/phase-detail-page/phase-detail-page.component').then(c=> c.PhaseDetailPageComponent),
+    title: "Idea Phase"
   }
 ];

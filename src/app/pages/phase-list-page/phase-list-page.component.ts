@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ProjectTitleCardComponent } from '../../components/phase-list-page/project-title-card/project-title-card.component';
+import { ProjectTitleCardComponent } from '../../layouts/project-title-card/project-title-card.component';
 import { PhaseDropdownComponent } from '../../components/phase-list-page/phase-dropdown/phase-dropdown.component';
 import { MatIconModule } from '@angular/material/icon';
 
