@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { DefaultHomeGuard } from '../shared/guards/defaulthome.guard';
 import { AuthenticatedGuard } from '../shared/guards/authenticated.guard';
+import { TestComponent } from './test/test.component';
 
 export const routes: Routes = [
   {
@@ -63,5 +64,9 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/phase-detail-page/phase-detail-page.component').then(c=> c.PhaseDetailPageComponent),
     title: "Idea Phase"
+  },
+  {
+    path: 'test',
+    component: TestComponent
   }
 ];
