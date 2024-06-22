@@ -3,7 +3,7 @@ import { ProjectTitleCardComponent } from '../../layouts/project-title-card/proj
 import { PhaseDropdownComponent } from '../../components/phase-list-page/phase-dropdown/phase-dropdown.component';
 import { MatIconModule } from '@angular/material/icon';
 import { PhaseCreateComponent } from '../../components/phase-list-page/phase-create/phase-create.component';
-import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -24,13 +24,6 @@ export class PhaseListPageComponent {
   list = ['1', '2', '3'];
 
   drop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex);
-    }
+    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
   }
 }
