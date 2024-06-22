@@ -1,7 +1,12 @@
-<div class="border-margin mt-5">
-  <project-title-card></project-title-card>
-  <div cdkDropListGroup cdkDropList [cdkDropListData]="list" (cdkDropListDropped)="drop($event)">
-    <phase-dropdown *ngFor="let phase of list" [phaseName]="phase"></phase-dropdown>
+<project-side-nav>
+  <div class="flex justify-center">
+    <div class="w-[75lvw] mt-5">
+      <project-title-card></project-title-card>
+      <div cdkDropListGroup cdkDropList [cdkDropListData]="list" (cdkDropListDropped)="drop($event)">
+        <phase-dropdown *ngFor="let phase of list" [phaseName]="phase"></phase-dropdown>
+      </div>
+      <phase-create></phase-create>
+    </div>
   </div>
-  <phase-create></phase-create>
-</div>
+</project-side-nav>
+

@@ -1,12 +1,19 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({
-  selector: 'app-project-side-nav',
+  selector: 'project-side-nav',
   standalone: true,
-  imports: [],
+  imports: [MatSidenavModule, CommonModule, MatIconModule],
   templateUrl: './project-side-nav.component.html',
   styleUrl: './project-side-nav.component.css'
 })
 export class ProjectSideNavComponent {
+  opened = false;
 
+  toggle() {
+    this.opened = !this.opened;
+  }
 }
