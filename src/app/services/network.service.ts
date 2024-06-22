@@ -14,6 +14,14 @@ export class NetworkService {
 
   getNetworkProfiles(pageIndex: number = 1, pageSize: number = 10): Observable<any> {
     const query = `pageIndex=${pageIndex}&pageSize=${pageSize}`;
-    return this.http.get<any>(this.appConfigService.getEndpointFor(`/api/users?${query}`));
+    return this.http.get<any>(
+      this.appConfigService.getEndpointFor(`/api/users/suggest-connection?${query}`)
+    );
+  }
+
+  connectProfile(profileId: string): Observable<any> {
+    return this.http.post<any>(this.appConfigService.getEndpointFor(`/api/connect/${profileId}`),"",{
+      responseType: 'text' as 'json',
+    });
   }
 }

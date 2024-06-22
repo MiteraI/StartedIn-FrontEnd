@@ -6,4 +6,5 @@ export interface AccountProfile {
   phoneNumber: string;
   email: string;
   fullName: string;
+  id: string;
 }

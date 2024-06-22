@@ -23,23 +23,14 @@ export class NetworkDetailComponent {
   profiles: Profile[] = [];
   networkDetails: AccountProfile[] = new Array<AccountProfile>();
   finished: boolean = false;
+  endOfList: boolean = false;
   currentPage: number = 1;
   itemsPerPage: number = 4;
 
   constructor(private networkService: NetworkService) {
-    const profile: Profile = {
-      image: 'https://randomuser.me/api/portraits/men/79.jpg',
-      backgroundImage:
-        'https://img.freepik.com/free-photo/gradient-dark-blue-futuristic-digital-background_53876-160646.jpg?w=1380&t=st=1717306890~exp=1717307490~hmac=a676596a0d8dce4d7b9f3ee380d74a07e547d990bc93898763d6300420e7663d',
-      name: 'John Doe',
-      detail: 'Software Engineer',
-      numberConnections: 500,
-    };
-    this.profiles = new Array<Profile>(12).fill(profile, 0, 12);
-    console.log(this.profiles);
   }
 
-  toggleLoading = () => this.finished = !this.finished;
+  toggleLoading = () => (this.finished = !this.finished);
 
   ngOnInit(): void {
     this.loadData();
@@ -49,8 +40,11 @@ export class NetworkDetailComponent {
   loadData() {
     this.toggleLoading();
     this.networkService.getNetworkProfiles(this.currentPage, this.itemsPerPage).subscribe({
-      next: response => this.networkDetails = response,
-      error: error => console.error(error),
+      next: response => (this.networkDetails = response),
+      error: error => {
+        console.error(error);
+        this.endOfList = true;
+      },
       complete: () => this.toggleLoading(),
     });
   }
@@ -60,15 +54,17 @@ export class NetworkDetailComponent {
     this.toggleLoading();
     this.networkService.getNetworkProfiles(this.currentPage, this.itemsPerPage).subscribe({
       next: response => (this.networkDetails = [...this.networkDetails, ...response]),
-      error: error => console.error(error),
+      error: error => {
+        console.error(error);
+        this.endOfList = true;
+      },
       complete: () => this.toggleLoading(),
     });
   }
 
-
   onScroll() {
+    if (this.endOfList) return;
     this.currentPage++;
     this.appendData();
-    console.log(this.networkDetails);
   }
 }
