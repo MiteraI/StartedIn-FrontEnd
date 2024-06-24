@@ -43,13 +43,22 @@ export const routes: Routes = [
     title: 'Kết nối với người khác',
   },
   {
-    path: 'team-member',
+    path: 'network/team-member',
     loadComponent: () =>
-      import('./pages/team-members/team-members.component').then(c => c.TeamMembersComponent),
+      import('./pages/team-members-page/team-members-page.component').then(
+        c => c.TeamMembersComponent
+      ),
   },
   {
     path: 'profile',
     loadComponent: () =>
       import('./pages/profile-page/profile-page.component').then(c => c.ProfilePageComponent),
-  }
+  },
+  {
+    path: 'network/invitation',
+    loadComponent: () =>
+      import('./pages/invitation-page/invitation-page.component').then(
+        c => c.InvitationPageComponent
+      ),
+  },
 ];

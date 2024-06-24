@@ -6,9 +6,7 @@ import { TeamDetailComponent } from '../../components/network-page/team-detail/t
   selector: 'app-team-members',
   standalone: true,
   imports: [NetworkLeftSidebarComponent, TeamDetailComponent],
-  templateUrl: './team-members.component.html',
-  styleUrl: './team-members.component.css'
+  templateUrl: './team-members-page.component.html',
+  styleUrl: './team-members-page.component.css',
 })
-export class TeamMembersComponent {
-
-}
+export class TeamMembersComponent {}
