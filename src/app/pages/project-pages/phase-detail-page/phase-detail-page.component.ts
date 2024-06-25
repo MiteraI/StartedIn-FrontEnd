@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { ProjectTitleCardComponent } from '../../layouts/project-title-card/project-title-card.component';
-import { TaskboardComponent } from '../../components/phase-detail-page/taskboard/taskboard.component';
+import { ProjectTitleCardComponent } from '../../../layouts/project-title-card/project-title-card.component';
+import { TaskboardComponent } from '../../../components/project-pages/phase-detail-page/taskboard/taskboard.component';
 import { MatIconModule } from '@angular/material/icon';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { ProjectSideNavComponent } from '../../layouts/project-side-nav/project-side-nav.component';
-import { TaskboardCreateComponent } from '../../components/phase-detail-page/taskboard-create/taskboard-create.component';
+import { ProjectSideNavComponent } from '../../../layouts/project-side-nav/project-side-nav.component';
+import { TaskboardCreateComponent } from '../../../components/project-pages/phase-detail-page/taskboard-create/taskboard-create.component';
 
 @Component({
   selector: 'app-phase-detail-page',
