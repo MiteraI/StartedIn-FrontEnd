@@ -1,0 +1,21 @@
+<h1 class="mb-2 text-lg">Các lời mời</h1>
+<!-- mini navbar -->
+<div class="flex border-b">
+  <button
+    class="mr-8 p-2 hover:bg-slate-50"
+    routerLink="/network/invitation"
+    routerLinkActive="active-link"
+    [routerLinkActiveOptions]="{exact: true}"
+  >
+    Gửi đến
+  </button>
+  <button
+    class="p-2 hover:bg-slate-50"
+    routerLink="/network/invitation/sent"
+    routerLinkActive="active-link"
+  >
+    Gửi đi
+  </button>
+</div>
+<!-- Invitation list -->
+<router-outlet></router-outlet>
