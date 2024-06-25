@@ -3,11 +3,12 @@ import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'phase-dropdown',
   standalone: true,
-  imports: [MatIconModule, CommonModule, RouterModule, DragDropModule],
+  imports: [MatIconModule, CommonModule, RouterModule, DragDropModule, MatProgressBarModule],
   templateUrl: './phase-dropdown.component.html',
   styleUrl: './phase-dropdown.component.css'
 })

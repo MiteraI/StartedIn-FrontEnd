@@ -12,6 +12,13 @@
   </div>
 
   <div *ngIf="expanded" class="mx-4 bg-white border rounded-b-xl">
-    <div class="mx-8 my-4 px-4 py-2 font-semibold bg-purple-200 rounded-md" *ngFor="let task of taskList" cdkDrag>{{task}}</div>
+    <div class="mx-8 my-4 px-4 py-2 font-semibold bg-purple-200 rounded-md cursor-pointer hover:bg-purple-300" *ngFor="let task of taskList" cdkDrag>
+      {{task}}
+      <!-- TODO make component, add progress bar -->
+    </div>
+    <div class="mx-8 my-4 flex items-center bg-purple-100 border-2 border-purple-400 border-dashed rounded-md cursor-pointer hover:bg-purple-200 hover:border-purple-600">
+      <mat-icon class="scale-75 ml-2" fontIcon="add"></mat-icon>
+      <div class="my-2 mr-4">Add a major task</div>
+    </div>
   </div>
 </div>

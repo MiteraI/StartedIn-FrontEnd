@@ -1,6 +1,6 @@
 <project-side-nav>
-  <div class="flex justify-center">
-    <div class="w-[75lvw] mt-5">
+  <div class="flex justify-center min-h-screen">
+    <div class="w-full p-5">
       <div class="mt-5 flex items-center bg-gray-600 text-white rounded-2xl">
         <div class="px-2 py-8 bg-gray-600 rounded-s-xl"></div>
         <div class="mx-4 flex-grow flex items-center">
@@ -17,6 +17,7 @@
         (cdkDropListDropped)="drop($event)"
         cdkDropListOrientation="horizontal">
         <taskboard *ngFor="let board of boardList" [boardName]="board"></taskboard>
+        <taskboard-create></taskboard-create>
       </div>
     </div>
   </div>

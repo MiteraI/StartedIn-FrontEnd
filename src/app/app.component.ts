@@ -40,9 +40,15 @@ export class AppComponent {
       if (event instanceof NavigationEnd) {
         if (event.url.includes('/login') || event.url.includes('/register')) {
           this.hideHeader = true;
-          this.hideFooter = true;
         } else {
           this.hideHeader = false;
+        }
+        if (event.url.includes('/login')
+          || event.url.includes('/register')
+          || event.url.includes('/startup')
+          || event.url.includes('/phase')) {
+          this.hideFooter = true;
+        } else {
           this.hideFooter = false;
         }
       }
