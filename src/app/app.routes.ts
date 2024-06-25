@@ -38,27 +38,56 @@ export const routes: Routes = [
   },
   {
     path: 'network',
+    canActivate: [AuthenticatedGuard],
     loadComponent: () =>
       import('./pages/network-page/network-page.component').then(c => c.NetworkPageComponent),
     title: 'Kết nối với người khác',
-  },
-  {
-    path: 'network/team-member',
-    loadComponent: () =>
-      import('./pages/team-members-page/team-members-page.component').then(
-        c => c.TeamMembersComponent
-      ),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./components/network-page/network-detail/network-detail.component').then(
+            c => c.NetworkDetailComponent
+          ),
+      },
+
+      {
+        path: 'team-member',
+        loadComponent: () =>
+          import('./components/network-page/team-detail/team-detail.component').then(
+            c => c.TeamDetailComponent
+          ),
+      },
+      {
+        path: 'invitation',
+        loadComponent: () =>
+          import(
+            './components/network-page/invitation-management/invitation-management.component'
+          ).then(c => c.InvitationManagementComponent),
+        title: 'Quản lý lời mời',
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import(
+                './components/network-page/invitation-management/received-invitation/received-invitation.component'
+              ).then(c => c.ReceivedInvitationComponent),
+          },
+          {
+            path: 'sent',
+            loadComponent: () =>
+              import(
+                './components/network-page/invitation-management/sent-invitation/sent-invitation.component'
+              ).then(c => c.SentInvitationComponent),
+          }
+        ],
+      },
+    ],
   },
   {
     path: 'profile',
+    canActivate: [AuthenticatedGuard],
     loadComponent: () =>
       import('./pages/profile-page/profile-page.component').then(c => c.ProfilePageComponent),
-  },
-  {
-    path: 'network/invitation',
-    loadComponent: () =>
-      import('./pages/invitation-page/invitation-page.component').then(
-        c => c.InvitationPageComponent
-      ),
   },
 ];

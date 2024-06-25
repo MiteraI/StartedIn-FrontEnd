@@ -1,0 +1,15 @@
+.active-link {
+  @apply text-purple-400 border-b-2 border-purple-400;
+  animation: activeLinkAnimation 0.3s ease-in-out;
+}
+
+@keyframes activeLinkAnimation {
+  0% {
+    opacity: 1;
+    border-bottom-color: transparent;
+  }
+  100% {
+    opacity: 1;
+    @apply border-b-purple-400;
+  }
+}
