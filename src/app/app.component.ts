@@ -45,7 +45,7 @@ export class AppComponent {
         }
         if (event.url.includes('/login')
           || event.url.includes('/register')
-          || event.url.includes('/startup')
+          || event.url.includes('/project')
           || event.url.includes('/phase')) {
           this.hideFooter = true;
         } else {

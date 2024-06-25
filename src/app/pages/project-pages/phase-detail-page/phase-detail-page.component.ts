@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ProjectTitleCardComponent } from '../../../layouts/project-title-card/project-title-card.component';
 import { TaskboardComponent } from '../../../components/project-pages/phase-detail-page/taskboard/taskboard.component';
 import { MatIconModule } from '@angular/material/icon';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -12,7 +11,6 @@ import { TaskboardCreateComponent } from '../../../components/project-pages/phas
   standalone: true,
   imports: [
     ProjectSideNavComponent,
-    ProjectTitleCardComponent,
     TaskboardComponent,
     TaskboardCreateComponent,
     MatIconModule,
@@ -24,11 +22,6 @@ import { TaskboardCreateComponent } from '../../../components/project-pages/phas
 })
 export class PhaseDetailPageComponent {
   boardList = ["Backlog", "Design", "In Development", "Testing"];
-  sideOpened = false;
-
-  toggle() {
-    this.sideOpened = !this.sideOpened;
-  }
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);

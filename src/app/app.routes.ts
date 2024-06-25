@@ -91,7 +91,7 @@ export const routes: Routes = [
       import('./pages/profile-page/profile-page.component').then(c => c.ProfilePageComponent),
   },
   {
-    path: 'startup/1',
+    path: 'project/1',
     loadComponent: () =>
       import('./pages/project-pages/phase-list-page/phase-list-page.component').then(c => c.PhaseListPageComponent),
     title: "StartedIn"
@@ -99,7 +99,13 @@ export const routes: Routes = [
   {
     path: 'phase/1',
     loadComponent: () =>
-      import('./pages/project-pages/phase-detail-page/phase-detail-page.component').then(c=> c.PhaseDetailPageComponent),
+      import('./pages/project-pages/phase-detail-page/phase-detail-page.component').then(c => c.PhaseDetailPageComponent),
     title: "Idea Phase"
+  },
+  {
+    path: 'projects',
+    loadComponent: () =>
+      import('./pages/project-pages/project-list-page/project-list-page.component').then(c => c.ProjectListPageComponent),
+    title: "Startups"
   }
 ];

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
@@ -11,7 +11,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
   styleUrl: './project-side-nav.component.css'
 })
 export class ProjectSideNavComponent {
-  opened = false;
+  @Input() opened = true;
 
   toggle() {
     this.opened = !this.opened;

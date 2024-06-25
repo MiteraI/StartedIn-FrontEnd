@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ProjectTitleCardComponent } from '../../../layouts/project-title-card/project-title-card.component';
+import { ProjectTitleCardComponent } from '../../../components/project-pages/phase-list-page/project-title-card/project-title-card.component';
 import { PhaseDropdownComponent } from '../../../components/project-pages/phase-list-page/phase-dropdown/phase-dropdown.component';
 import { MatIconModule } from '@angular/material/icon';
 import { PhaseCreateComponent } from '../../../components/project-pages/phase-list-page/phase-create/phase-create.component';
@@ -23,12 +23,7 @@ import { ProjectSideNavComponent } from '../../../layouts/project-side-nav/proje
   styleUrl: './phase-list-page.component.css'
 })
 export class PhaseListPageComponent {
-  list = ['1', '2', '3'];
-  sideOpened = false;
-
-  toggle() {
-    this.sideOpened = !this.sideOpened;
-  }
+  list = ['Phase 1', 'Phase 2', 'Phase 3'];
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);

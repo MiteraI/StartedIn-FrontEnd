@@ -1,0 +1,28 @@
+<div class="border-margin">
+  <div class="flex items-center m-5">
+    <mat-icon fontIcon="dashboard" class="text-purple-600 scale-125"></mat-icon>
+    <div class="ml-2 text-3xl font-black text-purple-600">Dashboard</div>
+  </div>
+  <div class="mx-10">
+    <div class="w-full text-2xl font-bold">Startup của bạn</div>
+    <div class="mt-5 flex flex-wrap">
+      <project-card *ngFor="let project of list" [projectName]="project"></project-card>
+    </div>
+    <div class="w-56 h-24 mr-4 mb-4 flex items-center justify-center bg-purple-100 rounded-lg cursor-pointer hover:bg-purple-200">
+      <mat-icon fontIcon="add"></mat-icon>
+      <div class="mr-4 ml-1">New project</div>
+    </div>
+  </div>
+  <div class="mx-10">
+    <div class="w-full text-2xl font-bold">Startup được mời vào</div>
+    <div class="mt-5 flex flex-wrap">
+      <project-card *ngFor="let project of list" [projectName]="project"></project-card>
+    </div>
+  </div>
+  <div class="mx-10">
+    <div class="w-full text-2xl font-bold">Mẫu</div>
+    <div class="mt-5 flex flex-wrap">
+      <project-card *ngFor="let project of list" [projectName]="project"></project-card>
+    </div>
+  </div>
+</div>
