@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PostDetail } from '../../shared/models/post-detail.model';
+import { PostDetail } from '../../shared/models/post/post-detail.model';
 import { HttpClient } from '@angular/common/http';
 import { ApplicationConfigService } from '../core/config/application-config.service';
-import { CreatePost } from '../../shared/models/create-post.model';
+import { CreatePost } from '../../shared/models/post/create-post.model';
 
 @Injectable({
   providedIn: 'root',

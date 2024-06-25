@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { PostDetail } from '../../../../shared/models/post-detail.model';
+import { PostDetail } from '../../../../shared/models/post/post-detail.model';
 import { IsoToVnLocalePipe } from '../../../../shared/pipes/iso-to-locale-string.pipe';
 
 @Component({
