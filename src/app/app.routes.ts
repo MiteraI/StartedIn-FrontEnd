@@ -91,13 +91,6 @@ export const routes: Routes = [
       import('./pages/profile-page/profile-page.component').then(c => c.ProfilePageComponent),
   },
   {
-    path: 'network/invitation',
-    loadComponent: () =>
-      import('./pages/invitation-page/invitation-page.component').then(
-        c => c.InvitationPageComponent
-      ),
-  },
-  {
     path: 'startup/1',
     loadComponent: () =>
       import('./pages/phase-list-page/phase-list-page.component').then(c => c.PhaseListPageComponent),
