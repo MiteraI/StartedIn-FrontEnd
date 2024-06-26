@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'app-upload-profile-image-dialog',
@@ -14,7 +13,6 @@ import { ReplaySubject } from 'rxjs';
 export class UploadProfileImageDialogComponent {
   selectedFile: File | null = null;
   previewUrl: string | null = null;
-  private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
 
   constructor(
     private dialogRef: MatDialogRef<UploadProfileImageDialogComponent>,

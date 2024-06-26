@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { DefaultHomeGuard } from '../shared/guards/defaulthome.guard';
 import { AuthenticatedGuard } from '../shared/guards/authenticated.guard';
+import { platformUserProfileResolver } from '../shared/resolvers/platform-user-profile.resolver';
 
 export const routes: Routes = [
   {
@@ -38,18 +39,80 @@ export const routes: Routes = [
   },
   {
     path: 'network',
+    canActivate: [AuthenticatedGuard],
     loadComponent: () =>
       import('./pages/network-page/network-page.component').then(c => c.NetworkPageComponent),
     title: 'Kết nối với người khác',
-  },
-  {
-    path: 'team-member',
-    loadComponent: () =>
-      import('./pages/team-members/team-members.component').then(c => c.TeamMembersComponent),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./components/network-page/network-detail/network-detail.component').then(
+            c => c.NetworkDetailComponent
+          ),
+      },
+
+      {
+        path: 'team-member',
+        loadComponent: () =>
+          import('./components/network-page/team-detail/team-detail.component').then(
+            c => c.TeamDetailComponent
+          ),
+      },
+      {
+        path: 'invitation',
+        loadComponent: () =>
+          import(
+            './components/network-page/invitation-management/invitation-management.component'
+          ).then(c => c.InvitationManagementComponent),
+        title: 'Quản lý lời mời',
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import(
+                './components/network-page/invitation-management/received-invitation/received-invitation.component'
+              ).then(c => c.ReceivedInvitationComponent),
+          },
+          {
+            path: 'sent',
+            loadComponent: () =>
+              import(
+                './components/network-page/invitation-management/sent-invitation/sent-invitation.component'
+              ).then(c => c.SentInvitationComponent),
+          },
+        ],
+      },
+    ],
   },
   {
     path: 'profile',
+    canActivate: [AuthenticatedGuard],
     loadComponent: () =>
       import('./pages/profile-page/profile-page.component').then(c => c.ProfilePageComponent),
-  }
+  },
+  {
+    path: 'profile/:id',
+    resolve: { account: platformUserProfileResolver },
+    loadComponent: () =>
+      import(
+        './pages/network-page/platform-user-profile-page/platform-user-profile-page.component'
+      ).then(c => c.PlatformUserProfilePageComponent),
+  },
+  {
+    path: 'startup/1',
+    loadComponent: () =>
+      import('./pages/phase-list-page/phase-list-page.component').then(
+        c => c.PhaseListPageComponent
+      ),
+    title: 'StartedIn',
+  },
+  {
+    path: 'phase/1',
+    loadComponent: () =>
+      import('./pages/phase-detail-page/phase-detail-page.component').then(
+        c => c.PhaseDetailPageComponent
+      ),
+    title: 'Idea Phase',
+  },
 ];

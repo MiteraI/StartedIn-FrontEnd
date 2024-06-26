@@ -1,0 +1,13 @@
+<div *ngFor="let invitation of invitations" class="flex">
+  <img
+    class="size-28"
+    *ngIf="invitation.profilePicture"
+    [src]="invitation.profilePicture"
+    alt="{{ invitation.senderName }}"
+  />
+
+  <div class="">
+    <p>{{ invitation.time | date: 'short' }}</p>
+    <h3>{{ invitation.senderName }}</h3>
+  </div>
+</div>

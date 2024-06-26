@@ -1,0 +1,12 @@
+<button
+  [ngClass]="{
+    'flex w-[120px] justify-center rounded-full border  p-1.5': true,
+    'border-purple-400 bg-purple-400 bg-opacity-0  text-purple-400 duration-150 hover:bg-opacity-30':
+      !isConnected,
+    'text-gray-700 bg-gray-200 border-gray-300': isConnected
+  }"
+  (click)="connect()"
+>
+  <mat-icon [fontIcon]="isConnected ? 'pending' : 'person_add'" class="mr-1"></mat-icon>
+  <p class="font-semibold">{{ isConnected ? 'Đang chờ' : 'Kết nối' }}</p>
+</button>

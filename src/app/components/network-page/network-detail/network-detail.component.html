@@ -1,12 +1,33 @@
 <div class="flex">
   <p class="p-2">Những người bạn có thể biết</p>
-  <button class="ml-auto rounded-lg p-2 font-medium text-gray-700 hover:bg-slate-100">
+  <!-- <button class="ml-auto rounded-lg p-2 font-medium text-gray-700 hover:bg-slate-100">
     Xem tất cả
-  </button>
+  </button> -->
 </div>
 <div
-  class="grid place-items-center gap-3 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-3"
- >
-  <app-network-profile-card *ngFor="let profile of profiles" [profile]="profile">
+  class="mt-3 grid place-items-center gap-3 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+>
+  <app-network-profile-card *ngFor="let profile of networkDetails" [profile]="profile">
   </app-network-profile-card>
+</div>
+
+<div class="flex flex-col items-center justify-center my-20 ">
+  <div
+    infinite-scroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="1000"
+    (scrolled)="onScroll()"
+  ></div>
+
+  <div *ngIf="!finished && !endOfList" class="">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+
+  <div *ngIf="endOfList">
+    <div class="mt-5 flex h-fit flex-wrap rounded-xl border bg-white">
+      <div class="m-5 w-full text-center text-3xl font-semibold text-purple-400">
+        Bạn đã xem hết các người dùng!
+      </div>
+    </div>
+  </div>
 </div>

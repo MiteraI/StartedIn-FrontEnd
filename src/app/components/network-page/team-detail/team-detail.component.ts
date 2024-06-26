@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Team } from '../../../../shared/models/network-team.model';
-import { Profile } from '../../../../shared/models/network-profile.model';
 import { CommonModule } from '@angular/common';
 import { TeamCardComponent } from '../team-card/team-card.component';
 

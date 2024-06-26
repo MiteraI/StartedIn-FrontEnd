@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AccountService } from '../../core/auth/account.service';
 import { ReplaySubject, catchError, takeUntil, throwError } from 'rxjs';
 import { Account } from '../../core/auth/account.model';
-import { CreatePost } from '../../../shared/models/create-post.model';
+import { CreatePost } from '../../../shared/models/post/create-post.model';
 import { PostService } from '../../services/post.service';
 
 @Component({

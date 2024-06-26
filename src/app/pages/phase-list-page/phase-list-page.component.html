@@ -1,0 +1,12 @@
+<project-side-nav>
+  <div class="flex justify-center min-h-screen">
+    <div class="w-[75vw] mt-5">
+      <project-title-card></project-title-card>
+      <div cdkDropListGroup cdkDropList [cdkDropListData]="list" (cdkDropListDropped)="drop($event)">
+        <phase-dropdown *ngFor="let phase of list" [phaseName]="phase"></phase-dropdown>
+      </div>
+      <phase-create></phase-create>
+    </div>
+  </div>
+</project-side-nav>
+

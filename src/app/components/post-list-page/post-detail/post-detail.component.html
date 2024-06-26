@@ -1,15 +1,21 @@
-<div class="flex flex-wrap bg-white rounded-xl border h-fit mt-5">
+<div class="mt-5 flex h-fit flex-wrap rounded-xl border bg-white">
   <!-- Poster Info -->
   <!-- TODO link user profile -->
-  <div class="flex items-center h-14 w-4/5 mt-3">
-    <img class="user-pfp rounded-full ml-5" [src]="postDetail?.userImgUrl" />
+  <div class="mt-3 flex h-14 w-4/5 items-center">
+    <img class="user-pfp ml-5 rounded-full" [src]="postDetail?.userImgUrl" />
     <div class="ml-3">
-      <p><a class="font-semibold text-lg">{{postDetail?.userFullName}}</a></p>
-      <p><a class="text-sm">{{shownDate | isoToVnLocale}}</a></p>
+      <p>
+        <a class="text-lg font-semibold" [routerLink]="['/profile', postDetail?.userId]">{{
+          postDetail?.userFullName
+        }}</a>
+      </p>
+      <p>
+        <a class="text-sm">{{ shownDate | isoToVnLocale }}</a>
+      </p>
     </div>
   </div>
   <!-- Quick Actions -->
-  <div class="flex w-1/5 justify-end items-start mt-3">
+  <div class="mt-3 flex w-1/5 items-start justify-end">
     <button class="mr-3">
       <mat-icon fontIcon="more_vert"></mat-icon>
     </button>
@@ -18,59 +24,73 @@
     </button>
   </div>
   <!-- Contents -->
-  <div *ngIf="(postDetail?.content?.length ?? 0) > 100; then longContent else shortContent"></div>
+  <div *ngIf="(postDetail?.content?.length ?? 0) > 100; then longContent; else shortContent"></div>
   <ng-template #shortContent>
-    <div class="w-full mt-3 pl-5 pr-5">
-      {{postDetail?.content}}
+    <div class="mt-3 w-full pl-5 pr-5">
+      {{ postDetail?.content }}
     </div>
   </ng-template>
   <ng-template #longContent>
-    <div class="w-full mt-3 pl-5 pr-5">
-      <div *ngIf="(expanded == false || expanded == undefined)">
-        {{postDetail?.content?.substring(0, 100)}}...
+    <div class="mt-3 w-full pl-5 pr-5">
+      <div *ngIf="expanded == false || expanded == undefined">
+        {{ postDetail?.content?.substring(0, 100) }}...
       </div>
-      <div *ngIf="expanded == true">{{postDetail?.content}}</div>
+      <div *ngIf="expanded == true">{{ postDetail?.content }}</div>
       <div>
-        <a class="font-semibold cursor-pointer" *ngIf="(postDetail?.content?.length ?? 0) > 100"
-          (click)="this.expanded = !this.expanded;">{{expanded ? 'Ẩn bớt' : 'Xem thêm'}}
+        <a
+          class="cursor-pointer font-semibold"
+          *ngIf="(postDetail?.content?.length ?? 0) > 100"
+          (click)="this.expanded = !this.expanded"
+          >{{ expanded ? 'Ẩn bớt' : 'Xem thêm' }}
         </a>
       </div>
     </div>
   </ng-template>
   <!-- Image -->
-  <div *ngIf="postDetail && postDetail.postImgUrl && postDetail.postImgUrl.length" class="w-full mt-3">
+  <div
+    *ngIf="postDetail && postDetail.postImgUrl && postDetail.postImgUrl.length"
+    class="mt-3 w-full"
+  >
     <img *ngFor="let url of postDetail.postImgUrl" class="w-full" [src]="url" />
   </div>
   <!-- Interaction count -->
   <!-- TODO check like, love and latest reactor -->
-  <div *ngIf="postDetail?.interactionCount ?? 0 > 0" class="w-1/2 mt-3">
-    <p class="text-xs ml-10">
-      <img class="interaction-icon inline rounded-full" src="../../../../assets/icon/thumbs-up-icon.jpg" />
-      <img class="interaction-icon inline rounded-full" src="../../../../assets/icon/heart-icon.png" />
-      {{postDetail?.interactionCount}} người đã bày tỏ cảm xúc
+  <div *ngIf="postDetail?.interactionCount ?? 0 > 0" class="mt-3 w-1/2">
+    <p class="ml-10 text-xs">
+      <img
+        class="interaction-icon inline rounded-full"
+        src="../../../../assets/icon/thumbs-up-icon.jpg"
+      />
+      <img
+        class="interaction-icon inline rounded-full"
+        src="../../../../assets/icon/heart-icon.png"
+      />
+      {{ postDetail?.interactionCount }} người đã bày tỏ cảm xúc
       <!-- Minh và {{postDetail?.interactionCount}} người khác -->
     </p>
   </div>
   <!-- Comment count -->
-  <div *ngIf="postDetail?.commentCount ?? 0 > 0" class="w-1/2 text-end text-xs mt-3">
-    <p class="mr-8">
-      {{postDetail?.commentCount}} bình luận
-    </p>
+  <div *ngIf="postDetail?.commentCount ?? 0 > 0" class="mt-3 w-1/2 text-end text-xs">
+    <p class="mr-8">{{ postDetail?.commentCount }} bình luận</p>
   </div>
   <!-- Line break -->
-  <div class="h-0 w-full mt-3 flex justify-center">
+  <div class="mt-3 flex h-0 w-full justify-center">
     <hr class="w-11/12" />
   </div>
   <!-- Like button -->
   <div class="w-1/2">
-    <div class="pt-2 pb-2 w-auto m-1 rounded-md flex items-center justify-center cursor-pointer font-medium hover:bg-gray-200">
+    <div
+      class="m-1 flex w-auto cursor-pointer items-center justify-center rounded-md pb-2 pt-2 font-medium hover:bg-gray-200"
+    >
       <mat-icon class="mr-1" fontIcon="thumb_up"></mat-icon>
       Thích
     </div>
   </div>
   <!-- Comment button -->
   <div class="w-1/2">
-    <div class="pt-2 pb-2 w-auto m-1 rounded-md flex items-center justify-center cursor-pointer font-medium hover:bg-gray-200">
+    <div
+      class="m-1 flex w-auto cursor-pointer items-center justify-center rounded-md pb-2 pt-2 font-medium hover:bg-gray-200"
+    >
       <mat-icon class="mr-1" fontIcon="mode_comment"></mat-icon>
       Bình luận
     </div>
