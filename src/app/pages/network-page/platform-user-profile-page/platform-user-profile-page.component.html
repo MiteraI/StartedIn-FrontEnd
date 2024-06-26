@@ -1,2 +1,43 @@
-<p>platform-user-profile-page works!</p>
-<p>{{accountProfile | json}}</p>
+<div class="border-margin mt-6 rounded-xl bg-white">
+  <div class="pb-28">
+    <!-- Cover photo -->
+    <div class="relative">
+      <img
+        [src]="account?.coverPhoto || '../../../../assets/img/default-cover-1.jpg'"
+        alt="cover image"
+        class="h-[300px] w-full cursor-pointer rounded-[12px] object-cover"
+      />
+    </div>
+    <div class="flex">
+      <!-- Profile photo -->
+      <img
+        [src]="account?.profilePicture || '../../../../assets/img/default-profile.jpg'"
+        alt="profile-image"
+        class="size-44 -translate-y-1/4 translate-x-1/4 cursor-pointer rounded-full border-[3px] border-white"
+      />
+      <div class="ml-16 mt-3 flex w-full flex-col lg:flex-row">
+        <!-- Content & bio -->
+        <div class="w-3/4">
+          <h1 class="text-lg font-semibold">{{ account?.fullName }}</h1>
+          <p>
+            {{ account?.bio }}
+          </p>
+          <p class="text-purple-400">0 kết nối</p>
+        </div>
+        <!-- Create connection button -->
+        <app-connect-button [profileId]="account!.id"></app-connect-button>
+      </div>
+    </div>
+    <div class="ml-20 mr-40 -translate-y-6 space-y-3">
+      <p class="text-lg">Thông tin liên lạc</p>
+      <div class="flex flex-row text-purple-400">
+        <mat-icon>call</mat-icon>
+        <p class="ml-4">{{ account?.phoneNumber }}</p>
+      </div>
+      <div class="flex flex-row text-purple-400">
+        <mat-icon>email</mat-icon>
+        <p class="ml-4">{{ account?.email }}</p>
+      </div>
+    </div>
+  </div>
+</div>
