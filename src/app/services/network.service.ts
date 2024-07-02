@@ -59,4 +59,23 @@ export class NetworkService {
         })
       );
   }
+
+  accpetInvitation(invitationId: string): Observable<any> {
+    return this.http.put<any>(
+      this.appConfigService.getEndpointFor(`/api/connect/${invitationId}`),
+      '',
+      {
+        responseType: 'text' as 'json',
+      }
+    );
+  }
+
+  declineInvitation(invitationId: string): Observable<any> {
+    return this.http.delete<any>(
+      this.appConfigService.getEndpointFor(`/api/connect/${invitationId}`),
+      {
+        responseType: 'text' as 'json',
+      }
+    );
+  }
 }

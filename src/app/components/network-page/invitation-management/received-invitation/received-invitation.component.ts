@@ -3,11 +3,21 @@ import { ReceiveInvitaion } from '../../../../../shared/models/invitation.model'
 import { CommonModule } from '@angular/common';
 import { NetworkService } from '../../../../services/network.service';
 import { ReplaySubject, catchError, takeUntil } from 'rxjs';
+import { MatIconModule } from '@angular/material/icon';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { ReceivedInvitationCardComponent } from '../received-invitation-card/received-invitation-card.component';
 
 @Component({
   selector: 'app-received-invitation',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    InfiniteScrollModule,
+    MatProgressSpinner,
+    ReceivedInvitationCardComponent,
+  ],
   templateUrl: './received-invitation.component.html',
   styleUrl: './received-invitation.component.css',
 })
@@ -18,10 +28,12 @@ export class ReceivedInvitationComponent {
   endOfList: boolean = false;
   currentPage: number = 1;
   itemsPerPage: number = 4;
+  buttonClicked: boolean = false;
 
   constructor(private networkService: NetworkService) {}
 
   ngOnInit() {
+    this.toggleLoading();
     this.loadData();
   }
 
