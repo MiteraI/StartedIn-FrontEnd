@@ -1,0 +1,28 @@
+<div class="flex flex-col">
+  <h1 class="border-b pb-1 text-lg">Bạn bè</h1>
+
+  <div *ngFor="let connectedUser of connectedUsers">
+    <app-friend-management-card [connectedUser]="connectedUser"></app-friend-management-card>
+  </div>
+
+  <div class="my-20 flex flex-col items-center justify-center">
+    <div
+      infinite-scroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="1000"
+      (scrolled)="onScroll()"
+    ></div>
+
+    <div *ngIf="!finished && !endOfList" class="">
+      <mat-spinner diameter="30"></mat-spinner>
+    </div>
+
+    <div *ngIf="endOfList">
+      <div class="mt-5 flex h-fit flex-wrap rounded-xl border bg-white">
+        <div class="m-5 w-full text-center text-base font-semibold text-purple-400">
+          Bạn đã hết bạn
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

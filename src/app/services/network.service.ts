@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApplicationConfigService } from '../core/config/application-config.service';
 import { Observable, catchError, of } from 'rxjs';
-import { ReceiveInvitaion } from '../../shared/models/invitation.model';
+import { ConnectedUser, ReceiveInvitaion } from '../../shared/models/invitation.model';
 import { AccountProfile } from '../../shared/models/profile/profileDetail.model';
 
 @Injectable({
@@ -76,6 +76,13 @@ export class NetworkService {
       {
         responseType: 'text' as 'json',
       }
+    );
+  }
+
+  getUserConnectionList(pageIndex: number = 1, pageSize: number = 10): Observable<any> {
+    const query = `pageIndex=${pageIndex}&pageSize=${pageSize}`;
+    return this.http.get<ConnectedUser>(
+      this.appConfigService.getEndpointFor(`/api/connect/user-connection-list?${query}`)
     );
   }
 }

@@ -11,3 +11,10 @@ export interface SendInvitaion {
   profilePicture: string | null;
   time: Date;
 }
+
+export interface ConnectedUser {
+  id: string;
+  userId: string;
+  connectedUserName: string;
+  profilePicture: string | null;
+}
