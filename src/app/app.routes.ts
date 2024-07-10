@@ -115,6 +115,7 @@ export const routes: Routes = [
   },
   {
     path: 'projects',
+    canActivate: [AuthenticatedGuard],
     loadComponent: () =>
       import('./pages/project-pages/project-list-page/project-list-page.component').then(c => c.ProjectListPageComponent),
     title: "Startups"

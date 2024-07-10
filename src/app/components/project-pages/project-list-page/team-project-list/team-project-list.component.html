@@ -1,0 +1,13 @@
+<div>
+  <div class="text-lg font-semibold">{{ team?.teamName }}</div>
+  <div class="mt-2 flex flex-wrap">
+    <project-card *ngFor="let project of team?.projects" [project]="project" />
+    <div
+      *ngIf="showCreateProject"
+      class="mb-4 mr-4 flex h-24 w-56 cursor-pointer items-center justify-center rounded-lg bg-purple-50 hover:bg-purple-100"
+    >
+      <mat-icon fontIcon="add"></mat-icon>
+      <div class="ml-1 mr-4">Dự án mới</div>
+    </div>
+  </div>
+</div>

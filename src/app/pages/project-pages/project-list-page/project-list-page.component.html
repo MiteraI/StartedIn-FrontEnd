@@ -5,24 +5,22 @@
   </div>
   <div class="mx-10">
     <div class="w-full text-2xl font-bold">Startup của bạn</div>
-    <div class="mt-5 flex flex-wrap">
-      <project-card *ngFor="let project of list" [projectName]="project"></project-card>
-    </div>
-    <div class="w-56 h-24 mr-4 mb-4 flex items-center justify-center bg-purple-50 rounded-lg cursor-pointer hover:bg-purple-100">
-      <mat-icon fontIcon="add"></mat-icon>
-      <div class="mr-4 ml-1">Dự án mới</div>
-    </div>
+    <div *ngIf="yourTeams.length <= 0; then noTeams; else showTeams"></div>
+    <ng-template #noTeams>
+      <div *ngIf="isloadingYourTeams; then loadingTeams; else alertNoTeams"></div>
+      <ng-template #loadingTeams>
+        <div class="text-lg font-semibold">Đang lấy dữ liệu...</div>
+      </ng-template>
+      <ng-template #alertNoTeams>
+        <div class="text-lg font-semibold">Bạn chưa tạo dự án khởi nghiệp nào cả!</div>
+      </ng-template>
+    </ng-template>
+    <ng-template #showTeams>
+      <team-project-list *ngFor="let team of yourTeams" [team]="team" />
+    </ng-template>
   </div>
-  <div class="mx-10">
+  <div *ngIf="guestTeams.length > 0" class="mt-5 mx-10">
     <div class="w-full text-2xl font-bold">Startup được mời vào</div>
-    <div class="mt-5 flex flex-wrap">
-      <project-card *ngFor="let project of list" [projectName]="project"></project-card>
-    </div>
-  </div>
-  <div class="mx-10">
-    <div class="w-full text-2xl font-bold">Mẫu</div>
-    <div class="mt-5 flex flex-wrap">
-      <project-card *ngFor="let project of list" [projectName]="project"></project-card>
-    </div>
+    <team-project-list *ngFor="let team of guestTeams" [team]="team" [showCreateProject]="false" />
   </div>
 </div>
