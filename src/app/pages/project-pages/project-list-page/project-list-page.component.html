@@ -1,0 +1,26 @@
+<div class="border-margin bg-white rounded-3xl p-3 my-5 border">
+  <div class="flex items-center m-5">
+    <mat-icon fontIcon="dashboard" class="text-purple-600 scale-125"></mat-icon>
+    <div class="ml-2 text-3xl font-black text-purple-600">Dashboard</div>
+  </div>
+  <div class="mx-10">
+    <div class="w-full text-2xl font-bold">Startup của bạn</div>
+    <div *ngIf="yourTeams.length <= 0; then noTeams; else showTeams"></div>
+    <ng-template #noTeams>
+      <div *ngIf="isloadingYourTeams; then loadingTeams; else alertNoTeams"></div>
+      <ng-template #loadingTeams>
+        <div class="text-lg font-semibold">Đang lấy dữ liệu...</div>
+      </ng-template>
+      <ng-template #alertNoTeams>
+        <div class="text-lg font-semibold">Bạn chưa tạo dự án khởi nghiệp nào cả!</div>
+      </ng-template>
+    </ng-template>
+    <ng-template #showTeams>
+      <team-project-list *ngFor="let team of yourTeams" [team]="team" />
+    </ng-template>
+  </div>
+  <div *ngIf="guestTeams.length > 0" class="mt-5 mx-10">
+    <div class="w-full text-2xl font-bold">Startup được mời vào</div>
+    <team-project-list *ngFor="let team of guestTeams" [team]="team" [showCreateProject]="false" />
+  </div>
+</div>
