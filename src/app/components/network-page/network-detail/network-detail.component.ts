@@ -34,7 +34,7 @@ export class NetworkDetailComponent {
 
   ngOnInit(): void {
     this.loadData();
-    console.log(this.networkDetails);
+    this.toggleLoading();
   }
 
   loadData() {
