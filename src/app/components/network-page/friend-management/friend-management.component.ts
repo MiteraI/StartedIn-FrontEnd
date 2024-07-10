@@ -3,25 +3,25 @@ import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { NetworkService } from '../../../../services/network.service';
-import { SendInvitaion } from '../../../../../shared/models/invitation.model';
-import { SentInvitationCardComponent } from '../sent-invitation-card/sent-invitation-card.component';
+import { ConnectedUser } from '../../../../shared/models/invitation.model';
+import { NetworkService } from '../../../services/network.service';
+import { FriendManagementCardComponent } from './friend-management-card/friend-management-card.component';
 
 @Component({
-  selector: 'app-sent-invitation',
+  selector: 'app-friend-management',
   standalone: true,
   imports: [
     CommonModule,
     MatIconModule,
     InfiniteScrollModule,
     MatProgressSpinner,
-    SentInvitationCardComponent,
+    FriendManagementCardComponent,
   ],
-  templateUrl: './sent-invitation.component.html',
-  styleUrl: './sent-invitation.component.css',
+  templateUrl: './friend-management.component.html',
+  styleUrl: './friend-management.component.css',
 })
-export class SentInvitationComponent {
-  invitations: SendInvitaion[] = [];
+export class FriendManagementComponent {
+  connectedUsers: ConnectedUser[] = [];
   finished: boolean = false;
   endOfList: boolean = false;
   currentPage: number = 1;
@@ -38,8 +38,8 @@ export class SentInvitationComponent {
   toggleLoading = () => (this.finished = !this.finished);
 
   loadData() {
-    this.networkService.getSentInvitations(this.currentPage, this.itemsPerPage).subscribe({
-      next: response => (this.invitations = response),
+    this.networkService.getUserConnectionList(this.currentPage, this.itemsPerPage).subscribe({
+      next: response => (this.connectedUsers = response),
       error: error => {
         console.error(error);
         this.endOfList = true;
@@ -50,8 +50,8 @@ export class SentInvitationComponent {
 
   appendData() {
     this.toggleLoading();
-    this.networkService.getSentInvitations(this.currentPage, this.itemsPerPage).subscribe({
-      next: response => (this.invitations = [...this.invitations, ...response]),
+    this.networkService.getUserConnectionList(this.currentPage, this.itemsPerPage).subscribe({
+      next: response => (this.connectedUsers = [...this.connectedUsers, ...response]),
       error: error => {
         console.error(error);
         this.endOfList = true;

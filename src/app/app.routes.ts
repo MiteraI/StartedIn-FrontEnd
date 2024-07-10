@@ -51,7 +51,13 @@ export const routes: Routes = [
             c => c.NetworkDetailComponent
           ),
       },
-
+      {
+        path: 'friends',
+        loadComponent: () =>
+          import('./components/network-page/friend-management/friend-management.component').then(
+            c => c.FriendManagementComponent
+          ),
+      },
       {
         path: 'team-member',
         loadComponent: () =>

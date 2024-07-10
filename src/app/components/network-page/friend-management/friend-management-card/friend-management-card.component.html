@@ -1,0 +1,24 @@
+<div class="flex h-20 w-full items-center rounded-md hover:bg-purple-400 hover:bg-opacity-10">
+  <img
+    class="ml-2 size-16 rounded-full"
+    *ngIf="connectedUser?.profilePicture"
+    [src]="connectedUser?.profilePicture"
+    alt="{{ connectedUser?.connectedUserName }}"
+  />
+
+  <div class="ml-2">
+    <h3>{{ connectedUser?.connectedUserName }}</h3>
+  </div>
+
+  <div class="ml-auto mr-2 flex" *ngIf="!buttonClicked">
+    <button
+      (click)="cancelInvitation()"
+      class="h-auto w-36 rounded-full border bg-red-500 p-2 text-white hover:bg-opacity-80"
+    >
+      <p>Hủy kết bạn</p>
+    </button>
+  </div>
+  <div *ngIf="responseMessage != ''" class="ml-auto mr-2">
+    <p>{{ responseMessage }}</p>
+  </div>
+</div>
