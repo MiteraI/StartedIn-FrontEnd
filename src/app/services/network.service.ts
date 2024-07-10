@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApplicationConfigService } from '../core/config/application-config.service';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 import { ReceiveInvitaion } from '../../shared/models/invitation.model';
+import { AccountProfile } from '../../shared/models/profile/profileDetail.model';
 
 @Injectable({
   providedIn: 'root',
@@ -46,5 +47,16 @@ export class NetworkService {
         `/api/connect/pending-connection-sending-request?${query}`
       )
     );
+  }
+
+  getPlatformUserProfile(userId: string): Observable<AccountProfile | null> {
+    return this.http
+      .get<AccountProfile>(this.appConfigService.getEndpointFor(`/api/users/${userId}`))
+      .pipe(
+        catchError(error => {
+          console.error(`Error fetching user profile ${userId}`, error);
+          return of(null);
+        })
+      );
   }
 }

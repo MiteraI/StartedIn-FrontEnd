@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { DefaultHomeGuard } from '../shared/guards/defaulthome.guard';
 import { AuthenticatedGuard } from '../shared/guards/authenticated.guard';
+import { platformUserProfileResolver } from '../shared/resolvers/platform-user-profile.resolver';
 
 export const routes: Routes = [
   {
@@ -79,7 +80,7 @@ export const routes: Routes = [
               import(
                 './components/network-page/invitation-management/sent-invitation/sent-invitation.component'
               ).then(c => c.SentInvitationComponent),
-          }
+          },
         ],
       },
     ],
@@ -91,10 +92,20 @@ export const routes: Routes = [
       import('./pages/profile-page/profile-page.component').then(c => c.ProfilePageComponent),
   },
   {
-    path: 'project/1',
+    path: 'profile/:id',
+    resolve: { account: platformUserProfileResolver },
     loadComponent: () =>
-      import('./pages/project-pages/phase-list-page/phase-list-page.component').then(c => c.PhaseListPageComponent),
-    title: "StartedIn"
+      import(
+        './pages/network-page/platform-user-profile-page/platform-user-profile-page.component'
+      ).then(c => c.PlatformUserProfilePageComponent),
+  },
+  {
+    path: 'startup/1',
+    loadComponent: () =>
+      import('./pages/project-pages/phase-list-page/phase-list-page.component').then(
+        c => c.PhaseListPageComponent
+      ),
+    title: 'StartedIn',
   },
   {
     path: 'phase/1',

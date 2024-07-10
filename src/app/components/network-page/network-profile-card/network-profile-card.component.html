@@ -20,9 +20,11 @@
   />
 
   <div class="mt-28 flex h-full flex-col items-center">
-    <h2 class="text-center font-semibold">{{ [profile.fullName] }}</h2>
+    <h2 class="text-center font-semibold cursor-pointer" [routerLink]="['/profile', profile.id]">
+      {{ [profile.fullName] }}
+    </h2>
     <div class="mt-auto flex flex-col items-center">
-      <p class="mb-2 max-w-36 line-clamp-2 text-center text-xs text-gray-500">
+      <p class="mb-2 line-clamp-2 max-w-36 text-center text-xs text-gray-500">
         {{ profile.bio }}
       </p>
       <app-connect-button [profileId]="profile.id"></app-connect-button>
