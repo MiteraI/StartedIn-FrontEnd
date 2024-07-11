@@ -33,13 +33,13 @@ export class ProjectService {
           {
             id: "T2",
             taskTitle: "Another Task",
-            description: "Another Task",
+            description: "Another Taskaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
             position: 2000
           },
           {
             id: "T3",
             taskTitle: "Yet Another Task",
-            description: "Yet Another Task",
+            description: "",
             position: 3000
           }
         ]

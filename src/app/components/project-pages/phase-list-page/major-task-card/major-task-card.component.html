@@ -1,0 +1,15 @@
+<div class="h-20 flex items-center mx-8 my-4 px-4 py-2 bg-purple-200 rounded-md cursor-pointer hover:bg-purple-300" cdkDrag>
+  <div class="w-1/2">
+    <div class="font-semibold text-xl">
+      {{task.taskTitle}}
+    </div>
+    <div class="text-sm">
+      {{task.description.length > 50 ? task.description.substring(0, 50) + "..." : task.description}}
+    </div>
+  </div>
+
+  <div *ngIf="progress >= 0" class="flex flex-wrap w-1/2">
+    <div class="font-semibold mb-2">Progress: {{progress}}%</div>
+    <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+  </div>
+</div>

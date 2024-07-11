@@ -6,11 +6,22 @@ import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from 
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { PhaseListItem } from '../../../../../shared/models/project/phase-list-item.model';
 import { MajorTaskBasicInfo } from '../../../../../shared/models/task/major-task-basic-info.model';
+import { MajorTaskCardComponent } from '../major-task-card/major-task-card.component';
+import { MajorTaskCreateComponent } from '../major-task-create/major-task-create.component';
+import { MajorTaskCreateModel } from '../../../../../shared/models/task/major-task-create.model';
 
 @Component({
   selector: 'phase-dropdown',
   standalone: true,
-  imports: [MatIconModule, CommonModule, RouterModule, DragDropModule, MatProgressBarModule],
+  imports: [
+    MatIconModule,
+    CommonModule,
+    RouterModule,
+    DragDropModule,
+    MatProgressBarModule,
+    MajorTaskCardComponent,
+    MajorTaskCreateComponent
+  ],
   templateUrl: './phase-dropdown.component.html',
   styleUrl: './phase-dropdown.component.css'
 })
@@ -22,6 +33,11 @@ export class PhaseDropdownComponent {
     majorTasks: []
   };
   expanded: boolean = true;
+  currMaxPos: number = 0;
+
+  ngOnInit() {
+    this.currMaxPos = this.phase.majorTasks[this.phase.majorTasks.length - 1].position;
+  }
 
   toggleExpand() {
     this.expanded = !this.expanded;
@@ -33,6 +49,11 @@ export class PhaseDropdownComponent {
 
   showDeletePopup(event: Event) {
     event.stopPropagation();
+  }
+
+  submitTask(task: MajorTaskCreateModel) {
+    console.log(task);
+    this.currMaxPos = task.position;
   }
 
   drop(event: CdkDragDrop<MajorTaskBasicInfo[]>) {

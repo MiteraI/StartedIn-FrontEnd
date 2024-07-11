@@ -107,7 +107,7 @@ export const routes: Routes = [
       ).then(c => c.PlatformUserProfilePageComponent),
   },
   {
-    path: 'startup/:id',
+    path: 'project/:id',
     resolve: { project: projectDetailResolver },
     loadComponent: () =>
       import('./pages/project-pages/phase-list-page/phase-list-page.component').then(
