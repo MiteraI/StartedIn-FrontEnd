@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { PhaseListItem } from '../../../../../shared/models/project/phase-list-item.model';
-import { MajorTaskBasicInfo } from '../../../../../shared/models/project/major-task-basic-info.model';
+import { MajorTaskBasicInfo } from '../../../../../shared/models/task/major-task-basic-info.model';
 
 @Component({
   selector: 'phase-dropdown',

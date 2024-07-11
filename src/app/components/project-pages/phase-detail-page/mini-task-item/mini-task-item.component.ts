@@ -1,6 +1,6 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { Component, Input } from '@angular/core';
-import { MiniTask } from '../../../../../shared/models/project/mini-task.model';
+import { MiniTask } from '../../../../../shared/models/task/mini-task.model';
 
 @Component({
   selector: 'mini-task-item',

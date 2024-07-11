@@ -1,4 +1,4 @@
-import { MajorTaskBasicInfo } from "./major-task-basic-info.model";
+import { MajorTaskBasicInfo } from "../task/major-task-basic-info.model";
 
 export interface PhaseListItem {
   id: string;

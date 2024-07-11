@@ -3,7 +3,7 @@ import { MiniTaskItemComponent } from '../mini-task-item/mini-task-item.componen
 import { MatIconModule } from '@angular/material/icon';
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { Taskboard } from '../../../../../shared/models/project/taskboard.model';
+import { Taskboard } from '../../../../../shared/models/task/taskboard.model';
 
 @Component({
   selector: 'taskboard',
