@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { DefaultHomeGuard } from '../shared/guards/defaulthome.guard';
 import { AuthenticatedGuard } from '../shared/guards/authenticated.guard';
 import { platformUserProfileResolver } from '../shared/resolvers/platform-user-profile.resolver';
+import { projectDetailResolver } from '../shared/resolvers/project-detail.resolver';
 
 export const routes: Routes = [
   {
@@ -106,7 +107,8 @@ export const routes: Routes = [
       ).then(c => c.PlatformUserProfilePageComponent),
   },
   {
-    path: 'startup/1',
+    path: 'startup/:id',
+    resolve: { project: projectDetailResolver },
     loadComponent: () =>
       import('./pages/project-pages/phase-list-page/phase-list-page.component').then(
         c => c.PhaseListPageComponent

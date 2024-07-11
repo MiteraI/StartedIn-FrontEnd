@@ -6,6 +6,9 @@ import { PhaseCreateComponent } from '../../../components/project-pages/phase-li
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { ProjectSideNavComponent } from '../../../layouts/project-side-nav/project-side-nav.component';
+import { ProjectFullInfo } from '../../../../shared/models/project/project-full-info.model';
+import { PhaseBasicInfo } from '../../../../shared/models/project/phase-basic-info.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-phase-list-page',
@@ -23,9 +26,24 @@ import { ProjectSideNavComponent } from '../../../layouts/project-side-nav/proje
   styleUrl: './phase-list-page.component.css'
 })
 export class PhaseListPageComponent {
-  list = ['Phase 1', 'Phase 2', 'Phase 3'];
+  project: ProjectFullInfo = {
+    id: "",
+    projectName: "",
+    teamId: "",
+    creator: "",
+    phases: []
+  }
 
-  drop(event: CdkDragDrop<string[]>) {
+  constructor(private activeRoute: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.activeRoute.data.subscribe(data => {
+      this.project = data['project'];
+      console.log(this.project);
+    });
+  }
+
+  drop(event: CdkDragDrop<PhaseBasicInfo[]>) {
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
   }
 }

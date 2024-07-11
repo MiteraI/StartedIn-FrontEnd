@@ -4,6 +4,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { PhaseBasicInfo } from '../../../../../shared/models/project/phase-basic-info.model';
+import { MajorTaskBasicInfo } from '../../../../../shared/models/project/major-task-basic-info.model';
 
 @Component({
   selector: 'phase-dropdown',
@@ -13,8 +15,12 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
   styleUrl: './phase-dropdown.component.css'
 })
 export class PhaseDropdownComponent {
-  @Input({required: true}) phaseName: string = "";
-  taskList = ["Task 1", "Task 2", "Task 3"]
+  @Input({required: true}) phase: PhaseBasicInfo = {
+    id: "",
+    name: "",
+    position: 0,
+    tasks: []
+  };
   expanded: boolean = true;
 
   toggleExpand() {
@@ -29,7 +35,7 @@ export class PhaseDropdownComponent {
     event.stopPropagation();
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<MajorTaskBasicInfo[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
