@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { PhaseBasicInfo } from '../../../../../shared/models/project/phase-basic-info.model';
+import { PhaseListItem } from '../../../../../shared/models/project/phase-list-item.model';
 import { MajorTaskBasicInfo } from '../../../../../shared/models/project/major-task-basic-info.model';
 
 @Component({
@@ -15,11 +15,11 @@ import { MajorTaskBasicInfo } from '../../../../../shared/models/project/major-t
   styleUrl: './phase-dropdown.component.css'
 })
 export class PhaseDropdownComponent {
-  @Input({required: true}) phase: PhaseBasicInfo = {
+  @Input({required: true}) phase: PhaseListItem = {
     id: "",
-    name: "",
+    phaseName: "",
     position: 0,
-    tasks: []
+    majorTasks: []
   };
   expanded: boolean = true;
 

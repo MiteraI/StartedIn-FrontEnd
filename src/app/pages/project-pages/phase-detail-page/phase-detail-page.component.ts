@@ -23,6 +23,7 @@ import { TaskboardCreateComponent } from '../../../components/project-pages/phas
 export class PhaseDetailPageComponent {
   boardList = ["Backlog", "Design", "In Development", "Testing"];
 
+
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
   }

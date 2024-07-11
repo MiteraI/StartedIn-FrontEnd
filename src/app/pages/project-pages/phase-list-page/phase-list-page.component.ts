@@ -7,7 +7,7 @@ import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-
 import { CommonModule } from '@angular/common';
 import { ProjectSideNavComponent } from '../../../layouts/project-side-nav/project-side-nav.component';
 import { ProjectFullInfo } from '../../../../shared/models/project/project-full-info.model';
-import { PhaseBasicInfo } from '../../../../shared/models/project/phase-basic-info.model';
+import { PhaseListItem } from '../../../../shared/models/project/phase-list-item.model';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -30,7 +30,12 @@ export class PhaseListPageComponent {
     id: "",
     projectName: "",
     teamId: "",
-    creator: "",
+    leader: {
+      id: "",
+      fullName: "",
+      email: "",
+      profilePicture: "",
+    },
     phases: []
   }
 
@@ -43,7 +48,7 @@ export class PhaseListPageComponent {
     });
   }
 
-  drop(event: CdkDragDrop<PhaseBasicInfo[]>) {
+  drop(event: CdkDragDrop<PhaseListItem[]>) {
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
   }
 }

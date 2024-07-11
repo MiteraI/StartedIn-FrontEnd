@@ -1,8 +1,8 @@
 import { MajorTaskBasicInfo } from "./major-task-basic-info.model";
 
-export interface PhaseBasicInfo {
+export interface PhaseListItem {
   id: string;
-  name: string;
+  phaseName: string;
   position: number;
-  tasks: MajorTaskBasicInfo[];
+  majorTasks: MajorTaskBasicInfo[];
 }

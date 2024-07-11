@@ -1,5 +1,6 @@
 export interface MajorTaskBasicInfo {
   id: string;
-  name: string;
+  taskTitle: string;
+  description: string;
   position: number;
 }

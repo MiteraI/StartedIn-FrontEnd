@@ -12,70 +12,84 @@ export class ProjectService {
     id: "Prj1",
     projectName: "CarGo",
     teamId: "CarGoTeam",
-    creator: "Nguyen Do Cao Linh",
+    leader: {
+      id: "1",
+      fullName: "Nguyen Do Cao Linh",
+      email: "a@b.com",
+      profilePicture: "",
+    },
     phases: [
       {
         id: "Phase1",
-        name: "Ideation Phase",
+        phaseName: "Ideation Phase",
         position: 1000,
-        tasks: [
+        majorTasks: [
           {
             id: "T1",
-            name: "A Task",
+            taskTitle: "A Task",
+            description: "A Task",
             position: 1000
           },
           {
             id: "T2",
-            name: "Another Task",
+            taskTitle: "Another Task",
+            description: "Another Task",
             position: 2000
           },
           {
             id: "T3",
-            name: "Yet Another Task",
+            taskTitle: "Yet Another Task",
+            description: "Yet Another Task",
+            position: 3000
+          }
+        ]
+      },
+      {
+        id: "Phase2",
+        phaseName: "Fundraising Phase",
+        position: 1000,
+        majorTasks: [
+          {
+            id: "T1",
+            taskTitle: "A Task",
+            description: "A Task",
+            position: 1000
+          },
+          {
+            id: "T2",
+            taskTitle: "Another Task",
+            description: "Another Task",
+            position: 2000
+          },
+          {
+            id: "T3",
+            taskTitle: "Yet Another Task",
+            description: "Yet Another Task",
             position: 3000
           }
         ]
       },
       {
         id: "Phase1",
-        name: "Fundraising Phase",
-        position: 2000,
-        tasks: [
+        phaseName: "Development Phase",
+        position: 1000,
+        majorTasks: [
           {
             id: "T1",
-            name: "A Task",
+            taskTitle: "A Task",
+            description: "A Task",
             position: 1000
           },
           {
             id: "T2",
-            name: "Another Task",
+            taskTitle: "Another Task",
+            description: "Another Task",
             position: 2000
           },
           {
             id: "T3",
-            name: "Yet Another Task",
-            position: 3000
-          }
-        ]
-      },
-      {
-        id: "Phase1",
-        name: "Development Phase",
-        position: 3000,
-        tasks: [
-          {
-            id: "T1",
-            name: "A Task",
-            position: 1000
-          },
-          {
-            id: "T2",
-            name: "Another Task",
-            position: 2000
-          },
-          {
-            id: "T3",
-            name: "Yet Another Task",
+            taskTitle: "Yet Another Task",
+            description: "Yet Another Task",
             position: 3000
           }
         ]

@@ -1,7 +1,7 @@
 <project-side-nav [opened]="true">
   <div class="flex justify-center min-h-screen">
     <div class="w-[75vw] mt-5">
-      <project-title-card [projectName]="project.projectName" [creatorName]="project.creator"></project-title-card>
+      <project-title-card [projectName]="project.projectName" [creatorName]="project.leader.fullName"></project-title-card>
       <div cdkDropListGroup cdkDropList [cdkDropListData]="project.phases" (cdkDropListDropped)="drop($event)">
         <phase-dropdown *ngFor="let phase of project.phases" [phase]="phase"></phase-dropdown>
       </div>

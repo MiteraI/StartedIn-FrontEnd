@@ -3,6 +3,7 @@ import { MiniTaskItemComponent } from '../mini-task-item/mini-task-item.componen
 import { MatIconModule } from '@angular/material/icon';
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
+import { Taskboard } from '../../../../../shared/models/project/taskboard.model';
 
 @Component({
   selector: 'taskboard',
@@ -14,6 +15,12 @@ import { CommonModule } from '@angular/common';
 export class TaskboardComponent {
   @Input({required: true}) boardName: string = "";
   taskList = ["Mini Task 1", "Mini Task 2", "Mini Task 3"];
+  taskboard: Taskboard = {
+    id: "",
+    name: "",
+    position: 0,
+    tasks: []
+  }
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
