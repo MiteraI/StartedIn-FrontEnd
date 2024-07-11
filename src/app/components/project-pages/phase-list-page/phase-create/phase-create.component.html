@@ -1,7 +1,37 @@
-<div class="mt-5 mb-10 flex items-center bg-gray-600 text-white rounded-2xl cursor-pointer hover:bg-gray-500">
-  <div class="flex-grow flex items-center">
-    <div class="px-2 py-6 bg-purple-400 rounded-s-xl"></div>
-    <mat-icon class="ml-2" fontIcon="add"></mat-icon>
-    <a class="ml-2 text-xl font-bold cursor-pointer">Create new phase</a>
+<div *ngIf="isModalOpen; then modalOpened; else modalClosed"></div>
+<ng-template #modalClosed>
+  <div class="mt-5 mb-10 flex items-center bg-gray-600 text-white rounded-2xl cursor-pointer hover:bg-gray-500"
+    (click)="showModal($event)">
+    <div class="flex-grow flex items-center">
+      <div class="px-2 py-6 bg-purple-400 rounded-s-xl"></div>
+      <mat-icon class="ml-2" fontIcon="add"></mat-icon>
+      <div class="ml-2 text-xl font-bold cursor-pointer">Create new phase</div>
+    </div>
   </div>
-</div>
+</ng-template>
+<ng-template #modalOpened>
+  <form [formGroup]="phaseCreateForm" (ngSubmit)="onSubmit()" (clickOutside)="hideModal()">
+  <div class="mt-5 flex items-center bg-gray-600 text-white rounded-2xl">
+      <div class="flex-grow flex items-center">
+        <div class="px-2 py-8 bg-purple-400 rounded-s-xl"></div>
+        <input
+          type="text"
+          id="phaseName"
+          formControlName="phaseName"
+          placeholder="Hãy nhập tên cho phase này..."
+          class="mx-4 text-3xl font-bold bg-transparent border-0 focus:outline-none"
+          [cdkTrapFocusAutoCapture]="isModalOpen"
+          [cdkTrapFocus]="isModalOpen" />
+      </div>
+  </div>
+  <div class="mx-4 mb-10 flex bg-white border rounded-b-xl">
+    <input
+      type="submit"
+      value="Tạo phase"
+      class="h-10 m-2 px-4 py-2 font-semibold bg-purple-200 rounded-md cursor-pointer hover:bg-purple-300">
+    <div class="h-10 my-2 p-2 font-semibold rounded-md cursor-pointer hover:bg-slate-300" (click)="hideModal()">
+      <mat-icon fontIcon="close"></mat-icon>
+    </div>
+  </div>
+</form>
+</ng-template>

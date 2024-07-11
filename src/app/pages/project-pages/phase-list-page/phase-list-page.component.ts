@@ -9,6 +9,7 @@ import { ProjectSideNavComponent } from '../../../layouts/project-side-nav/proje
 import { ProjectFullInfo } from '../../../../shared/models/project/project-full-info.model';
 import { PhaseListItem } from '../../../../shared/models/project/phase-list-item.model';
 import { ActivatedRoute } from '@angular/router';
+import { PhaseCreateModel } from '../../../../shared/models/project/phase-create.model';
 
 @Component({
   selector: 'app-phase-list-page',
@@ -37,18 +38,24 @@ export class PhaseListPageComponent {
       profilePicture: "",
     },
     phases: []
-  }
+  };
+  currMaxPos: number = 0;
 
   constructor(private activeRoute: ActivatedRoute) {}
 
   ngOnInit() {
     this.activeRoute.data.subscribe(data => {
       this.project = data['project'];
-      console.log(this.project);
+      this.currMaxPos = this.project.phases[this.project.phases.length - 1].position;
     });
   }
 
   drop(event: CdkDragDrop<PhaseListItem[]>) {
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+  }
+
+  createPhase(phase: PhaseCreateModel) {
+    console.log(phase);
+    this.currMaxPos = phase.position;
   }
 }
