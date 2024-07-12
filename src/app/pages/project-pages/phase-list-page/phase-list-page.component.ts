@@ -10,6 +10,9 @@ import { ProjectFullInfo } from '../../../../shared/models/project/project-full-
 import { PhaseListItem } from '../../../../shared/models/project/phase-list-item.model';
 import { ActivatedRoute } from '@angular/router';
 import { PhaseCreateModel } from '../../../../shared/models/project/phase-create.model';
+import { ProjectService } from '../../../services/project.service';
+import { catchError, throwError } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-phase-list-page',
@@ -41,12 +44,18 @@ export class PhaseListPageComponent {
   };
   currMaxPos: number = 0;
 
-  constructor(private activeRoute: ActivatedRoute) {}
+  constructor(
+    private activeRoute: ActivatedRoute,
+    private projectService: ProjectService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit() {
     this.activeRoute.data.subscribe(data => {
       this.project = data['project'];
-      this.currMaxPos = this.project.phases[this.project.phases.length - 1].position;
+      if (this.project.phases.length > 0) {
+        this.currMaxPos = this.project.phases[this.project.phases.length - 1].position;
+      }
     });
   }
 
@@ -55,7 +64,27 @@ export class PhaseListPageComponent {
   }
 
   createPhase(phase: PhaseCreateModel) {
-    console.log(phase);
     this.currMaxPos = phase.position;
+    var newItem = {
+      id: "",
+      phaseName: phase.phaseName,
+      position: phase.position,
+      majorTasks: []
+    };
+    this.project.phases.push(newItem);
+    this.projectService
+      .createPhase(phase)
+      .pipe(
+        catchError(error => {
+          this.snackBar.open("Đã xảy ra lỗi! Hãy thử lại sau.", "Close", { duration: 3000 });
+          var index = this.project.phases.indexOf(newItem);
+          if (index !== -1) {
+            this.project.phases.splice(index, 1);
+          }
+          return throwError(() => new Error(error.error));
+        })
+      )
+      .subscribe(response => newItem.id = response.id);
+      // TODO IMPORTANT check id empty before edit & move position
   }
 }

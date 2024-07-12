@@ -65,5 +65,6 @@ export class MajorTaskCreateComponent {
     this.taskSubmit.emit(this.majorTask);
     this.isModalOpen = false;
     this.initMajorTask();
+    this.majorTaskCreateForm.reset();
   }
 }

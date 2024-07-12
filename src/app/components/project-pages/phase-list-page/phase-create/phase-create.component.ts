@@ -63,5 +63,6 @@ export class PhaseCreateComponent {
     this.phaseSubmit.emit(this.phase);
     this.isModalOpen = false;
     this.initPhase();
+    this.phaseCreateForm.reset()
   }
 }

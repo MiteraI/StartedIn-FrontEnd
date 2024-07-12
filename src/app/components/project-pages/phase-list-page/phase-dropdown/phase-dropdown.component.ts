@@ -9,6 +9,9 @@ import { MajorTaskBasicInfo } from '../../../../../shared/models/task/major-task
 import { MajorTaskCardComponent } from '../major-task-card/major-task-card.component';
 import { MajorTaskCreateComponent } from '../major-task-create/major-task-create.component';
 import { MajorTaskCreateModel } from '../../../../../shared/models/task/major-task-create.model';
+import { TaskService } from '../../../../services/task.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { catchError, throwError } from 'rxjs';
 
 @Component({
   selector: 'phase-dropdown',
@@ -35,8 +38,15 @@ export class PhaseDropdownComponent {
   expanded: boolean = true;
   currMaxPos: number = 0;
 
+  constructor(
+    private taskService: TaskService,
+    private snackBar: MatSnackBar
+  ) {}
+
   ngOnInit() {
-    this.currMaxPos = this.phase.majorTasks[this.phase.majorTasks.length - 1].position;
+    if (this.phase.majorTasks.length > 0) {
+      this.currMaxPos = this.phase.majorTasks[this.phase.majorTasks.length - 1].position;
+    }
   }
 
   toggleExpand() {
@@ -54,6 +64,27 @@ export class PhaseDropdownComponent {
   submitTask(task: MajorTaskCreateModel) {
     console.log(task);
     this.currMaxPos = task.position;
+    var newItem = {
+      id: "",
+      taskTitle: task.taskTitle,
+      description: task.description,
+      position: task.position
+    };
+    this.phase.majorTasks.push(newItem);
+    this.taskService
+      .createMajorTask(task)
+      .pipe(
+        catchError(error => {
+          this.snackBar.open("Đã xảy ra lỗi! Hãy thử lại sau.", "Close", { duration: 3000 });
+          var index = this.phase.majorTasks.indexOf(newItem);
+          if (index !== -1) {
+            this.phase.majorTasks.splice(index, 1);
+          }
+          return throwError(() => new Error(error.error));
+        })
+      )
+      .subscribe(response => newItem.id = response.id);
+      // TODO IMPORTANT check id empty before edit & move position
   }
 
   drop(event: CdkDragDrop<MajorTaskBasicInfo[]>) {
