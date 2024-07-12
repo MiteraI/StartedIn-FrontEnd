@@ -1,4 +1,4 @@
-<div class="mt-5">
+<div class="mt-5" cdkDrag>
   <div class="flex items-center bg-gray-600 text-white rounded-2xl" (click)="toggleExpand()">
     <div class="px-2 py-8 bg-purple-400 rounded-s-xl"></div>
     <div class="mx-4 flex-grow flex items-center">
@@ -12,7 +12,7 @@
   </div>
 
   <div *ngIf="expanded" class="mx-4 bg-white border rounded-b-xl">
-    <div cdkDrag cdkDropList [cdkDropListData]="phase.majorTasks" (cdkDropListDropped)="drop($event)">
+    <div cdkDropList [cdkDropListData]="phase.majorTasks" (cdkDropListDropped)="drop($event)">
       <major-task-card *ngFor="let task of phase.majorTasks" [task]="task"></major-task-card>
     </div>
     <major-task-create [phaseId]="phase.id" [currMaxPos]="currMaxPos" (taskSubmit)="submitTask($event)"></major-task-create>
