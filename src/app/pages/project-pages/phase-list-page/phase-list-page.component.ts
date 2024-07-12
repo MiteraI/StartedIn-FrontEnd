@@ -43,6 +43,7 @@ export class PhaseListPageComponent {
     phases: []
   };
   currMaxPos: number = 0;
+  private offset = 1 << 16 // 2^16 or 65536
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -60,7 +61,31 @@ export class PhaseListPageComponent {
   }
 
   drop(event: CdkDragDrop<PhaseListItem[]>) {
-    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    const phaseList = event.container.data;
+    const prev = event.previousIndex;
+    const phase = phaseList[prev];
+    if (phase.id && phase.id.length === 0) {
+      this.snackBar.open("Đã xảy ra lỗi! Hãy thử lại sau.", "Close", { duration: 3000 });
+      return;
+    }
+
+    const curr = event.currentIndex;
+    moveItemInArray(phaseList, prev, curr);
+
+    var position: number;
+    const lastIndex = phaseList.length - 1;
+    if (curr === 0) {
+      // case first item, get position of previous first item divided by 2
+      position = phaseList[1].position >> 1; // rightshift 1 bit is equivalent to div 2
+    } else if (curr === lastIndex) {
+      // case last item, get position of previous last item plus offset
+      position = phaseList[lastIndex - 1].position + this.offset;
+    } else {
+      // case between 2 items, get middle position
+      position = (phaseList[curr - 1].position + phaseList[curr + 1].position) >> 1
+    }
+    console.log(position);
+    // TODO check pos < 2^4 and > 2^31
   }
 
   createPhase(phase: PhaseCreateModel) {
