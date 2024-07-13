@@ -18,7 +18,7 @@ export class TeamService {
   // Create team and project at the same time with the same name
   createTeam(createTeamRequest: CreateTeamRequest): Observable<ProjectTeam> {
     return this.http.post<ProjectTeam>(
-      this.applicationConfigService.getEndpointFor('/api/teams/user-leader-team'),
+      this.applicationConfigService.getEndpointFor('/api/teams'),
       createTeamRequest
     );
   }

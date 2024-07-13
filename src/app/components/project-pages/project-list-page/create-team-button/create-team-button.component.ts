@@ -7,6 +7,8 @@ import { TeamService } from '../../../../services/team.service';
 import { CreateTeamRequest } from '../../../../../shared/models/project/team/create-team-request.model';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ProjectTeam } from '../../../../../shared/models/project/project-team.model';
+import { catchError, of, throwError } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-team-button',
@@ -58,19 +60,22 @@ export class CreateTeamButtonComponent {
           projectName: teamName,
         },
       };
-      console.log(createTeam);
-      let createdTeam: ProjectTeam = {
-        id: '',
-        description: '',
-        teamName: createTeam.team.teamName,
-        projects: [
-          {
-            id: '',
-            projectName: createTeam.team.teamName,
-          },
-        ],
-      };
-      this.teamCreateSubmit.emit(createdTeam);
+      this.teamService
+        .createTeam(createTeam)
+        .pipe(
+          catchError(error => {
+            if (error instanceof HttpErrorResponse) {
+              if (error.status === 400) {
+                this.snackBar.open(error.message, 'Đóng', { duration: 3000 });
+              }
+            }
+            return throwError(of(null));
+          })
+        )
+        .subscribe(response => {
+          this.teamCreateSubmit.emit(response);
+        });
+
       return;
     }
     this.snackBar.open('Tạo team phải có tên team!', 'Đóng', { duration: 3000 });
