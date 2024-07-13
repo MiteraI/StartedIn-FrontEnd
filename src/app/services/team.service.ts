@@ -23,6 +23,12 @@ export class TeamService {
     );
   }
 
+  getTeamById(teamId: string): Observable<TeamProjectDetails> {
+    return this.http.get<TeamProjectDetails>(
+      this.applicationConfigService.getEndpointFor(`/api/teams/${teamId}`)
+    );
+  }
+
   getYourTeams(): Observable<any> {
     return this.http.get<ProjectTeam[]>(
       this.applicationConfigService.getEndpointFor('/api/teams/user-leader-team')
