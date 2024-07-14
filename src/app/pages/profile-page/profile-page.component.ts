@@ -5,6 +5,7 @@ import { ProfileService } from '../../services/profile.service';
 import { AccountProfile } from '../../../shared/models/profile/profileDetail.model';
 import { ReplaySubject, takeUntil } from 'rxjs';
 import { AccountService } from '../../core/auth/account.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profile-page',
@@ -19,7 +20,8 @@ export class ProfilePageComponent {
 
   constructor(
     private profileService: ProfileService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -31,12 +33,10 @@ export class ProfilePageComponent {
   }
 
   private getFullProfile() {
-    this.profileService
-      .getProfile()
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe(profile => {
-        this.profile = profile;
-      });
+    this.activatedRoute.data.subscribe(data => {
+      this.profile = data['account'];
+      console.log('Account profile:', this.profile);
+    });
   }
 
   ngOnDestroy() {

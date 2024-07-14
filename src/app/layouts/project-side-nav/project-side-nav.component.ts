@@ -5,11 +5,14 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { TeamService } from '../../services/team.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TeamProjectDetails } from '../../../shared/models/project/team/team-project-details.model';
+import { ProjectSideNavItemComponent } from './project-side-nav-item/project-side-nav-item.component';
+import { ProjectList } from '../../../shared/models/project/project-list.model';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'project-side-nav',
   standalone: true,
-  imports: [MatSidenavModule, CommonModule, MatIconModule],
+  imports: [MatSidenavModule, CommonModule, MatIconModule, ProjectSideNavItemComponent],
   templateUrl: './project-side-nav.component.html',
   styleUrl: './project-side-nav.component.css',
 })
@@ -21,9 +24,11 @@ export class ProjectSideNavComponent implements OnInit {
   }
 
   teamProjectDetails: TeamProjectDetails | null = null;
+  projectList: ProjectList[] = [];
 
   constructor(
     private teamService: TeamService,
+    private projectService: ProjectService,
     private snackBar: MatSnackBar
   ) {}
 
@@ -35,5 +40,10 @@ export class ProjectSideNavComponent implements OnInit {
       .getTeamById(this.teamId)
       .pipe()
       .subscribe(response => (this.teamProjectDetails = response));
+
+    this.projectService
+      .getTeamListProjects(this.teamId)
+      .pipe()
+      .subscribe(response => (this.projectList = response));
   }
 }
