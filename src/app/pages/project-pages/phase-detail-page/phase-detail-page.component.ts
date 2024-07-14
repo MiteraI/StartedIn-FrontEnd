@@ -5,6 +5,7 @@ import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-
 import { CommonModule } from '@angular/common';
 import { ProjectSideNavComponent } from '../../../layouts/project-side-nav/project-side-nav.component';
 import { TaskboardCreateComponent } from '../../../components/project-pages/phase-detail-page/taskboard-create/taskboard-create.component';
+import { PhaseFullInfo } from '../../../../shared/models/project/phase-full-info.model';
 
 @Component({
   selector: 'app-phase-detail-page',
@@ -21,10 +22,16 @@ import { TaskboardCreateComponent } from '../../../components/project-pages/phas
   styleUrl: './phase-detail-page.component.css'
 })
 export class PhaseDetailPageComponent {
-  boardList = ["Backlog", "Design", "In Development", "Testing"];
+  phase: PhaseFullInfo = {
+    id: "",
+    phaseName: "",
+    projectId: "",
+    taskboards: []
+  };
+  currMaxPos: number = 0;
+  private offset: number = 1 << 16;
 
-
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+  drop(event: CdkDragDrop<PhaseFullInfo>) {
+    moveItemInArray(event.container.data.taskboards, event.previousIndex, event.currentIndex);
   }
 }
