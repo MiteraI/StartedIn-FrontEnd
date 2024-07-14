@@ -5,7 +5,7 @@
       <div cdkDropListGroup cdkDropList [cdkDropListData]="project.phases" (cdkDropListDropped)="drop($event)">
         <phase-dropdown *ngFor="let phase of project.phases" [phase]="phase"></phase-dropdown>
       </div>
-      <phase-create [projectId]="project.id" [currMaxPos]="currMaxPos" (phaseSubmit)="createPhase($event)"></phase-create>
+      <phase-create (phaseSubmit)="createPhase($event)"></phase-create>
     </div>
   </div>
 </project-side-nav>

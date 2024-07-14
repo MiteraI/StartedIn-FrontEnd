@@ -15,6 +15,6 @@
     <div cdkDropList [cdkDropListData]="phase" (cdkDropListDropped)="drop($event)">
       <major-task-card *ngFor="let task of phase.majorTasks" [task]="task"></major-task-card>
     </div>
-    <major-task-create [phaseId]="phase.id" [currMaxPos]="currMaxPos" (taskSubmit)="submitTask($event)"></major-task-create>
+    <major-task-create (taskSubmit)="submitTask($event)"></major-task-create>
   </div>
 </div>

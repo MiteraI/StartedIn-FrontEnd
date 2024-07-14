@@ -61,6 +61,9 @@ export class PhaseListPageComponent {
   }
 
   drop(event: CdkDragDrop<PhaseListItem[]>) {
+    if (event.previousIndex === event.currentIndex) {
+      return;
+    }
     const phaseList = event.container.data;
     const prev = event.previousIndex;
     const phase = phaseList[prev];
@@ -89,6 +92,8 @@ export class PhaseListPageComponent {
   }
 
   createPhase(phase: PhaseCreateModel) {
+    phase.position = this.currMaxPos + this.offset;
+    phase.projectId = this.project.id;
     this.currMaxPos = phase.position;
     var newItem = {
       id: "",
