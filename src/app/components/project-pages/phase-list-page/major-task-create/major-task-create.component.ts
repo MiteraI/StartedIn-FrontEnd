@@ -14,11 +14,7 @@ import { A11yModule } from '@angular/cdk/a11y';
   styleUrl: './major-task-create.component.css'
 })
 export class MajorTaskCreateComponent {
-  @Input({required: true}) phaseId: string = "";
-  @Input({required: true}) currMaxPos: number = 0;
   @Output() taskSubmit = new EventEmitter<MajorTaskCreateModel>();
-
-  private offset: number = 1 << 16; // 2^16 or 65536
   isModalOpen: boolean = false;
 
   majorTaskCreateForm: FormGroup;
@@ -39,8 +35,8 @@ export class MajorTaskCreateComponent {
 
   initMajorTask() {
     this.majorTask = {
-      position: this.currMaxPos + this.offset,
-      phaseId: this.phaseId,
+      position: 0,
+      phaseId: "",
       taskTitle: "",
       description: ""
     }
@@ -48,7 +44,6 @@ export class MajorTaskCreateComponent {
 
   showModal(event: Event) {
     this.isModalOpen = true;
-    this.currMaxPos += this.offset;
     event.stopPropagation();
   }
 
@@ -56,7 +51,6 @@ export class MajorTaskCreateComponent {
     if (!this.isModalOpen) {
       return;
     }
-    this.currMaxPos -= this.offset;
     this.isModalOpen = false;
   }
 

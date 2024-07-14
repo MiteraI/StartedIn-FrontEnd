@@ -4,6 +4,7 @@ import { AuthenticatedGuard } from '../shared/guards/authenticated.guard';
 import { platformUserProfileResolver } from '../shared/resolvers/platform-user-profile.resolver';
 import { projectDetailResolver } from '../shared/resolvers/project-detail.resolver';
 import { teamInviteResolver } from '../shared/resolvers/team-invite.resolver';
+import { currentUserProfileResolver } from '../shared/resolvers/current-user-profile.resolver';
 
 export const routes: Routes = [
   {
@@ -96,6 +97,7 @@ export const routes: Routes = [
   {
     path: 'profile',
     canActivate: [AuthenticatedGuard],
+    resolve: { account: currentUserProfileResolver },
     loadComponent: () =>
       import('./pages/profile-page/profile-page.component').then(c => c.ProfilePageComponent),
   },
@@ -119,8 +121,10 @@ export const routes: Routes = [
   {
     path: 'phase/1',
     loadComponent: () =>
-      import('./pages/project-pages/phase-detail-page/phase-detail-page.component').then(c => c.PhaseDetailPageComponent),
-    title: "Idea Phase"
+      import('./pages/project-pages/phase-detail-page/phase-detail-page.component').then(
+        c => c.PhaseDetailPageComponent
+      ),
+    title: 'Idea Phase',
   },
   {
     path: 'projects',

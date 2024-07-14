@@ -14,10 +14,11 @@ import { RouterLink } from '@angular/router';
 })
 export class PostDetailComponent {
   @Input({required: true}) postDetail: PostDetail | null = null;
-  shownDate: Date;
+  shownDate: Date = new Date();
   expanded = false;
 
-  constructor() {
-    this.shownDate = this.postDetail?.lastUpdatedTime ?? new Date();
+  ngOnInit() {
+    this.shownDate = new Date(this.postDetail?.lastUpdatedTime ?? new Date());
+    console.log(this.shownDate.getDate());
   }
 }

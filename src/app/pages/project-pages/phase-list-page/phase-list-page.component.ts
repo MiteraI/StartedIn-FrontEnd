@@ -54,13 +54,13 @@ export class PhaseListPageComponent {
   ngOnInit() {
     this.activeRoute.data.subscribe(data => {
       this.project = data['project'];
-      if (this.project.phases.length > 0) {
-        this.currMaxPos = this.project.phases[this.project.phases.length - 1].position;
-      }
     });
   }
 
   drop(event: CdkDragDrop<PhaseListItem[]>) {
+    if (event.previousIndex === event.currentIndex) {
+      return;
+    }
     const phaseList = event.container.data;
     const prev = event.previousIndex;
     const phase = phaseList[prev];
@@ -89,6 +89,8 @@ export class PhaseListPageComponent {
   }
 
   createPhase(phase: PhaseCreateModel) {
+    phase.position = this.currMaxPos + this.offset;
+    phase.projectId = this.project.id;
     this.currMaxPos = phase.position;
     var newItem = {
       id: "",

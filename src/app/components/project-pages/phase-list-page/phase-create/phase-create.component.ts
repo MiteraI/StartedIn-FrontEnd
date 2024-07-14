@@ -14,11 +14,7 @@ import { A11yModule } from '@angular/cdk/a11y';
   styleUrl: './phase-create.component.css'
 })
 export class PhaseCreateComponent {
-  @Input({required: true}) projectId: string = "";
-  @Input({required: true}) currMaxPos: number = 0;
   @Output() phaseSubmit = new EventEmitter<PhaseCreateModel>();
-
-  private offset: number = 1 << 16; // 2^16 or 65536
   isModalOpen: boolean = false;
 
   phaseCreateForm: FormGroup;
@@ -38,15 +34,14 @@ export class PhaseCreateComponent {
 
   initPhase() {
     this.phase = {
-      position: this.currMaxPos + this.offset,
+      position: 0,
       phaseName: "",
-      projectId: this.projectId
+      projectId: ""
     };
   }
 
   showModal(event: Event) {
     this.isModalOpen = true;
-    this.currMaxPos += this.offset;
     event.stopPropagation();
   }
 
@@ -54,7 +49,6 @@ export class PhaseCreateComponent {
     if (!this.isModalOpen) {
       return;
     }
-    this.currMaxPos -= this.offset;
     this.isModalOpen = false;
   }
 

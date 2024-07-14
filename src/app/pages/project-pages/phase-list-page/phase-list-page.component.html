@@ -3,9 +3,10 @@
     <div class="w-[75vw] mt-5">
       <project-title-card [projectName]="project.projectName" [creatorName]="project.leader.fullName"></project-title-card>
       <div cdkDropListGroup cdkDropList [cdkDropListData]="project.phases" (cdkDropListDropped)="drop($event)">
-        <phase-dropdown *ngFor="let phase of project.phases" [phase]="phase"></phase-dropdown>
+        <phase-dropdown *ngFor="let phase of project.phases.slice(0, project.phases.length - 1)" [phase]="phase"></phase-dropdown>
+        <phase-dropdown [phase]="project.phases[project.phases.length - 1]" [expanded]="true"></phase-dropdown>
       </div>
-      <phase-create [projectId]="project.id" [currMaxPos]="currMaxPos" (phaseSubmit)="createPhase($event)"></phase-create>
+      <phase-create (phaseSubmit)="createPhase($event)"></phase-create>
     </div>
   </div>
 </project-side-nav>

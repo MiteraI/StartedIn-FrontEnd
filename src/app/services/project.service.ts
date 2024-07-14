@@ -6,6 +6,7 @@ import { ProjectFullInfo } from "../../shared/models/project/project-full-info.m
 import { PhaseCreateModel } from "../../shared/models/project/phase-create.model";
 import { CreatedResponse } from "../../shared/models/created-response.model";
 import { PhaseMoveModel } from "../../shared/models/project/phase-move.model";
+import { ProjectList } from "../../shared/models/project/project-list.model";
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +23,12 @@ export class ProjectService {
 
   createPhase(phase: PhaseCreateModel): Observable<any> {
     return this.http.post<CreatedResponse>(this.applicationConfigService.getEndpointFor('/api/phase/create'), phase);
+  }
+
+  getTeamListProjects(teamId: string): Observable<any> {
+    return this.http.get<ProjectList[]>(
+      this.applicationConfigService.getEndpointFor(`/api/team/${teamId}/projects`)
+    );
   }
 
   movePhase(movement: PhaseMoveModel): Observable<any> {

@@ -39,7 +39,7 @@ export class PhaseDropdownComponent {
     position: 0,
     majorTasks: [],
   };
-  expanded: boolean = true;
+  @Input() expanded: boolean = false;
   currMaxPos: number = 0;
   private offset = 1 << 16; // 2^16 or 65536
 
@@ -67,10 +67,11 @@ export class PhaseDropdownComponent {
   }
 
   submitTask(task: MajorTaskCreateModel) {
-    console.log(task);
+    task.position = this.currMaxPos + this.offset;
+    task.phaseId = this.phase.id
     this.currMaxPos = task.position;
     var newItem = {
-      id: '',
+      id: "",
       taskTitle: task.taskTitle,
       description: task.description,
       position: task.position,
@@ -94,6 +95,9 @@ export class PhaseDropdownComponent {
 
   drop(event: CdkDragDrop<PhaseListItem>) {
     if (event.previousContainer === event.container) {
+      if (event.previousIndex === event.currentIndex) {
+        return;
+      }
       this.moveItem(event);
     } else {
       this.transferItem(event);
