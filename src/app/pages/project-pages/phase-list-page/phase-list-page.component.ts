@@ -54,9 +54,6 @@ export class PhaseListPageComponent {
   ngOnInit() {
     this.activeRoute.data.subscribe(data => {
       this.project = data['project'];
-      if (this.project.phases.length > 0) {
-        this.currMaxPos = this.project.phases[this.project.phases.length - 1].position;
-      }
     });
   }
 

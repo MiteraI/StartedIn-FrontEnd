@@ -39,7 +39,7 @@ export class PhaseDropdownComponent {
     position: 0,
     majorTasks: [],
   };
-  expanded: boolean = false;
+  @Input() expanded: boolean = false;
   currMaxPos: number = 0;
   private offset = 1 << 16; // 2^16 or 65536
 
