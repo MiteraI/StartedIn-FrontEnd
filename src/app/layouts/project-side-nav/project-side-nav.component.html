@@ -2,32 +2,40 @@
   <mat-drawer [opened]="opened" mode="side">
     <div class="w-[20vw]">
       <div *ngIf="opened" class="absolute right-0">
-        <button class="w-10 h-10 m-2 flex justify-center items-center rounded-full bg-white hover:bg-slate-200" (click)="toggle()">
+        <button
+          class="m-2 flex h-10 w-10 items-center justify-center rounded-full bg-white hover:bg-slate-200"
+          (click)="toggle()"
+        >
           <mat-icon fontIcon="chevron_left"></mat-icon>
         </button>
       </div>
       <div class="flex items-center">
         <img
-          class="w-10 h-10 m-2 cursor-pointer"
+          class="m-2 h-10 w-10 cursor-pointer"
           src="../../../assets/img/android-chrome-192x192.png"
           alt="app-icon"
-          routerLink="" />
-        <div class="m-2 font-black text-2xl">StartedIn</div>
+          routerLink=""
+        />
+        <div class="m-2 text-2xl font-black">StartedIn</div>
       </div>
-      <div class="flex">
-        <div class="w-full py-3 pl-10 rounded-xl font-semibold cursor-pointer hover:bg-slate-200">
-          Startups
-        </div>
+
+      <div class="">
+        <app-project-side-nav-item
+          *ngFor="let project of projectList"
+          [project]="project"
+        ></app-project-side-nav-item>
       </div>
     </div>
   </mat-drawer>
 
   <div *ngIf="!opened" class="absolute">
-    <button class="w-10 h-10 m-2 flex justify-center items-center rounded-full bg-purple-200 hover:bg-slate-200" (click)="toggle()">
+    <button
+      class="m-2 flex h-10 w-10 items-center justify-center rounded-full bg-purple-200 hover:bg-slate-200"
+      (click)="toggle()"
+    >
       <mat-icon fontIcon="chevron_right"></mat-icon>
     </button>
   </div>
 
   <ng-content></ng-content>
-
 </mat-drawer-container>
