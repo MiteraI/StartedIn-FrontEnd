@@ -13,21 +13,20 @@ import { Taskboard } from '../../../../../shared/models/task/taskboard.model';
   styleUrl: './taskboard.component.css'
 })
 export class TaskboardComponent {
-  @Input({required: true}) boardName: string = "";
-  taskList = ["Mini Task 1", "Mini Task 2", "Mini Task 3"];
-  taskboard: Taskboard = {
+  @Input({required: true}) taskboard: Taskboard = {
     id: "",
-    name: "",
+    title: "",
     position: 0,
-    tasks: []
+    phaseId: "",
+    minorTasks: []
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<Taskboard>) {
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      moveItemInArray(event.container.data.minorTasks, event.previousIndex, event.currentIndex);
     } else {
-      transferArrayItem(event.previousContainer.data,
-                        event.container.data,
+      transferArrayItem(event.previousContainer.data.minorTasks,
+                        event.container.data.minorTasks,
                         event.previousIndex,
                         event.currentIndex);
     }

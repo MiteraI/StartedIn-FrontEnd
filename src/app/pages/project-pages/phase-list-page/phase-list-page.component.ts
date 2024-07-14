@@ -13,6 +13,7 @@ import { PhaseCreateModel } from '../../../../shared/models/project/phase-create
 import { ProjectService } from '../../../services/project.service';
 import { catchError, throwError } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PhaseMoveModel } from '../../../../shared/models/project/phase-move.model';
 
 @Component({
   selector: 'app-phase-list-page',
@@ -44,6 +45,8 @@ export class PhaseListPageComponent {
   };
   currMaxPos: number = 0;
   private offset = 1 << 16 // 2^16 or 65536
+  private lowerBoundPos = 1 << 4 // 2^4 or 16
+  private upperBoundPos = 1 << 30 // 2^30 or 1,073,741,824
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -59,12 +62,16 @@ export class PhaseListPageComponent {
 
   drop(event: CdkDragDrop<PhaseListItem[]>) {
     if (event.previousIndex === event.currentIndex) {
+      // no changes
       return;
     }
+
     const phaseList = event.container.data;
     const prev = event.previousIndex;
     const phase = phaseList[prev];
     if (phase.id && phase.id.length === 0) {
+      // if id is null or empty, possibly because an add request was recently made and server hasn't returned the id,
+      // then do nothing
       this.snackBar.open("Đã xảy ra lỗi! Hãy thử lại sau.", "Close", { duration: 3000 });
       return;
     }
@@ -73,19 +80,51 @@ export class PhaseListPageComponent {
     moveItemInArray(phaseList, prev, curr);
 
     var position: number;
+    var needsReposition: boolean;
     const lastIndex = phaseList.length - 1;
     if (curr === 0) {
       // case first item, get position of previous first item divided by 2
       position = phaseList[1].position >> 1; // rightshift 1 bit is equivalent to div 2
+      // if position of item is too close to the start, update flag
+      needsReposition = position < this.lowerBoundPos;
     } else if (curr === lastIndex) {
       // case last item, get position of previous last item plus offset
       position = phaseList[lastIndex - 1].position + this.offset;
+      // if position of item is too far from the start, update flag
+      needsReposition = position > this.upperBoundPos;
     } else {
       // case between 2 items, get middle position
-      position = (phaseList[curr - 1].position + phaseList[curr + 1].position) >> 1
+      position = (phaseList[curr - 1].position + phaseList[curr + 1].position) >> 1;
+      // if position of item is too close to adjacent items, update flag
+      needsReposition = (position - phaseList[curr - 1].position < this.lowerBoundPos);
     }
-    console.log(position);
-    // TODO check pos < 2^4 and > 2^31
+    phase.position = position;
+    if (needsReposition) {
+      this.redistributePhases();
+    }
+
+    const movement: PhaseMoveModel = {
+      id: phase.id,
+      position: position,
+      needsReposition: needsReposition
+    }
+    console.log(movement);
+    this.projectService
+      .movePhase(movement)
+      .pipe(
+        catchError(error => {
+          this.snackBar.open("Đã xảy ra lỗi! Những thay đổi của bạn có thể sẽ không được lưu. Hãy tải lại trang.", "Close", { duration: 3000 });
+          return throwError(() => new Error(error.error));
+        })
+      );
+  }
+
+  redistributePhases() {
+    var newPos = this.offset;
+    for (var phase of this.project.phases) {
+      phase.position = newPos;
+      newPos += this.offset;
+    }
   }
 
   createPhase(phase: PhaseCreateModel) {

@@ -1,6 +1,6 @@
-export interface MiniTask {
+export interface MinorTask {
   id: string;
-  name: string;
+  taskTitle: string;
   description: string;
   status: string;
   position: number;

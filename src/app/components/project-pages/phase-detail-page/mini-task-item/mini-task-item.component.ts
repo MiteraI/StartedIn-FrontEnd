@@ -1,6 +1,6 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { Component, Input } from '@angular/core';
-import { MiniTask } from '../../../../../shared/models/task/mini-task.model';
+import { MinorTask } from '../../../../../shared/models/task/minor-task.model';
 
 @Component({
   selector: 'mini-task-item',
@@ -10,10 +10,9 @@ import { MiniTask } from '../../../../../shared/models/task/mini-task.model';
   styleUrl: './mini-task-item.component.css'
 })
 export class MiniTaskItemComponent {
-  @Input({required: true}) taskName: string = "";
-  task: MiniTask = {
+  @Input({required: true}) task: MinorTask = {
     id: "",
-    name: "",
+    taskTitle: "",
     description: "",
     status: "",
     position: 0

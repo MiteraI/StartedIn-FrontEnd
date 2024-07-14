@@ -1,8 +1,9 @@
-import { MiniTask } from "./mini-task.model";
+import { MinorTask } from "./minor-task.model";
 
 export interface Taskboard {
   id: string;
-  name: string;
+  title: string;
   position: number;
-  tasks: MiniTask[];
+  phaseId: string;
+  minorTasks: MinorTask[];
 }

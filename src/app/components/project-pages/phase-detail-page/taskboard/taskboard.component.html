@@ -2,11 +2,11 @@
   class="w-72 m-4 bg-white border rounded-xl"
   cdkDrag
   cdkDropList
-  [cdkDropListData]="taskList"
+  [cdkDropListData]="taskboard"
   (cdkDropListDropped)="drop($event)">
-  <div class="p-2 text-xl text-center font-semibold bg-purple-400 rounded-t-xl">{{boardName}}</div>
+  <div class="p-2 text-xl text-center font-semibold bg-purple-400 rounded-t-xl">{{taskboard.title}}</div>
   <div class="mx-2">
-    <mini-task-item *ngFor="let task of taskList" [taskName]="task"></mini-task-item>
+    <mini-task-item *ngFor="let task of taskboard.minorTasks" [task]="task"></mini-task-item>
     <div class="flex items-center justify-center my-4 bg-purple-100 border-2 border-purple-400 border-dashed rounded-lg cursor-pointer hover:bg-purple-200 hover:border-purple-600">
       <mat-icon class="scale-75" fontIcon="add"></mat-icon>
       <div class="my-2 mr-4">Add a mini task</div>

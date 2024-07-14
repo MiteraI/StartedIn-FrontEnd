@@ -13,10 +13,10 @@
         class="flex mt-5 overflow-auto whitespace-nowrap"
         cdkDropListGroup
         cdkDropList
-        [cdkDropListData]="boardList"
+        [cdkDropListData]="phase"
         (cdkDropListDropped)="drop($event)"
         cdkDropListOrientation="horizontal">
-        <taskboard *ngFor="let board of boardList" [boardName]="board"></taskboard>
+        <taskboard *ngFor="let taskboard of phase.taskboards" [taskboard]="taskboard"></taskboard>
         <taskboard-create></taskboard-create>
       </div>
     </div>
