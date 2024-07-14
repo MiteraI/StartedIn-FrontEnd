@@ -1,6 +1,6 @@
-<div class="border-margin bg-white rounded-3xl p-3 my-5 border">
-  <div class="flex items-center m-5">
-    <mat-icon fontIcon="dashboard" class="text-purple-600 scale-125"></mat-icon>
+<div class="border-margin my-5 min-h-[650px] rounded-3xl border bg-white p-3 pb-6">
+  <div class="m-5 flex items-center">
+    <mat-icon fontIcon="dashboard" class="scale-125 text-purple-600"></mat-icon>
     <div class="ml-2 text-3xl font-black text-purple-600">Dashboard</div>
   </div>
   <div class="mx-10">
@@ -13,14 +13,19 @@
       </div>
     </ng-template>
     <ng-template #showYourTeams>
-      <div *ngIf="isYourTeamsEmpty" class="text-lg font-semibold">Bạn chưa tạo dự án khởi nghiệp nào cả!</div>
-      <div *ngIf="isYourTeamsCallFailed" class="text-lg font-semibold">Lấy dữ liệu thất bại! Hãy tải lại trang</div>
-      <div *ngIf="!isYourTeamsEmpty && !isYourTeamsCallFailed">
+      <div *ngIf="yourTeams.length === 0" class="mb-4 text-lg font-semibold">
+        Bạn chưa tạo dự án khởi nghiệp nào cả!
+      </div>
+      <div *ngIf="isYourTeamsCallFailed" class="text-lg font-semibold">
+        Lấy dữ liệu thất bại! Hãy tải lại trang
+      </div>
+      <div *ngIf="yourTeams.length !== 0 && !isYourTeamsCallFailed">
         <team-project-list *ngFor="let team of yourTeams" [team]="team" />
       </div>
+      <app-create-team-button (teamCreateSubmit)="addCreatedTeam($event)"></app-create-team-button>
     </ng-template>
   </div>
-  <div class="mt-5 mx-10">
+  <div class="mx-10 mt-5">
     <div class="w-full text-2xl font-bold text-purple-500">Startup được mời vào</div>
     <div *ngIf="isLoadingGuestTeams; then loadingGuestTeams; else showGuestTeams"></div>
     <ng-template #loadingGuestTeams>
@@ -30,9 +35,13 @@
       </div>
     </ng-template>
     <ng-template #showGuestTeams>
-      <div *ngIf="isGuestTeamsEmpty" class="text-lg font-semibold">Bạn chưa được mời vào dự án startup nào cả!</div>
-      <div *ngIf="isGuestTeamsCallFailed" class="text-lg font-semibold">Lấy dữ liệu thất bại! Hãy tải lại trang</div>
-      <div *ngIf="!isGuestTeamsEmpty && !isGuestTeamsCallFailed">
+      <div *ngIf="guestTeams.length === 0" class="text-lg font-semibold">
+        Bạn chưa được mời vào dự án startup nào cả!
+      </div>
+      <div *ngIf="isGuestTeamsCallFailed" class="text-lg font-semibold">
+        Lấy dữ liệu thất bại! Hãy tải lại trang
+      </div>
+      <div *ngIf="guestTeams.length !== 0 && !isGuestTeamsCallFailed">
         <team-project-list *ngFor="let team of guestTeams" [team]="team" />
       </div>
     </ng-template>
