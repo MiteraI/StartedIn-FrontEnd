@@ -5,6 +5,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { TeamService } from '../../services/team.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TeamProjectDetails } from '../../../shared/models/project/team/team-project-details.model';
+import { MatDialog } from '@angular/material/dialog';
+import { TeamInviteDialogComponent } from '../../dialogs/team-invite-dialog/team-invite-dialog.component';
 
 @Component({
   selector: 'project-side-nav',
@@ -24,7 +26,8 @@ export class ProjectSideNavComponent implements OnInit {
 
   constructor(
     private teamService: TeamService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -35,5 +38,9 @@ export class ProjectSideNavComponent implements OnInit {
       .getTeamById(this.teamId)
       .pipe()
       .subscribe(response => (this.teamProjectDetails = response));
+  }
+
+  openMemberInviteDialog() {
+    this.dialog.open(TeamInviteDialogComponent, { width: '250px' });
   }
 }

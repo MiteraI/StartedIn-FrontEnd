@@ -3,6 +3,7 @@ import { DefaultHomeGuard } from '../shared/guards/defaulthome.guard';
 import { AuthenticatedGuard } from '../shared/guards/authenticated.guard';
 import { platformUserProfileResolver } from '../shared/resolvers/platform-user-profile.resolver';
 import { projectDetailResolver } from '../shared/resolvers/project-detail.resolver';
+import { teamInviteResolver } from '../shared/resolvers/team-invite.resolver';
 
 export const routes: Routes = [
   {
@@ -127,5 +128,11 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/project-pages/project-list-page/project-list-page.component').then(c => c.ProjectListPageComponent),
     title: "Startups"
+  },
+  {
+    path: 'invite/:id',
+    resolve: {teamInviteView: teamInviteResolver},
+    loadComponent: () =>
+      import('./pages/team-invite-page/team-invite-page.component').then(c => c.TeamInvitePageComponent),
   }
 ];

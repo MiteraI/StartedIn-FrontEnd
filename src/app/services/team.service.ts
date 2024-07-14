@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { ProjectTeam } from '../../shared/models/project/project-team.model';
 import { CreateTeamRequest } from '../../shared/models/project/team/create-team-request.model';
 import { TeamProjectDetails } from '../../shared/models/project/team/team-project-details.model';
+import { TeamInviteView } from '../../shared/models/project/team/team-invite-view.model';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +30,13 @@ export class TeamService {
     );
   }
 
+  // For anonymous user to view team invitation
+  viewTeamById(teamId: string): Observable<TeamInviteView> {
+    return this.http.get<TeamInviteView>(
+      this.applicationConfigService.getEndpointFor(`/api/invite/view/${teamId}`)
+    );
+  }
+
   getYourTeams(): Observable<any> {
     return this.http.get<ProjectTeam[]>(
       this.applicationConfigService.getEndpointFor('/api/teams/user-leader-team')
@@ -38,6 +46,13 @@ export class TeamService {
   getGuestTeams(): Observable<any> {
     return this.http.get<ProjectTeam[]>(
       this.applicationConfigService.getEndpointFor('/api/teams/user-guest-team')
+    );
+  }
+
+  joinTeamByTeamId(teamId: string): Observable<any> {
+    return this.http.post(
+      this.applicationConfigService.getEndpointFor(`/api/teams/add/${teamId}`),
+      null
     );
   }
 }

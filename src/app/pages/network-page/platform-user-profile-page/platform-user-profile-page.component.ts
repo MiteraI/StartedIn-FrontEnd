@@ -13,12 +13,11 @@ import { ConnectButtonComponent } from '../../../components/network-page/connect
 })
 export class PlatformUserProfilePageComponent implements OnInit {
   account: AccountProfile | null = null;
-  constructor(private activeRoute: ActivatedRoute) {}
+  constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
-    this.activeRoute.data.subscribe(data => {
+    this.activatedRoute.data.subscribe(data => {
       this.account = data['account'];
-      console.log('Account profile:', this.account);
     });
   }
 }
