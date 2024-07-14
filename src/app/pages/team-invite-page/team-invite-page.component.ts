@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TeamInviteView } from '../../../shared/models/project/team/team-invite-view.model';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AccountService } from '../../core/auth/account.service';
 import { CommonModule } from '@angular/common';
 import { TeamService } from '../../services/team.service';
@@ -21,6 +21,7 @@ export class TeamInvitePageComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private accountService: AccountService,
+    private router: Router,
     private teamService: TeamService,
     private snackBar: MatSnackBar
   ) {}
@@ -47,7 +48,10 @@ export class TeamInvitePageComponent implements OnInit {
             return error;
           })
         )
-        .subscribe();
+        .subscribe(() => {
+          this.snackBar.open('Bạn đã gia nhập nhóm thành công', 'Đóng', { duration: 3000 });
+          this.router.navigate(['/projects'])
+        });
     }
   }
 }
