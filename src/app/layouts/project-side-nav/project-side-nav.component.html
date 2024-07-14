@@ -19,6 +19,16 @@
         <div class="m-2 text-2xl font-black">StartedIn</div>
       </div>
 
+      <div>
+        <div class="m-2 flex items-center">
+          <div class="ml-2 text-lg font-bold">Dự án của bạn</div>
+          <mat-icon
+            class="ml-auto scale-125 rounded-full cursor-pointer hover:bg-slate-200"
+            fontIcon="add"
+          ></mat-icon>
+        </div>
+      </div>
+
       <div class="">
         <app-project-side-nav-item
           *ngFor="let project of projectList"
