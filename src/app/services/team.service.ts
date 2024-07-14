@@ -51,7 +51,7 @@ export class TeamService {
 
   joinTeamByTeamId(teamId: string): Observable<any> {
     return this.http.post(
-      this.applicationConfigService.getEndpointFor(`/api/teams/add/${teamId}`),
+      this.applicationConfigService.getEndpointFor(`/api/invite/add/${teamId}`),
       null
     );
   }

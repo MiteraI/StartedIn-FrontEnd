@@ -9,7 +9,7 @@
           <mat-icon fontIcon="chevron_left"></mat-icon>
         </button>
       </div>
-      <div class="flex items-center">
+      <div class="mb-6 flex items-center">
         <img
           class="m-2 h-10 w-10 cursor-pointer"
           src="../../../assets/img/android-chrome-192x192.png"
@@ -21,22 +21,55 @@
 
       <div>
         <div class="m-2 flex items-center">
+          <div class="ml-2 text-lg font-bold">Thành viên nhóm</div>
+          <button class="ml-auto flex items-center" (click)="toggleTeamMemberOpened()">
+            <mat-icon
+              *ngIf="!isTeamMemberOpened"
+              class="scale-125 cursor-pointer rounded-full hover:bg-slate-200"
+              fontIcon="expand_more"
+            ></mat-icon>
+            <mat-icon
+              *ngIf="isTeamMemberOpened"
+              class="scale-125 cursor-pointer rounded-full hover:bg-slate-200"
+              fontIcon="expand_less"
+            ></mat-icon>
+          </button>
+        </div>
+        <div class="flex flex-col" *ngIf="isTeamMemberOpened">
+          <div class="flex flex-col">
+            <p class="my-2 text-center" *ngFor="let member of teamProjectDetails?.users">
+              {{ member }}
+            </p>
+          </div>
+          <div class="mt-2 flex items-center justify-center">
+            <p class="text-purple-700">Mời thành viên&nbsp;</p>
+            <button class="flex items-center" (click)="openMemberInviteDialog()">
+              <mat-icon
+                class="scale-25 cursor-pointer rounded-full hover:bg-slate-200"
+                fontIcon="add"
+              ></mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="m-2 flex items-center">
           <div class="ml-2 text-lg font-bold">Dự án của bạn</div>
           <mat-icon
-            class="ml-auto scale-125 rounded-full cursor-pointer hover:bg-slate-200"
+            class="ml-auto scale-125 cursor-pointer rounded-full hover:bg-slate-200"
             fontIcon="add"
           ></mat-icon>
         </div>
       </div>
 
-      <div class="">
+      <div>
         <app-project-side-nav-item
-          *ngFor="let project of projectList"
+          *ngFor="let project of teamProjectDetails?.projects"
           [project]="project"
         ></app-project-side-nav-item>
       </div>
     </div>
-    <div (click)="openMemberInviteDialog()">Open Dialog</div>
   </mat-drawer>
 
   <div *ngIf="!opened" class="absolute">

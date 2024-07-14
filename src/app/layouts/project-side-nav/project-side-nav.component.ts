@@ -25,13 +25,12 @@ export class ProjectSideNavComponent implements OnInit {
     this.opened = !this.opened;
   }
 
+  isTeamMemberOpened: boolean = true;
   teamProjectDetails: TeamProjectDetails | null = null;
-  projectList: ProjectList[] = [];
 
   constructor(
     private teamService: TeamService,
     private dialog: MatDialog,
-    private projectService: ProjectService,
     private snackBar: MatSnackBar
   ) {}
 
@@ -43,14 +42,13 @@ export class ProjectSideNavComponent implements OnInit {
       .getTeamById(this.teamId)
       .pipe()
       .subscribe(response => (this.teamProjectDetails = response));
-
-    this.projectService
-      .getTeamListProjects(this.teamId)
-      .pipe()
-      .subscribe(response => (this.projectList = response));
   }
 
   openMemberInviteDialog() {
     this.dialog.open(TeamInviteDialogComponent, { width: '250px' });
+  }
+
+  toggleTeamMemberOpened() {
+    this.isTeamMemberOpened = !this.isTeamMemberOpened;
   }
 }

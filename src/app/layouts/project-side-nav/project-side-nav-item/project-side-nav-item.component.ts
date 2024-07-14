@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { ProjectList } from '../../../../shared/models/project/project-list.model';
 import { RouterModule, RouterOutlet } from '@angular/router';
+import { ProjectBasicInfo } from '../../../../shared/models/project/project-basic-info.model';
 
 @Component({
   selector: 'app-project-side-nav-item',
@@ -10,5 +10,5 @@ import { RouterModule, RouterOutlet } from '@angular/router';
   styleUrl: './project-side-nav-item.component.css',
 })
 export class ProjectSideNavItemComponent {
-  @Input({ required: true }) project: ProjectList | null = null;
+  @Input({ required: true }) project: ProjectBasicInfo | null = null;
 }
