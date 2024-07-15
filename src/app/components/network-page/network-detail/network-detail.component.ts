@@ -27,8 +27,7 @@ export class NetworkDetailComponent {
   currentPage: number = 1;
   itemsPerPage: number = 4;
 
-  constructor(private networkService: NetworkService) {
-  }
+  constructor(private networkService: NetworkService) {}
 
   toggleLoading = () => (this.finished = !this.finished);
 
@@ -40,7 +39,12 @@ export class NetworkDetailComponent {
   loadData() {
     this.toggleLoading();
     this.networkService.getNetworkProfiles(this.currentPage, this.itemsPerPage).subscribe({
-      next: response => (this.networkDetails = response),
+      next: response => {
+        this.networkDetails = response;
+        if (response.length < this.itemsPerPage) {
+          this.endOfList = true;
+        }
+      },
       error: error => {
         console.error(error);
         this.endOfList = true;
@@ -53,7 +57,12 @@ export class NetworkDetailComponent {
   appendData() {
     this.toggleLoading();
     this.networkService.getNetworkProfiles(this.currentPage, this.itemsPerPage).subscribe({
-      next: response => (this.networkDetails = [...this.networkDetails, ...response]),
+      next: response => {
+        this.networkDetails = [...this.networkDetails, ...response];
+        if (response.length < this.itemsPerPage) {
+          this.endOfList = true;
+        }
+      },
       error: error => {
         console.error(error);
         this.endOfList = true;

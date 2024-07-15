@@ -39,7 +39,12 @@ export class SentInvitationComponent {
 
   loadData() {
     this.networkService.getSentInvitations(this.currentPage, this.itemsPerPage).subscribe({
-      next: response => (this.invitations = response),
+      next: response => {
+        this.invitations = response;
+        if (response.length < this.itemsPerPage) {
+          this.endOfList = true;
+        }
+      },
       error: error => {
         console.error(error);
         this.endOfList = true;
@@ -51,7 +56,12 @@ export class SentInvitationComponent {
   appendData() {
     this.toggleLoading();
     this.networkService.getSentInvitations(this.currentPage, this.itemsPerPage).subscribe({
-      next: response => (this.invitations = [...this.invitations, ...response]),
+      next: response => {
+        this.invitations = [...this.invitations, ...response];
+        if (response.length < this.itemsPerPage) {
+          this.endOfList = true;
+        }
+      },
       error: error => {
         console.error(error);
         this.endOfList = true;
