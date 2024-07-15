@@ -24,6 +24,17 @@ export class TeamService {
     );
   }
 
+  // Send mail invitation to other user to join team
+  sendInvitationToUserEmails(emailList: string[], teamId: string): Observable<any> {
+    return this.http.post(
+      this.applicationConfigService.getEndpointFor(`/api/teams/team-invitation/${teamId}`),
+      emailList,
+      {
+        responseType: 'text' as 'json',
+      }
+    );
+  }
+
   getTeamById(teamId: string): Observable<TeamProjectDetails> {
     return this.http.get<TeamProjectDetails>(
       this.applicationConfigService.getEndpointFor(`/api/teams/${teamId}`)

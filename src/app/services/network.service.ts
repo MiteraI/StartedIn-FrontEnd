@@ -79,9 +79,9 @@ export class NetworkService {
     );
   }
 
-  getUserConnectionList(pageIndex: number = 1, pageSize: number = 10): Observable<any> {
+  getUserConnectionList(pageIndex: number = 1, pageSize: number = 10): Observable<ConnectedUser[]> {
     const query = `pageIndex=${pageIndex}&pageSize=${pageSize}`;
-    return this.http.get<ConnectedUser>(
+    return this.http.get<ConnectedUser[]>(
       this.appConfigService.getEndpointFor(`/api/connect/user-connection-list?${query}`)
     );
   }
