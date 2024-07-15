@@ -43,7 +43,7 @@ export class PhaseListPageComponent {
     },
     phases: []
   };
-  currMaxPos: number = 0;
+  private currMaxPos: number = 0;
   private offset = 1 << 16 // 2^16 or 65536
   private lowerBoundPos = 1 << 4 // 2^4 or 16
   private upperBoundPos = 1 << 30 // 2^30 or 1,073,741,824
@@ -108,7 +108,6 @@ export class PhaseListPageComponent {
       position: position,
       needsReposition: needsReposition
     }
-    console.log(movement);
     this.projectService
       .movePhase(movement)
       .pipe(
@@ -116,7 +115,8 @@ export class PhaseListPageComponent {
           this.snackBar.open("Đã xảy ra lỗi! Những thay đổi của bạn có thể sẽ không được lưu. Hãy tải lại trang.", "Close", { duration: 3000 });
           return throwError(() => new Error(error.error));
         })
-      );
+      )
+      .subscribe();
   }
 
   redistributePhases() {

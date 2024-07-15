@@ -5,6 +5,8 @@ import { MajorTaskCreateModel } from "../../shared/models/task/major-task-create
 import { BehaviorSubject, Observable } from "rxjs";
 import { CreatedResponse } from "../../shared/models/created-response.model";
 import { MajorTaskMoveModel } from "../../shared/models/task/major-task-move.model";
+import { TaskboardMoveModel } from "../../shared/models/task/taskboard-move.model";
+import { MinorTaskMoveModel } from "../../shared/models/task/minor-task-move.model";
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +22,14 @@ export class TaskService {
   }
 
   moveMajorTask(movement: MajorTaskMoveModel): Observable<any> {
-    return new BehaviorSubject<boolean>(true).asObservable();
+    return this.http.put(this.applicationConfigService.getEndpointFor('/api/majortask/move'), movement);
+  }
+
+  moveTaskboard(movement: TaskboardMoveModel): Observable<any> {
+    return this.http.put(this.applicationConfigService.getEndpointFor('/api/taskboard/move'), movement);
+  }
+
+  moveMinorTask(movement: MinorTaskMoveModel): Observable<any> {
+    return this.http.put(this.applicationConfigService.getEndpointFor('/api/minortask/move'), movement);
   }
 }

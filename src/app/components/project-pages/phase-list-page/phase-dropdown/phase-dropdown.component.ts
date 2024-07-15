@@ -41,7 +41,7 @@ export class PhaseDropdownComponent {
     majorTasks: [],
   };
   @Input() expanded: boolean = false;
-  currMaxPos: number = 0;
+  private currMaxPos: number = 0;
   private offset = 1 << 16; // 2^16 or 65536
   private lowerBoundPos = 1 << 4; // 2^4 or 16
   private upperBoundPos = 1 << 30; // 2^30 or 1,073,741,824
@@ -143,7 +143,7 @@ export class PhaseDropdownComponent {
     }
     task.position = position;
     if (needsReposition) {
-      this.redistributePhases();
+      this.redistributeTasks();
     }
 
     const movement: MajorTaskMoveModel = {
@@ -152,7 +152,6 @@ export class PhaseDropdownComponent {
       phaseId: this.phase.id,
       needsReposition: needsReposition,
     };
-    console.log(movement);
     this.taskService.moveMajorTask(movement).pipe(
       catchError(error => {
         this.snackBar.open(
@@ -202,7 +201,7 @@ export class PhaseDropdownComponent {
     }
     task.position = position;
     if (needsReposition) {
-      this.redistributePhases();
+      this.redistributeTasks();
     }
 
     const movement: MajorTaskMoveModel = {
@@ -211,7 +210,6 @@ export class PhaseDropdownComponent {
       phaseId: this.phase.id,
       needsReposition: needsReposition,
     };
-    console.log(movement);
     this.taskService.moveMajorTask(movement).pipe(
       catchError(error => {
         this.snackBar.open(
@@ -224,7 +222,7 @@ export class PhaseDropdownComponent {
     );
   }
 
-  redistributePhases() {
+  redistributeTasks() {
     var newPos = this.offset;
     for (var task of this.phase.majorTasks) {
       task.position = newPos;

@@ -1,0 +1,13 @@
+.cdk-drag-placeholder {
+  --tw-bg-opacity: 1;
+  background-color: rgb(226 232 240 / var(--tw-bg-opacity));
+}
+
+.cdk-drag-placeholder * {
+  opacity: 0;
+}
+
+.cdk-drag-preview {
+  rotate: 3deg;
+  opacity: 0.5;
+}

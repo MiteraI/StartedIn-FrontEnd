@@ -157,7 +157,7 @@ export class ProjectService {
   }
 
   movePhase(movement: PhaseMoveModel): Observable<any> {
-    return new BehaviorSubject<boolean>(true).asObservable();
+    return this.http.put(this.applicationConfigService.getEndpointFor('/api/phase/move'), movement);
   }
 
   getPhaseDetail(id: string): Observable<any> {
