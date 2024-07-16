@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TaskService } from '../../../services/task.service';
 import { TaskboardMoveModel } from '../../../../shared/models/task/taskboard-move.model';
 import { catchError, throwError } from 'rxjs';
+import { TaskboardCreateModel } from '../../../../shared/models/task/taskboard-create.model';
 
 @Component({
   selector: 'app-phase-detail-page',
@@ -47,6 +48,9 @@ export class PhaseDetailPageComponent {
   ngOnInit() {
     this.activeRoute.data.subscribe(data => {
       this.phase = data['phase'];
+      if (this.phase.taskboards.length > 0) {
+        this.currMaxPos = this.phase.taskboards[this.phase.taskboards.length - 1].position;
+      }
     });
   }
 
@@ -110,10 +114,39 @@ export class PhaseDetailPageComponent {
   }
 
   redistributeTaskboards() {
-    var newPos = this.offset;
+    var newPos = 0;
     for (var taskboard of this.phase.taskboards) {
-      taskboard.position = newPos;
       newPos += this.offset;
+      taskboard.position = newPos;
     }
+    this.currMaxPos = newPos;
+  }
+
+  createTaskboard(taskboard: TaskboardCreateModel) {
+    taskboard.position = this.currMaxPos + this.offset;
+    taskboard.phaseId = this.phase.id;
+    this.currMaxPos = taskboard.position;
+    var newItem = {
+      id: "",
+      position: taskboard.position,
+      title: taskboard.title,
+      phaseId: taskboard.phaseId,
+      minorTasks: []
+    };
+    this.phase.taskboards.push(newItem);
+    this.taskService
+      .createTaskboard(taskboard)
+      .pipe(
+        catchError(error => {
+          this.snackBar.open("Đã xảy ra lỗi! Hãy thử lại sau.", "Close", { duration: 3000 });
+          var index = this.phase.taskboards.indexOf(newItem);
+          if (index !== -1) {
+            this.phase.taskboards.splice(index, 1);
+          }
+          return throwError(() => new Error(error.error));
+        })
+      )
+      .subscribe(response => newItem.id = response.id);
+      // TODO IMPORTANT check id empty before edit & move position
   }
 }

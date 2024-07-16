@@ -1,5 +1,41 @@
-<div class="w-72 m-4 flex items-center justify-center bg-purple-100 border-2 border-purple-400 border-dashed rounded-xl cursor-pointer hover:bg-purple-200 hover:border-purple-600">
-  <mat-icon fontIcon="add"></mat-icon>
-  <div class="my-2 mr-4 font-semibold">New taskboard</div>
-</div>
+<div *ngIf="isModalOpen; then modalOpened; else modalClosed"></div>
+<ng-template #modalClosed>
+  <div
+    class="m-4 flex w-72 cursor-pointer items-center justify-center rounded-xl border-2 border-dashed border-purple-400 bg-purple-100 hover:border-purple-600 hover:bg-purple-200"
+    (click)="showModal($event)"
+  >
+    <mat-icon fontIcon="add"></mat-icon>
+    <div class="my-2 mr-4 font-semibold">Tạo bảng mới</div>
+  </div>
+</ng-template>
 
+<ng-template #modalOpened>
+  <form [formGroup]="taskboardCreateForm" (ngSubmit)="onSubmit()" (clickOutside)="hideModal()">
+    <div class="m-4 w-72 rounded-xl border bg-white">
+      <div class="cursor-pointer rounded-t-xl bg-purple-300 p-2">
+        <input
+          type="text"
+          id="title"
+          formControlName="title"
+          placeholder="Nhập tên bảng..."
+          class="mx-2 border-0 bg-transparent text-xl font-semibold placeholder:text-slate-400 focus:outline-none"
+          [cdkTrapFocusAutoCapture]="isModalOpen"
+          [cdkTrapFocus]="isModalOpen"
+        />
+      </div>
+      <div class="mx-2 flex">
+        <button
+          class="m-2 h-10 cursor-pointer rounded-md px-4 py-2 font-semibold hover:bg-purple-100"
+        >
+          Tạo bảng
+        </button>
+        <div
+          class="my-2 h-10 cursor-pointer rounded-md p-2 font-semibold hover:bg-red-200"
+          (click)="hideModal()"
+        >
+          <mat-icon fontIcon="close"></mat-icon>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-template>

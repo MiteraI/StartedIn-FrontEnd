@@ -57,6 +57,9 @@ export class PhaseListPageComponent {
   ngOnInit() {
     this.activeRoute.data.subscribe(data => {
       this.project = data['project'];
+      if (this.project.phases.length > 0) {
+        this.currMaxPos = this.project.phases[this.project.phases.length - 1].position;
+      }
     });
   }
 
@@ -120,11 +123,12 @@ export class PhaseListPageComponent {
   }
 
   redistributePhases() {
-    var newPos = this.offset;
+    var newPos = 0;
     for (var phase of this.project.phases) {
-      phase.position = newPos;
       newPos += this.offset;
+      phase.position = newPos;
     }
+    this.currMaxPos = newPos;
   }
 
   createPhase(phase: PhaseCreateModel) {
