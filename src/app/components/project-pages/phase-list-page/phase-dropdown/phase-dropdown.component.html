@@ -2,7 +2,7 @@
   <div class="flex items-center bg-gray-600 text-white rounded-2xl" (click)="toggleExpand()">
     <div class="px-2 py-8 bg-purple-400 rounded-s-xl"></div>
     <div class="mx-4 flex-grow flex items-center">
-      <a class="text-3xl font-bold cursor-pointer" routerLink="/phase/1">{{phase.phaseName}}</a>
+      <a class="text-3xl font-bold cursor-pointer" [routerLink]="['/phase', phase.id]">{{phase.phaseName}}</a>
       <mat-icon class="ml-2 scale-75 cursor-pointer hover:bg-gray-500" fontIcon="edit" (click)="showEditPopup($event)"></mat-icon>
       <mat-icon class="scale-75 cursor-pointer hover:bg-gray-500" fontIcon="delete" (click)="showDeletePopup($event)"></mat-icon>
       <div class="flex-grow"></div>

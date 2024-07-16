@@ -5,6 +5,7 @@ import { platformUserProfileResolver } from '../shared/resolvers/platform-user-p
 import { projectDetailResolver } from '../shared/resolvers/project-detail.resolver';
 import { teamInviteResolver } from '../shared/resolvers/team-invite.resolver';
 import { currentUserProfileResolver } from '../shared/resolvers/current-user-profile.resolver';
+import { phaseDetailResolver } from '../shared/resolvers/phase-detail.resolver';
 
 export const routes: Routes = [
   {
@@ -111,6 +112,7 @@ export const routes: Routes = [
   },
   {
     path: 'project/:id',
+    canActivate: [AuthenticatedGuard],
     resolve: { project: projectDetailResolver },
     loadComponent: () =>
       import('./pages/project-pages/phase-list-page/phase-list-page.component').then(
@@ -119,7 +121,9 @@ export const routes: Routes = [
     title: 'StartedIn',
   },
   {
-    path: 'phase/1',
+    path: 'phase/:id',
+    canActivate: [AuthenticatedGuard],
+    resolve: { phase: phaseDetailResolver},
     loadComponent: () =>
       import('./pages/project-pages/phase-detail-page/phase-detail-page.component').then(
         c => c.PhaseDetailPageComponent

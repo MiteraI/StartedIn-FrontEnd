@@ -45,7 +45,24 @@ export class ProjectSideNavComponent implements OnInit {
   }
 
   openMemberInviteDialog() {
-    this.dialog.open(TeamInviteDialogComponent, { width: '250px' });
+    const dialogRef = this.dialog.open<TeamInviteDialogComponent, any, string[]>(
+      TeamInviteDialogComponent,
+      {
+        width: '50%',
+        data: this.teamProjectDetails?.users,
+      }
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.length > 0 && this.teamProjectDetails) {
+        this.teamService
+          .sendInvitationToUserEmails(result, this.teamProjectDetails.id)
+          .pipe()
+          .subscribe(response => {
+            this.snackBar.open(response, 'Đóng', { duration: 3000 });
+          });
+      }
+    });
   }
 
   toggleTeamMemberOpened() {

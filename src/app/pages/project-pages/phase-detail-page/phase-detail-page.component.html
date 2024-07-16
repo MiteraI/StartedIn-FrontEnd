@@ -4,9 +4,7 @@
       <div class="mt-5 flex items-center bg-gray-600 text-white rounded-2xl">
         <div class="px-2 py-8 bg-gray-600 rounded-s-xl"></div>
         <div class="mx-4 flex-grow flex items-center">
-          <a class="text-3xl font-bold cursor-pointer">Idea Phase</a>
-          <mat-icon class="ml-2 scale-75 cursor-pointer hover:bg-gray-500" fontIcon="edit"></mat-icon>
-          <mat-icon class="scale-75 cursor-pointer hover:bg-gray-500" fontIcon="delete"></mat-icon>
+          <a class="text-3xl font-bold cursor-pointer">{{phase.phaseName}}</a>
         </div>
       </div>
       <div
@@ -17,7 +15,7 @@
         (cdkDropListDropped)="drop($event)"
         cdkDropListOrientation="horizontal">
         <taskboard *ngFor="let taskboard of phase.taskboards" [taskboard]="taskboard"></taskboard>
-        <taskboard-create></taskboard-create>
+        <taskboard-create (taskboardSubmit)="createTaskboard($event)"></taskboard-create>
       </div>
     </div>
   </div>
