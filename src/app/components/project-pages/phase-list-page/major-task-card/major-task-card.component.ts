@@ -5,6 +5,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { EditMajorTaskDialogComponent } from '../../../../dialogs/project/edit-major-task-dialog/edit-major-task-dialog.component';
+import { firstValueFrom } from 'rxjs';
+import { TaskService } from '../../../../services/task.service';
 
 @Component({
   selector: 'major-task-card',
@@ -22,12 +24,23 @@ export class MajorTaskCardComponent {
   };
   @Input() progress: number = 40;
 
-  constructor(private dialog: MatDialog) {}
-  openEditMajorTaskDialog() {
+  constructor(
+    private dialog: MatDialog,
+    private taskService: TaskService
+  ) {}
+  async openEditMajorTaskDialog() {
+    const resolvedData = await firstValueFrom(this.taskService.getMajorTaskById(this.task.id));
     const dialogRef = this.dialog.open(EditMajorTaskDialogComponent, {
       data: {
-        task: this.task,
+        task: resolvedData,
       },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if (result) {
+        this.task.taskTitle = result.title;
+      }
     });
   }
 }

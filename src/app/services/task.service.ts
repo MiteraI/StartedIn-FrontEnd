@@ -1,15 +1,16 @@
-import { HttpClient } from "@angular/common/http";
-import { ApplicationConfigService } from "../core/config/application-config.service";
-import { Injectable } from "@angular/core";
-import { MajorTaskCreateModel } from "../../shared/models/task/major-task-create.model";
-import { Observable } from "rxjs";
-import { CreatedResponse } from "../../shared/models/created-response.model";
-import { MajorTaskMoveModel } from "../../shared/models/task/major-task-move.model";
-import { TaskboardMoveModel } from "../../shared/models/task/taskboard-move.model";
-import { MinorTaskMoveModel } from "../../shared/models/task/minor-task-move.model";
-import { TaskboardCreateModel } from "../../shared/models/task/taskboard-create.model";
-import { MinorTaskCreateModel } from "../../shared/models/task/minor-task-create.model";
+import { HttpClient } from '@angular/common/http';
+import { ApplicationConfigService } from '../core/config/application-config.service';
+import { Injectable } from '@angular/core';
+import { MajorTaskCreateModel } from '../../shared/models/task/major-task-create.model';
+import { Observable } from 'rxjs';
+import { CreatedResponse } from '../../shared/models/created-response.model';
+import { MajorTaskMoveModel } from '../../shared/models/task/major-task-move.model';
+import { TaskboardMoveModel } from '../../shared/models/task/taskboard-move.model';
+import { MinorTaskMoveModel } from '../../shared/models/task/minor-task-move.model';
+import { TaskboardCreateModel } from '../../shared/models/task/taskboard-create.model';
+import { MinorTaskCreateModel } from '../../shared/models/task/minor-task-create.model';
 import { MajorTaskDialogInfo } from '../../shared/models/task/major-task-dialog-info.model';
+import { MajorTaskEditInfo } from '../../shared/models/task/major-task-edit-info.model';
 
 @Injectable({
   providedIn: 'root',
@@ -28,28 +29,47 @@ export class TaskService {
   }
 
   createTaskboard(taskboard: TaskboardCreateModel): Observable<any> {
-    return this.http.post<CreatedResponse>(this.applicationConfigService.getEndpointFor('/api/taskboard/create'), taskboard);
+    return this.http.post<CreatedResponse>(
+      this.applicationConfigService.getEndpointFor('/api/taskboard/create'),
+      taskboard
+    );
   }
 
   createMinorTask(task: MinorTaskCreateModel): Observable<any> {
-    return this.http.post<CreatedResponse>(this.applicationConfigService.getEndpointFor('/api/minortask/create'), task);
+    return this.http.post<CreatedResponse>(
+      this.applicationConfigService.getEndpointFor('/api/minortask/create'),
+      task
+    );
   }
 
   moveMajorTask(movement: MajorTaskMoveModel): Observable<any> {
-    return this.http.put(this.applicationConfigService.getEndpointFor('/api/majortask/move'), movement);
+    return this.http.put(
+      this.applicationConfigService.getEndpointFor('/api/majortask/move'),
+      movement
+    );
   }
 
   moveTaskboard(movement: TaskboardMoveModel): Observable<any> {
-    return this.http.put(this.applicationConfigService.getEndpointFor('/api/taskboard/move'), movement);
+    return this.http.put(
+      this.applicationConfigService.getEndpointFor('/api/taskboard/move'),
+      movement
+    );
   }
 
   moveMinorTask(movement: MinorTaskMoveModel): Observable<any> {
-    return this.http.put(this.applicationConfigService.getEndpointFor('/api/minortask/move'), movement);
+    return this.http.put(
+      this.applicationConfigService.getEndpointFor('/api/minortask/move'),
+      movement
+    );
   }
 
   getMajorTaskById(id: string): Observable<any> {
     return this.http.get<MajorTaskDialogInfo>(
       this.applicationConfigService.getEndpointFor(`/api/majortask/${id}`)
     );
+  }
+
+  editMajorTask(task: MajorTaskEditInfo): Observable<any> {
+    return this.http.put(this.applicationConfigService.getEndpointFor('/api/majortask/edit'), task);
   }
 }

@@ -1,26 +1,57 @@
 <div class="m-6 flex h-[600px] w-[800px] flex-row overflow-auto">
-  <div class="mr-4 w-4/5 bg-slate-100">
-    <h1 class="text-3xl font-semibold">{{ taskDialog?.majorTask?.taskTitle }}</h1>
+  <div class="mr-4 w-4/5">
+    <input
+      type="text"
+      class="w-full rounded-md border-none bg-transparent text-3xl font-semibold focus:border"
+      [(ngModel)]="majorTask.taskTitle"
+      placeholder="Enter task title"
+      (blur)="saveMajorTitle()"
+    />
 
     <div class="mt-4 flex w-full text-purple-400">
       <mat-icon>menu</mat-icon>
       <div class="ml-2 w-full">
         <h2 class="text-xl font-semibold">Mô tả</h2>
-        <p class="mt-2 rounded-lg bg-purple-400 bg-opacity-5 p-5 text-[#a99fbf]">
-          dsadasd{{ taskDialog?.majorTask?.description }}
-        </p>
+        <textarea
+          class="mt-2 w-full rounded-lg border bg-purple-400 bg-opacity-5 p-5 placeholder-[#a99fbf]"
+          placeholder="Mô tả về công việc..."
+          (focus)="onDescriptionFocus()"
+          (blur)="onDescriptionBlur()"
+          [(ngModel)]="majorTask.description"
+        ></textarea>
+        <button
+          *ngIf="showSaveButton"
+          class="mt-2 rounded-md bg-purple-400 px-4 py-2 text-white"
+          (click)="saveMajorTask()"
+        >
+          Save
+        </button>
       </div>
     </div>
     <div class="mt-4 flex w-full text-purple-400">
       <mat-icon>menu</mat-icon>
       <div class="ml-2 w-full">
-        <h2 class="text-xl font-semibold mb-2">Task nhỏ</h2>
+        <h2 class="mb-2 text-xl font-semibold">Task nhỏ</h2>
         <app-minor-task-title-card
           *ngFor="let minorTask of taskDialog?.minorTasks"
           [minorTask]="minorTask"
         ></app-minor-task-title-card>
       </div>
     </div>
+    <div class="mt-4 text-purple-400">
+      <div class="flex">
+        <mat-icon>menu</mat-icon>
+        <h2 class="text-lg">Comments</h2>
+      </div>
+      <div class="mt-2 flex items-center">
+        <div class="mr-3 size-5 rounded-full bg-red-500"></div>
+        <input
+          type="text"
+          class="w-full rounded-md border border-gray-300 bg-gray-100 p-3 placeholder-gray-500"
+          placeholder="Write a comment..."
+        />
+      </div>
+    </div>
   </div>
-  <div class="w-1/5 bg-slate-600">yes yes</div>
+  <div class="w-1/5">Add to card</div>
 </div>

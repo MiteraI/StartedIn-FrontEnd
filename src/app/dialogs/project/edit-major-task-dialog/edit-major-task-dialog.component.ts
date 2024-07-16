@@ -5,16 +5,26 @@ import { CommonModule } from '@angular/common';
 import { TaskService } from '../../../services/task.service';
 import { MajorTaskDialogInfo } from '../../../../shared/models/task/major-task-dialog-info.model';
 import { MinorTaskTitleCardComponent } from '../../../components/project-pages/phase-list-page/minor-task-title-card/minor-task-title-card.component';
+import { FormsModule } from '@angular/forms';
+import { MajorTaskBasicInfo } from '../../../../shared/models/task/major-task-basic-info.model';
+import { MajorTaskEditInfo } from '../../../../shared/models/task/major-task-edit-info.model';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-edit-major-task-dialog',
   standalone: true,
-  imports: [MatIconModule, CommonModule, MinorTaskTitleCardComponent],
+  imports: [MatIconModule, CommonModule, MinorTaskTitleCardComponent, FormsModule],
   templateUrl: './edit-major-task-dialog.component.html',
   styleUrl: './edit-major-task-dialog.component.css',
 })
 export class EditMajorTaskDialogComponent {
   taskDialog: MajorTaskDialogInfo | null = null;
+  majorTask: MajorTaskEditInfo = {
+    id: '',
+    taskTitle: '',
+    description: '',
+  };
+  showSaveButton = false;
   constructor(
     private dialogRef: MatDialogRef<EditMajorTaskDialogComponent>,
     private taskService: TaskService,
@@ -22,15 +32,32 @@ export class EditMajorTaskDialogComponent {
   ) {}
 
   ngOnInit() {
-    this.taskService.getMajorTaskById(this.data.task.id).subscribe(task => {
-      this.taskDialog = task;
+    this.taskDialog = this.data.task;
+    this.majorTask = {
+      id: this.taskDialog?.majorTask.id || '',
+      taskTitle: this.taskDialog?.majorTask?.taskTitle || '',
+      description: this.taskDialog?.majorTask.description || '',
+    };
 
-      this.addData();
-      this.addData();
-      this.addData();
+    this.addData();
+  }
+  onDescriptionFocus(): void {
+    this.showSaveButton = true;
+  }
 
-      console.log(this.taskDialog);
+  onDescriptionBlur(): void {
+    setTimeout(() => {
+      this.showSaveButton = false;
+    }, 200);
+  }
+  saveMajorTask() {
+    this.taskService.editMajorTask(this.majorTask).subscribe(() => {
+      this.showSaveButton = false;
     });
+  }
+
+  saveMajorTitle() {
+    this.taskService.editMajorTask(this.majorTask).subscribe(() => {});
   }
 
   addData() {
@@ -42,5 +69,10 @@ export class EditMajorTaskDialogComponent {
       majorTaskId: 'dadasd',
       taskboardId: 'dadasd',
     });
+  }
+
+  onCancel() {
+    console.log('cancel');
+    this.dialogRef.close(this.majorTask);
   }
 }
