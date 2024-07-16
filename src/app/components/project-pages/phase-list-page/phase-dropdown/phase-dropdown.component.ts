@@ -161,7 +161,8 @@ export class PhaseDropdownComponent {
         );
         return throwError(() => new Error(error.error));
       })
-    );
+    )
+    .subscribe();
   }
 
   transferItem(event: CdkDragDrop<PhaseListItem>) {
@@ -219,14 +220,16 @@ export class PhaseDropdownComponent {
         );
         return throwError(() => new Error(error.error));
       })
-    );
+    )
+    .subscribe();
   }
 
   redistributeTasks() {
-    var newPos = this.offset;
+    var newPos = 0;
     for (var task of this.phase.majorTasks) {
-      task.position = newPos;
       newPos += this.offset;
+      task.position = newPos;
     }
+    this.currMaxPos = newPos;
   }
 }

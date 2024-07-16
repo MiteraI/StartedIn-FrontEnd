@@ -161,7 +161,7 @@ export class ProjectService {
   }
 
   getPhaseDetail(id: string): Observable<any> {
-    return new BehaviorSubject<PhaseFullInfo>(this.phase).asObservable();
-    // return this.http.get<PhaseFullInfo>(this.applicationConfigService.getEndpointFor(`/api/phase/${id}`));
+    //return new BehaviorSubject<PhaseFullInfo>(this.phase).asObservable();
+    return this.http.get<PhaseFullInfo>(this.applicationConfigService.getEndpointFor(`/api/phase/${id}`));
   }
 }

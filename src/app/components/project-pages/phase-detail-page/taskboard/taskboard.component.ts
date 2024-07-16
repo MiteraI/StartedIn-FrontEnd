@@ -8,11 +8,13 @@ import { TaskService } from '../../../../services/task.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MinorTaskMoveModel } from '../../../../../shared/models/task/minor-task-move.model';
 import { catchError, throwError } from 'rxjs';
+import { MinorTaskCreateComponent } from '../minor-task-create/minor-task-create.component';
+import { MinorTaskCreateModel } from '../../../../../shared/models/task/minor-task-create.model';
 
 @Component({
   selector: 'taskboard',
   standalone: true,
-  imports: [MiniTaskItemComponent, MatIconModule, DragDropModule, CommonModule],
+  imports: [MiniTaskItemComponent, MinorTaskCreateComponent, MatIconModule, DragDropModule, CommonModule],
   templateUrl: './taskboard.component.html',
   styleUrl: './taskboard.component.css'
 })
@@ -35,9 +37,39 @@ export class TaskboardComponent {
   ) {}
 
   ngOnInit() {
+    console.log(this.taskboard);
+
     if (this.taskboard.minorTasks.length > 0) {
       this.currMaxPos = this.taskboard.minorTasks[this.taskboard.minorTasks.length - 1].position;
     }
+  }
+
+  submitTask(task: MinorTaskCreateModel) {
+    task.position = this.currMaxPos + this.offset;
+    task.taskboardId = this.taskboard.id;
+    this.currMaxPos = task.position;
+    var newItem = {
+      id: "",
+      taskTitle: task.taskTitle,
+      description: task.description,
+      position: task.position,
+      status: "Đang chờ"
+    };
+    this.taskboard.minorTasks.push(newItem);
+    this.taskService
+      .createMinorTask(task)
+      .pipe(
+        catchError(error => {
+          this.snackBar.open('Đã xảy ra lỗi! Hãy thử lại sau.', 'Close', { duration: 3000 });
+          var index = this.taskboard.minorTasks.indexOf(newItem);
+          if (index !== -1) {
+            this.taskboard.minorTasks.splice(index, 1);
+          }
+          return throwError(() => new Error(error.error));
+        })
+      )
+      .subscribe(response => (newItem.id = response.id));
+    // TODO IMPORTANT check id empty before edit & move position
   }
 
   drop(event: CdkDragDrop<Taskboard>) {
@@ -105,7 +137,8 @@ export class TaskboardComponent {
         );
         return throwError(() => new Error(error.error));
       })
-    );
+    )
+    .subscribe();
   }
 
   transferItem(event: CdkDragDrop<Taskboard>) {
@@ -119,8 +152,8 @@ export class TaskboardComponent {
       return;
     }
 
-    const targetPhase = event.container.data;
-    const targetList = targetPhase.minorTasks;
+    const targetBoard = event.container.data;
+    const targetList = targetBoard.minorTasks;
     const curr = event.currentIndex;
     transferArrayItem(taskList, targetList, prev, curr);
 
@@ -163,14 +196,16 @@ export class TaskboardComponent {
         );
         return throwError(() => new Error(error.error));
       })
-    );
+    )
+    .subscribe();
   }
 
   redistributeTasks() {
-    var newPos = this.offset;
+    var newPos = 0;
     for (var task of this.taskboard.minorTasks) {
-      task.position = newPos;
       newPos += this.offset;
+      task.position = newPos;
     }
+    this.currMaxPos = newPos;
   }
 }
