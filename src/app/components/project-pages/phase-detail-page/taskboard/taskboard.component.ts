@@ -37,8 +37,6 @@ export class TaskboardComponent {
   ) {}
 
   ngOnInit() {
-    console.log(this.taskboard);
-
     if (this.taskboard.minorTasks.length > 0) {
       this.currMaxPos = this.taskboard.minorTasks[this.taskboard.minorTasks.length - 1].position;
     }
@@ -53,7 +51,8 @@ export class TaskboardComponent {
       taskTitle: task.taskTitle,
       description: task.description,
       position: task.position,
-      status: "Đang chờ"
+      status: 0,
+      majorTaskId: null
     };
     this.taskboard.minorTasks.push(newItem);
     this.taskService

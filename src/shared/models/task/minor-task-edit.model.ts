@@ -1,8 +1,6 @@
-export interface MinorTask {
-  id: string;
+export interface MinorTaskEditModel {
   taskTitle: string;
   description: string;
   status: number;
-  position: number;
   majorTaskId: string | null;
 }

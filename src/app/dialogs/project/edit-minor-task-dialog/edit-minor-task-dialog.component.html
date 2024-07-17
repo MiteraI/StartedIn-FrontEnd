@@ -1,0 +1,72 @@
+<div class="m-6 flex h-[600px] w-[800px] flex-row flex-wrap overflow-auto">
+  <div class="mr-4 w-4/5">
+    <input
+      type="text"
+      class="m-1 w-full rounded-md border-none bg-transparent px-4 py-2 text-2xl font-semibold focus:border"
+      [(ngModel)]="task.taskTitle"
+      placeholder="Enter task title"
+      (blur)="save()"
+    />
+
+    <div class="flex items-center mt-4 text-purple-800">
+        <mat-icon fontIcon="pending_actions_outline"></mat-icon>
+        <div class="mx-2 text-xl font-semibold">Trạng thái:</div>
+        <select class="ml-4 px-2 py-1 text-lg rounded-lg appearance-none bg-purple-200 border-2 border-transparent hover:border-black" (select)="save()" [(ngModel)]="task.status">
+          <option [value]="0">Đang chờ</option>
+          <option [value]="1">Đang làm</option>
+          <option [value]="2">Đã hoàn thành</option>
+        </select>
+    </div>
+
+    <div class="mt-4 text-purple-800">
+      <div class="flex">
+        <mat-icon fontIcon="menu"></mat-icon>
+        <div class="ml-2 text-xl font-semibold">Mô tả</div>
+      </div>
+      <textarea
+        class="mt-2 w-full rounded-lg border bg-purple-400 bg-opacity-5 p-5 placeholder-gray-400"
+        placeholder="Mô tả về công việc..."
+        (focus)="onDescriptionFocus()"
+        (blur)="onDescriptionBlur()"
+        [(ngModel)]="task.description"
+      ></textarea>
+      <button
+        *ngIf="showSaveButton"
+        class="mt-2 rounded-md bg-purple-800 px-4 py-2 text-white"
+        (click)="saveDescription()"
+      >
+        Save
+      </button>
+    </div>
+
+    <div class="mt-4 text-purple-800">
+      <div class="flex">
+        <mat-icon fontIcon="task_alt_outline"></mat-icon>
+        <div class="ml-2 text-xl font-semibold">Task lớn</div>
+      </div>
+      smh smh
+    </div>
+
+    <div class="mt-4 text-purple-800">
+      <div class="flex">
+        <mat-icon fontIcon="chat_bubble_outline"></mat-icon>
+        <div class="ml-2 text-xl font-semibold">Bình luận</div>
+      </div>
+      <div class="mt-2 flex items-center">
+        <div class="mr-3 size-5 rounded-full bg-red-500"></div>
+        <input
+          type="text"
+          class="w-full rounded-md border bg-purple-400 bg-opacity-5 p-3 placeholder-[#a99fbf]"
+          placeholder="Write a comment..."
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="flex flex-grow flex-col">
+    <div class="ml-auto">
+      <mat-icon class="cursor-pointer" fontIcon="close" (click)="onClose()"></mat-icon>
+    </div>
+    <div class="mt-5">Thêm vào thẻ</div>
+  </div>
+</div>

@@ -1,5 +1,7 @@
-<div class="my-4 bg-purple-200 border rounded-lg shadow-lg cursor-pointer hover:bg-purple-300" cdkDrag>
+<div class="my-4 bg-purple-200 border rounded-lg shadow-lg cursor-pointer hover:bg-purple-300" cdkDrag (click)="openEditMajorTaskDialog()">
   <div class="m-2 font-medium text-lg">{{task.taskTitle}}</div>
   <div class="m-2 text-sm">{{task.description}}</div>
-  <div class="m-2 px-2 py-1 bg-yellow-200 border rounded-lg w-fit">{{task.status}}</div>
+  <div *ngIf="task.status === 0" class="m-2 px-2 py-1 bg-blue-200 border rounded-lg w-fit">Đang chờ...</div>
+  <div *ngIf="task.status === 1" class="m-2 px-2 py-1 bg-yellow-200 border rounded-lg w-fit">Đang làm...</div>
+  <div *ngIf="task.status === 2" class="m-2 px-2 py-1 bg-yellow-200 border rounded-lg w-fit">Đã hoàn thành</div>
 </div>

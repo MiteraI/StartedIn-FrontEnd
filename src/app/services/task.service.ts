@@ -11,6 +11,7 @@ import { TaskboardCreateModel } from '../../shared/models/task/taskboard-create.
 import { MinorTaskCreateModel } from '../../shared/models/task/minor-task-create.model';
 import { MajorTaskDialogInfo } from '../../shared/models/task/major-task-dialog-info.model';
 import { MajorTaskEditInfo } from '../../shared/models/task/major-task-edit-info.model';
+import { MinorTaskEditModel } from '../../shared/models/task/minor-task-edit.model';
 
 @Injectable({
   providedIn: 'root',
@@ -71,5 +72,9 @@ export class TaskService {
 
   editMajorTask(task: MajorTaskEditInfo): Observable<any> {
     return this.http.put(this.applicationConfigService.getEndpointFor('/api/majortask/edit'), task);
+  }
+
+  editMinorTask(id: string, task: MinorTaskEditModel): Observable<any> {
+    return this.http.put(this.applicationConfigService.getEndpointFor(`/api/minortask/edit/${id}`), task);
   }
 }
