@@ -47,11 +47,16 @@
         <div class="mr-3 size-5 rounded-full bg-red-500"></div>
         <input
           type="text"
-          class="w-full rounded-md border border-gray-300 bg-gray-100 p-3 placeholder-gray-500"
+          class="w-full rounded-md border bg-purple-400 bg-opacity-5 p-3 placeholder-[#a99fbf]"
           placeholder="Write a comment..."
         />
       </div>
     </div>
   </div>
-  <div class="w-1/5">Add to card</div>
+  <div class="flex w-1/5 flex-col">
+    <div class="ml-auto">
+      <mat-icon class="cursor-pointer" (click)="onClose()">close</mat-icon>
+    </div>
+    <div class="mt-5">Add to card</div>
+  </div>
 </div>

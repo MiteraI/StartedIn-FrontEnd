@@ -6,9 +6,7 @@ import { TaskService } from '../../../services/task.service';
 import { MajorTaskDialogInfo } from '../../../../shared/models/task/major-task-dialog-info.model';
 import { MinorTaskTitleCardComponent } from '../../../components/project-pages/phase-list-page/minor-task-title-card/minor-task-title-card.component';
 import { FormsModule } from '@angular/forms';
-import { MajorTaskBasicInfo } from '../../../../shared/models/task/major-task-basic-info.model';
 import { MajorTaskEditInfo } from '../../../../shared/models/task/major-task-edit-info.model';
-import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-edit-major-task-dialog',
@@ -38,6 +36,10 @@ export class EditMajorTaskDialogComponent {
       taskTitle: this.taskDialog?.majorTask?.taskTitle || '',
       description: this.taskDialog?.majorTask.description || '',
     };
+
+    this.dialogRef.backdropClick().subscribe(() => {
+      this.dialogRef.close(this.majorTask);
+    });
 
     this.addData();
   }
@@ -72,7 +74,10 @@ export class EditMajorTaskDialogComponent {
   }
 
   onCancel() {
-    console.log('cancel');
+    this.dialogRef.close(this.majorTask);
+  }
+
+  onClose() {
     this.dialogRef.close(this.majorTask);
   }
 }

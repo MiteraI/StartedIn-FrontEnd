@@ -37,10 +37,17 @@ export class MajorTaskCardComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (result) {
-        this.task.taskTitle = result.title;
+        console.log(result);
+        console.log(result.taskTitle);
+
+        this.task.taskTitle = result.taskTitle;
+        this.task.description = result.description;
       }
+    });
+
+    dialogRef.backdropClick().subscribe(() => {
+      console.log('backdrop clicked');
     });
   }
 }
