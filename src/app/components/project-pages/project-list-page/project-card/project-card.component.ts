@@ -8,8 +8,9 @@ import { ProjectBasicInfo } from '../../../../../shared/models/project/project-b
   standalone: true,
   imports: [MatIconModule, RouterModule],
   templateUrl: './project-card.component.html',
-  styleUrl: './project-card.component.css'
+  styleUrl: './project-card.component.css',
 })
 export class ProjectCardComponent {
-  @Input({required: true}) project: ProjectBasicInfo | null = null;
+  @Input({ required: true }) project: ProjectBasicInfo | null = null;
+  @Input({ required: true }) teamId: string | undefined = '';
 }

@@ -1,17 +1,39 @@
 <div class="mt-5" cdkDrag>
-  <div class="flex items-center bg-gray-600 text-white rounded-2xl" (click)="toggleExpand()">
-    <div class="px-2 py-8 bg-purple-400 rounded-s-xl"></div>
-    <div class="mx-4 flex-grow flex items-center">
-      <a class="text-3xl font-bold cursor-pointer" [routerLink]="['/phase', phase.id]">{{phase.phaseName}}</a>
-      <mat-icon class="ml-2 scale-75 cursor-pointer hover:bg-gray-500" fontIcon="edit" (click)="showEditPopup($event)"></mat-icon>
-      <mat-icon class="scale-75 cursor-pointer hover:bg-gray-500" fontIcon="delete" (click)="showDeletePopup($event)"></mat-icon>
+  <div class="flex items-center rounded-2xl bg-gray-600 text-white" (click)="toggleExpand()">
+    <div class="rounded-s-xl bg-purple-400 px-2 py-8"></div>
+    <div class="mx-4 flex flex-grow items-center">
+      <a
+        class="cursor-pointer text-3xl font-bold hover:text-blue-200"
+        [routerLink]="['/teams', teamId, 'phases', phase.id]"
+        (click)="stopPropagation($event)"
+      >
+        {{ phase.phaseName }}</a
+      >
+      <mat-icon
+        class="ml-2 scale-75 cursor-pointer hover:bg-gray-500"
+        fontIcon="edit"
+        (click)="showEditPopup($event)"
+      ></mat-icon>
+      <mat-icon
+        class="scale-75 cursor-pointer hover:bg-gray-500"
+        fontIcon="delete"
+        (click)="showDeletePopup($event)"
+      ></mat-icon>
       <div class="flex-grow"></div>
-      <mat-icon *ngIf="!expanded" class="cursor-pointer hover:bg-gray-500" fontIcon="expand_more"></mat-icon>
-      <mat-icon *ngIf="expanded" class="cursor-pointer hover:bg-gray-500" fontIcon="expand_less"></mat-icon>
+      <mat-icon
+        *ngIf="!expanded"
+        class="cursor-pointer hover:bg-gray-500"
+        fontIcon="expand_more"
+      ></mat-icon>
+      <mat-icon
+        *ngIf="expanded"
+        class="cursor-pointer hover:bg-gray-500"
+        fontIcon="expand_less"
+      ></mat-icon>
     </div>
   </div>
 
-  <div *ngIf="expanded" class="mx-4 bg-white border rounded-b-xl">
+  <div *ngIf="expanded" class="mx-4 rounded-b-xl border bg-white">
     <div cdkDropList [cdkDropListData]="phase" (cdkDropListDropped)="drop($event)">
       <major-task-card *ngFor="let task of phase.majorTasks" [task]="task"></major-task-card>
     </div>

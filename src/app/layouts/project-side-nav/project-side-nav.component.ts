@@ -20,7 +20,7 @@ import { TeamInviteDialogComponent } from '../../dialogs/team-invite-dialog/team
 })
 export class ProjectSideNavComponent implements OnInit {
   @Input() opened = true;
-  @Input() teamId = '';
+  @Input() teamId: string | null = '';
   toggle() {
     this.opened = !this.opened;
   }
@@ -36,12 +36,13 @@ export class ProjectSideNavComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.teamId || this.teamId === '')
-      this.snackBar.open('Có lỗi không lấy được teamId', 'Đóng', { duration: 3000 });
+      this.snackBar.open('Không lấy được teamId', 'Đóng', { duration: 3000 });
 
-    this.teamService
-      .getTeamById(this.teamId)
-      .pipe()
-      .subscribe(response => (this.teamProjectDetails = response));
+    if (this.teamId)
+      this.teamService
+        .getTeamById(this.teamId)
+        .pipe()
+        .subscribe(response => (this.teamProjectDetails = response));
   }
 
   openMemberInviteDialog() {
