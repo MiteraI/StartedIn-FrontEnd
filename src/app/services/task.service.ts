@@ -69,7 +69,10 @@ export class TaskService {
     );
   }
 
-  editMajorTask(task: MajorTaskEditInfo): Observable<any> {
-    return this.http.put(this.applicationConfigService.getEndpointFor('/api/majortask/edit'), task);
+  editMajorTask(id: string, task: MajorTaskEditInfo): Observable<any> {
+    return this.http.put(
+      this.applicationConfigService.getEndpointFor(`/api/majortask/edit/${id}`),
+      task
+    );
   }
 }

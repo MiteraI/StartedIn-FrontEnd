@@ -19,7 +19,5 @@ export class MinorTaskTitleCardComponent {
   };
   constructor() {}
 
-  ngOnInit() {
-    console.log(this.minorTask);
-  }
+  ngOnInit() {}
 }

@@ -1,14 +1,17 @@
 <div class="m-6 flex h-[600px] w-[800px] flex-row overflow-auto">
   <div class="mr-4 w-4/5">
-    <input
-      type="text"
-      class="w-full rounded-md border-none bg-transparent text-3xl font-semibold focus:border"
-      [(ngModel)]="majorTask.taskTitle"
-      placeholder="Enter task title"
-      (blur)="saveMajorTitle()"
-    />
+    <div class="flex items-center text-3xl text-purple-800">
+      <mat-icon>menu</mat-icon>
+      <input
+        type="text"
+        class="ml-1 w-full rounded-md border-none bg-transparent pl-1 font-semibold focus:border"
+        [(ngModel)]="majorTask.taskTitle"
+        placeholder="Enter task title"
+        (blur)="saveMajorTitle()"
+      />
+    </div>
 
-    <div class="mt-4 flex w-full text-purple-400">
+    <div class="mt-4 flex w-full text-purple-800">
       <mat-icon>menu</mat-icon>
       <div class="ml-2 w-full">
         <h2 class="text-xl font-semibold">Mô tả</h2>
@@ -28,7 +31,7 @@
         </button>
       </div>
     </div>
-    <div class="mt-4 flex w-full text-purple-400">
+    <div class="mt-4 flex w-full text-purple-800">
       <mat-icon>menu</mat-icon>
       <div class="ml-2 w-full">
         <h2 class="mb-2 text-xl font-semibold">Task nhỏ</h2>
@@ -38,13 +41,13 @@
         ></app-minor-task-title-card>
       </div>
     </div>
-    <div class="mt-4 text-purple-400">
+    <div class="mt-4 text-purple-800">
       <div class="flex">
         <mat-icon>menu</mat-icon>
-        <h2 class="text-lg">Comments</h2>
+        <h2 class="ml-2 text-lg font-semibold">Comments</h2>
       </div>
       <div class="mt-2 flex items-center">
-        <div class="mr-3 size-5 rounded-full bg-red-500"></div>
+        <div class="mr-3 size-6 min-h-6 min-w-6 rounded-full bg-red-500"></div>
         <input
           type="text"
           class="w-full rounded-md border bg-purple-400 bg-opacity-5 p-3 placeholder-[#a99fbf]"
@@ -57,6 +60,10 @@
     <div class="ml-auto">
       <mat-icon class="cursor-pointer" (click)="onClose()">close</mat-icon>
     </div>
-    <div class="mt-5">Add to card</div>
+    <div
+      class="hover: mt-5 flex cursor-pointer justify-center rounded-lg bg-purple-100 py-2 hover:bg-purple-300"
+    >
+      Add to card
+    </div>
   </div>
 </div>
