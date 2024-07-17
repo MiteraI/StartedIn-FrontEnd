@@ -133,4 +133,10 @@ export const routes: Routes = [
         c => c.TeamInvitePageComponent
       ),
   },
+  {
+    path: 'support-us',
+    loadComponent: () =>
+      import('./pages/pre-order-page/pre-order-page.component').then(c => c.PreOrderPageComponent),
+    title: 'Support StartedIn'
+  },
 ];
