@@ -11,4 +11,5 @@ import { ProjectBasicInfo } from '../../../../shared/models/project/project-basi
 })
 export class ProjectSideNavItemComponent {
   @Input({ required: true }) project: ProjectBasicInfo | null = null;
+  @Input({ required: true}) teamId: string | null = null;
 }

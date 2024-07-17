@@ -4,7 +4,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AccountService } from '../../core/auth/account.service';
 import { CommonModule } from '@angular/common';
 import { TeamService } from '../../services/team.service';
-import { catchError } from 'rxjs';
+import { catchError, of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -42,10 +42,10 @@ export class TeamInvitePageComponent implements OnInit {
           catchError(error => {
             if (error instanceof HttpErrorResponse) {
               if (error.status === 400) {
-                this.snackBar.open(error.message, 'Đóng', { duration: 3000 });
+                this.snackBar.open(error.error, 'Đóng', { duration: 3000 });
               }
             }
-            return error;
+            return of(null);
           })
         )
         .subscribe(() => {

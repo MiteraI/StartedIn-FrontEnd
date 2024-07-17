@@ -111,36 +111,26 @@ export const routes: Routes = [
       ).then(c => c.PlatformUserProfilePageComponent),
   },
   {
-    path: 'project/:id',
+    path: 'teams',
     canActivate: [AuthenticatedGuard],
-    resolve: { project: projectDetailResolver },
     loadComponent: () =>
-      import('./pages/project-pages/phase-list-page/phase-list-page.component').then(
-        c => c.PhaseListPageComponent
+      import('./pages/project-pages/project-list-page/project-list-page.component').then(
+        c => c.ProjectListPageComponent
       ),
-    title: 'StartedIn',
+    title: 'Startups',
   },
   {
-    path: 'phase/:id',
+    path: 'teams/:teamId',
     canActivate: [AuthenticatedGuard],
-    resolve: { phase: phaseDetailResolver},
-    loadComponent: () =>
-      import('./pages/project-pages/phase-detail-page/phase-detail-page.component').then(
-        c => c.PhaseDetailPageComponent
-      ),
-    title: 'Idea Phase',
-  },
-  {
-    path: 'projects',
-    canActivate: [AuthenticatedGuard],
-    loadComponent: () =>
-      import('./pages/project-pages/project-list-page/project-list-page.component').then(c => c.ProjectListPageComponent),
-    title: "Startups"
+    loadChildren: () =>
+      import('./pages/project-pages/team-page/team-page.routes').then(r => r.routes),
   },
   {
     path: 'invite/:id',
-    resolve: {teamInviteView: teamInviteResolver},
+    resolve: { teamInviteView: teamInviteResolver },
     loadComponent: () =>
-      import('./pages/team-invite-page/team-invite-page.component').then(c => c.TeamInvitePageComponent),
-  }
+      import('./pages/team-invite-page/team-invite-page.component').then(
+        c => c.TeamInvitePageComponent
+      ),
+  },
 ];

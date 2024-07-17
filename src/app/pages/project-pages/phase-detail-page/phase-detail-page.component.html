@@ -1,22 +1,21 @@
-<project-side-nav [opened]="true">
-  <div class="flex justify-center min-h-screen">
-    <div class="w-full p-5">
-      <div class="mt-5 flex items-center bg-gray-600 text-white rounded-2xl">
-        <div class="px-2 py-8 bg-gray-600 rounded-s-xl"></div>
-        <div class="mx-4 flex-grow flex items-center">
-          <a class="text-3xl font-bold cursor-pointer">{{phase.phaseName}}</a>
-        </div>
-      </div>
-      <div
-        class="flex mt-5 overflow-auto whitespace-nowrap"
-        cdkDropListGroup
-        cdkDropList
-        [cdkDropListData]="phase"
-        (cdkDropListDropped)="drop($event)"
-        cdkDropListOrientation="horizontal">
-        <taskboard *ngFor="let taskboard of phase.taskboards" [taskboard]="taskboard"></taskboard>
-        <taskboard-create (taskboardSubmit)="createTaskboard($event)"></taskboard-create>
+<div class="flex min-h-screen justify-center">
+  <div class="w-full p-5">
+    <div class="mt-5 flex items-center rounded-2xl bg-gray-600 text-white">
+      <div class="rounded-s-xl bg-gray-600 px-2 py-8"></div>
+      <div class="mx-4 flex flex-grow items-center">
+        <a class="cursor-pointer text-3xl font-bold">{{ phase.phaseName }}</a>
       </div>
     </div>
+    <div
+      class="mt-5 flex overflow-auto whitespace-nowrap"
+      cdkDropListGroup
+      cdkDropList
+      [cdkDropListData]="phase"
+      (cdkDropListDropped)="drop($event)"
+      cdkDropListOrientation="horizontal"
+    >
+      <taskboard *ngFor="let taskboard of phase.taskboards" [taskboard]="taskboard"></taskboard>
+      <taskboard-create (taskboardSubmit)="createTaskboard($event)"></taskboard-create>
+    </div>
   </div>
-</project-side-nav>
+</div>

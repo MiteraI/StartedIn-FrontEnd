@@ -1,6 +1,6 @@
 <div>
   <div class="text-lg font-semibold">{{ team?.teamName }}</div>
   <div class="mt-2 flex flex-wrap">
-    <project-card *ngFor="let project of team?.projects" [project]="project" />
+    <project-card *ngFor="let project of team?.projects" [project]="project" [teamId]="team?.id"/>
   </div>
 </div>

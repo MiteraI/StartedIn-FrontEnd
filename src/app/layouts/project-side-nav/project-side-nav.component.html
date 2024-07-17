@@ -67,6 +67,7 @@
         <app-project-side-nav-item
           *ngFor="let project of teamProjectDetails?.projects"
           [project]="project"
+          [teamId]="teamId"
         ></app-project-side-nav-item>
       </div>
     </div>

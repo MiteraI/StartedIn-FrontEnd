@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, ParamMap, RouterModule } from '@angular/router';
 import {
   CdkDragDrop,
   DragDropModule,
@@ -45,13 +45,16 @@ export class PhaseDropdownComponent {
   private offset = 1 << 16; // 2^16 or 65536
   private lowerBoundPos = 1 << 4; // 2^4 or 16
   private upperBoundPos = 1 << 30; // 2^30 or 1,073,741,824
+  teamId: string | null = null;
 
   constructor(
     private taskService: TaskService,
+    private activatedRoute: ActivatedRoute,
     private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
+    this.teamId = this.activatedRoute.parent!.snapshot.paramMap.get('teamId');
     if (this.phase.majorTasks.length > 0) {
       this.currMaxPos = this.phase.majorTasks[this.phase.majorTasks.length - 1].position;
     }
@@ -62,11 +65,11 @@ export class PhaseDropdownComponent {
   }
 
   showEditPopup(event: Event) {
-    event.stopPropagation();
+    this.stopPropagation(event);
   }
 
   showDeletePopup(event: Event) {
-    event.stopPropagation();
+    this.stopPropagation(event);
   }
 
   submitTask(task: MajorTaskCreateModel) {
@@ -152,17 +155,19 @@ export class PhaseDropdownComponent {
       phaseId: this.phase.id,
       needsReposition: needsReposition,
     };
-    this.taskService.moveMajorTask(movement).pipe(
-      catchError(error => {
-        this.snackBar.open(
-          'Đã xảy ra lỗi! Những thay đổi của bạn có thể sẽ không được lưu. Hãy tải lại trang.',
-          'Close',
-          { duration: 3000 }
-        );
-        return throwError(() => new Error(error.error));
-      })
-    )
-    .subscribe();
+    this.taskService
+      .moveMajorTask(movement)
+      .pipe(
+        catchError(error => {
+          this.snackBar.open(
+            'Đã xảy ra lỗi! Những thay đổi của bạn có thể sẽ không được lưu. Hãy tải lại trang.',
+            'Close',
+            { duration: 3000 }
+          );
+          return throwError(() => new Error(error.error));
+        })
+      )
+      .subscribe();
   }
 
   transferItem(event: CdkDragDrop<PhaseListItem>) {
@@ -211,17 +216,19 @@ export class PhaseDropdownComponent {
       phaseId: this.phase.id,
       needsReposition: needsReposition,
     };
-    this.taskService.moveMajorTask(movement).pipe(
-      catchError(error => {
-        this.snackBar.open(
-          'Đã xảy ra lỗi! Những thay đổi của bạn có thể sẽ không được lưu. Hãy tải lại trang.',
-          'Close',
-          { duration: 3000 }
-        );
-        return throwError(() => new Error(error.error));
-      })
-    )
-    .subscribe();
+    this.taskService
+      .moveMajorTask(movement)
+      .pipe(
+        catchError(error => {
+          this.snackBar.open(
+            'Đã xảy ra lỗi! Những thay đổi của bạn có thể sẽ không được lưu. Hãy tải lại trang.',
+            'Close',
+            { duration: 3000 }
+          );
+          return throwError(() => new Error(error.error));
+        })
+      )
+      .subscribe();
   }
 
   redistributeTasks() {
@@ -231,5 +238,9 @@ export class PhaseDropdownComponent {
       task.position = newPos;
     }
     this.currMaxPos = newPos;
+  }
+
+  stopPropagation(event: Event) {
+    event.stopPropagation();
   }
 }
