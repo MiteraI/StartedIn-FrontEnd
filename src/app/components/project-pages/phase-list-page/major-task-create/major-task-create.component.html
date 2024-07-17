@@ -1,0 +1,37 @@
+<div *ngIf="isModalOpen; then modalOpened; else modalClosed"></div>
+<ng-template #modalClosed>
+  <div
+    class="mx-8 my-4 flex cursor-pointer items-center rounded-md border-2 border-dashed border-purple-400 bg-purple-100 hover:border-purple-600 hover:bg-purple-200"
+    (click)="showModal($event)"
+  >
+    <mat-icon class="ml-2 scale-75" fontIcon="add"></mat-icon>
+    <div class="my-2 mr-4">Tạo task lớn</div>
+  </div>
+</ng-template>
+
+<ng-template #modalOpened>
+  <form [formGroup]="majorTaskCreateForm" (ngSubmit)="onSubmit()" (clickOutside)="hideModal()">
+    <div class="mx-8 mb-2 mt-4 rounded-md bg-purple-200 px-4 py-2">
+      <input
+        type="text"
+        id="taskTitle"
+        formControlName="taskTitle"
+        placeholder="Hãy nhập tên cho task này..."
+        class="border-0 bg-transparent text-xl font-semibold focus:outline-none"
+        [cdkTrapFocusAutoCapture]="isModalOpen"
+        [cdkTrapFocus]="isModalOpen"
+      />
+    </div>
+    <div class="mb-4 flex">
+      <button class="ml-12 cursor-pointer rounded-md bg-green-200 px-2 pt-1 hover:bg-green-300">
+        <mat-icon fontIcon="check"></mat-icon>
+      </button>
+      <div
+        class="ml-2 cursor-pointer rounded-md bg-red-200 px-2 pt-1 hover:bg-red-300"
+        (click)="hideModal()"
+      >
+        <mat-icon fontIcon="close"></mat-icon>
+      </div>
+    </div>
+  </form>
+</ng-template>

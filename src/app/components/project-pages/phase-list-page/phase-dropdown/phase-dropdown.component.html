@@ -1,8 +1,8 @@
-<div class="mt-5" cdkDrag cdkDropList [cdkDropListData]="taskList" (cdkDropListDropped)="drop($event)">
+<div class="mt-5" cdkDrag>
   <div class="flex items-center bg-gray-600 text-white rounded-2xl" (click)="toggleExpand()">
     <div class="px-2 py-8 bg-purple-400 rounded-s-xl"></div>
     <div class="mx-4 flex-grow flex items-center">
-      <a class="text-3xl font-bold cursor-pointer" routerLink="/phase/1">{{phaseName}}</a>
+      <a class="text-3xl font-bold cursor-pointer" [routerLink]="['/phase', phase.id]">{{phase.phaseName}}</a>
       <mat-icon class="ml-2 scale-75 cursor-pointer hover:bg-gray-500" fontIcon="edit" (click)="showEditPopup($event)"></mat-icon>
       <mat-icon class="scale-75 cursor-pointer hover:bg-gray-500" fontIcon="delete" (click)="showDeletePopup($event)"></mat-icon>
       <div class="flex-grow"></div>
@@ -12,13 +12,9 @@
   </div>
 
   <div *ngIf="expanded" class="mx-4 bg-white border rounded-b-xl">
-    <div class="mx-8 my-4 px-4 py-2 font-semibold bg-purple-200 rounded-md cursor-pointer hover:bg-purple-300" *ngFor="let task of taskList" cdkDrag>
-      {{task}}
-      <!-- TODO make component, add progress bar -->
+    <div cdkDropList [cdkDropListData]="phase" (cdkDropListDropped)="drop($event)">
+      <major-task-card *ngFor="let task of phase.majorTasks" [task]="task"></major-task-card>
     </div>
-    <div class="mx-8 my-4 flex items-center bg-purple-100 border-2 border-purple-400 border-dashed rounded-md cursor-pointer hover:bg-purple-200 hover:border-purple-600">
-      <mat-icon class="scale-75 ml-2" fontIcon="add"></mat-icon>
-      <div class="my-2 mr-4">Add a major task</div>
-    </div>
+    <major-task-create (taskSubmit)="submitTask($event)"></major-task-create>
   </div>
 </div>

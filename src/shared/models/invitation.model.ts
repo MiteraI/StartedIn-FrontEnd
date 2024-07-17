@@ -17,4 +17,5 @@ export interface ConnectedUser {
   userId: string;
   connectedUserName: string;
   profilePicture: string | null;
+  email: string;
 }

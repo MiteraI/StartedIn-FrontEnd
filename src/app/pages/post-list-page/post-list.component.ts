@@ -27,9 +27,9 @@ export class PostListComponent {
   postDetails: PostDetail[] = new Array<PostDetail>();
   finished: boolean = false;
   private pageIndex: number = 1;
-  private pageSize: number = 1;
+  private pageSize: number = 5;
   private postsShownCount: number = 0;
-  private maxPostsShown: number = 3;
+  private maxPostsShown: number = 30;
 
   constructor(private postService: PostService) { }
 
@@ -56,6 +56,9 @@ export class PostListComponent {
         if (!posts || !posts.length) {
           this.finished = true;
           return;
+        }
+        if (posts.length < this.pageSize) {
+          this.finished = true;
         }
         this.pageIndex++;
         this.postsShownCount += this.pageSize;

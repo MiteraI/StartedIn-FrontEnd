@@ -1,0 +1,52 @@
+<div class="flex min-h-[70vh] w-full flex-col items-center justify-center">
+  <div class="flex text-2xl">
+    <p>Bạn đã được mời tham gia vào đội khởi nghiệp&nbsp;</p>
+    <span class="block text-purple-700">{{ teamInviteView?.teamName }}</span>
+  </div>
+  <div class="flex text-lg">
+    <p>Để được biết thêm thông tin bạn có thể liên hệ trưởng nhóm&nbsp;</p>
+    <p>{{ teamInviteView?.leader?.fullName }} qua&nbsp;</p>
+    <span class="text-purple-700">{{ teamInviteView?.leader?.email }}</span>
+  </div>
+  <div *ngIf="isLoggedIn; then loggedIn; else notLoggedIn"></div>
+  <ng-template #loggedIn>
+    <div class="mt-10">
+      <p>Bạn có muốn tham gia nhóm không?</p>
+      <div class="mt-2 flex min-w-40 justify-around">
+        <button
+          (click)="joinTeam()"
+          class="h-10 cursor-pointer rounded-md bg-purple-400 px-4 py-2 font-semibold hover:bg-purple-300"
+        >
+          Tham gia
+        </button>
+
+        <button
+          routerLink="/"
+          class="h-10 cursor-pointer rounded-md border-2 border-purple-400 px-4 py-2 font-semibold text-purple-400 hover:border-purple-400"
+        >
+          Quay về
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #notLoggedIn>
+    <div class="mt-10">
+      <p>Để tham gia đội nhóm thì bạn cần mở tài khoản StartedIn</p>
+      <div class="mt-2 flex min-w-40 justify-around">
+        <button
+          routerLink="/login"
+          class="h-10 cursor-pointer rounded-md bg-purple-400 px-4 py-2 font-semibold hover:bg-purple-300"
+        >
+          Đăng nhập
+        </button>
+
+        <button
+          routerLink="/register"
+          class="h-10 cursor-pointer rounded-md border-2 border-purple-400 px-4 py-2 font-semibold text-purple-400 hover:border-purple-400"
+        >
+          Đăng ký
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</div>

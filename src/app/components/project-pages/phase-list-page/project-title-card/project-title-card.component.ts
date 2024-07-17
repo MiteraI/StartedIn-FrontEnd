@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
@@ -9,5 +9,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
   styleUrl: './project-title-card.component.css'
 })
 export class ProjectTitleCardComponent {
-
+  @Input({required: true}) projectName: string = "";
+  @Input({required: true}) creatorName: string = "";
 }

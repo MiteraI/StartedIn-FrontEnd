@@ -7,7 +7,6 @@ import { AccountService } from '../../core/auth/account.service';
 import { ReplaySubject, catchError, takeUntil, throwError } from 'rxjs';
 import { Account } from '../../core/auth/account.model';
 import { CreatePost } from '../../../shared/models/post/create-post.model';
-import { PostService } from '../../services/post.service';
 
 @Component({
   selector: 'app-create-post-dialog',
@@ -28,7 +27,6 @@ export class CreatePostDialogComponent {
 
   constructor(
     private accountService: AccountService,
-    private postService: PostService,
     public dialogRef: MatDialogRef<CreatePostDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: CreatePost,
   ) {}
@@ -45,14 +43,6 @@ export class CreatePostDialogComponent {
   }
 
   onPostClick() {
-    /* this.postService
-      .createPost(this.data)
-      .pipe(
-        catchError(error => {
-          return throwError(() => new Error(error));
-        })
-      )
-      .subscribe(); */
     this.dialogRef.close(this.data);
   }
 

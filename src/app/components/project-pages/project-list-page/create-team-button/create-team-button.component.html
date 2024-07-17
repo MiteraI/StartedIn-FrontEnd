@@ -1,0 +1,40 @@
+<div
+  (click)="openDialog($event)"
+  class="mb-4 mr-4 flex h-24 w-56 cursor-pointer items-center justify-center rounded-lg bg-purple-50 hover:bg-purple-100"
+>
+  <mat-icon fontIcon="add"></mat-icon>
+  <div class="ml-1 mr-4">Startup mới</div>
+</div>
+<div *ngIf="dialogOpen; then dialogOpened"></div>
+
+<ng-template #dialogOpened>
+  <form
+    [formGroup]="teamCreateForm"
+    (clickOutside)="closeDialog()"
+    (ngSubmit)="onSubmit()"
+    *ngIf="dialogOpen"
+    class="absolute flex max-w-64 -translate-y-40 translate-x-64 flex-col rounded-lg bg-purple-50 pb-6 pl-6 pr-6 pt-2 shadow-md"
+  >
+    <div class="mb-4 flex justify-end">
+      <mat-icon class="translate-x-4" (click)="closeDialog()" fontIcon="close"></mat-icon>
+    </div>
+    <h4 class="text-center font-medium">Tạo startup mới</h4>
+
+    <label for="teamName" class="mt-4">Tên startup: <span class="text-red-700">*</span></label>
+    <input
+      type="text"
+      id="teamName"
+      formControlName="teamName"
+      placeholder="Tên startup..."
+      class="rounded-md p-2"
+    />
+
+    <div class="mt-6 flex justify-end">
+      <button
+        class="h-10 cursor-pointer rounded-md bg-purple-200 px-4 py-2 font-semibold hover:bg-purple-300"
+      >
+        Tạo startup
+      </button>
+    </div>
+  </form>
+</ng-template>
