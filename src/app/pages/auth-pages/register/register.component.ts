@@ -65,7 +65,8 @@ export class RegisterComponent {
           this.router.navigate(['/login']);
         }),
         catchError(error => {
-          this.snackBar.open(error.error.message, 'Close', { duration: 3000 });
+          console.log(error.error);
+          this.snackBar.open(error.error, 'Close', { duration: 3000 });
           return throwError(error);
         })
       );

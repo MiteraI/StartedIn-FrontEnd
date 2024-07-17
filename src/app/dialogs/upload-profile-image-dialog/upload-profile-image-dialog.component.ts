@@ -42,9 +42,4 @@ export class UploadProfileImageDialogComponent {
       this.dialogRef.close();
     }
   }
-
-  onCancel() {
-    this.dialogRef.close();
-  }
-
 }
