@@ -1,16 +1,21 @@
 <div class="m-6 flex h-[600px] w-[800px] flex-row flex-wrap overflow-auto">
   <div class="mr-4 w-4/5">
-    <input
+    <div class="flex items-center mt-4">
+      <mat-icon fontIcon="task_alt"></mat-icon>
+
+
+      <input
       type="text"
-      class="m-1 w-full rounded-md border-none bg-transparent px-4 py-2 text-2xl font-semibold focus:border"
+      class="ml-2 w-full rounded-md border-none bg-transparent px-4 py-2 text-2xl font-semibold focus:border"
       [(ngModel)]="task.taskTitle"
       placeholder="Enter task title"
       (blur)="save()"
     />
+    </div>
 
     <div class="flex items-center mt-4 text-purple-800">
-        <mat-icon fontIcon="pending_actions_outline"></mat-icon>
-        <div class="mx-2 text-xl font-semibold">Trạng thái:</div>
+        <mat-icon fontIcon="pending_actions"></mat-icon>
+        <div class="ml-6 text-xl font-semibold">Trạng thái:</div>
         <select class="ml-4 px-2 py-1 text-lg rounded-lg appearance-none bg-purple-200 border-2 border-transparent hover:border-black" (select)="save()" [(ngModel)]="task.status">
           <option [value]="0">Đang chờ</option>
           <option [value]="1">Đang làm</option>
@@ -21,7 +26,7 @@
     <div class="mt-4 text-purple-800">
       <div class="flex">
         <mat-icon fontIcon="menu"></mat-icon>
-        <div class="ml-2 text-xl font-semibold">Mô tả</div>
+        <div class="ml-6 text-xl font-semibold">Mô tả</div>
       </div>
       <textarea
         class="mt-2 w-full rounded-lg border bg-purple-400 bg-opacity-5 p-5 placeholder-gray-400"
@@ -41,16 +46,21 @@
 
     <div class="mt-4 text-purple-800">
       <div class="flex">
-        <mat-icon fontIcon="task_alt_outline"></mat-icon>
-        <div class="ml-2 text-xl font-semibold">Task lớn</div>
+        <mat-icon fontIcon="assignment"></mat-icon>
+        <div class="ml-6 text-xl font-semibold">Task lớn</div>
       </div>
-      smh smh
+      <div>
+        smh smh
+        <mat-icon fontIcon="add_circle"></mat-icon>
+        <mat-icon fontIcon="edit"></mat-icon>
+        <mat-icon fontIcon="delete"></mat-icon>
+      </div>
     </div>
 
     <div class="mt-4 text-purple-800">
       <div class="flex">
-        <mat-icon fontIcon="chat_bubble_outline"></mat-icon>
-        <div class="ml-2 text-xl font-semibold">Bình luận</div>
+        <mat-icon fontIcon="forum"></mat-icon>
+        <div class="ml-6 text-xl font-semibold">Bình luận</div>
       </div>
       <div class="mt-2 flex items-center">
         <div class="mr-3 size-5 rounded-full bg-red-500"></div>
