@@ -1,26 +1,29 @@
 <div class="m-6 flex h-[600px] w-[800px] flex-row flex-wrap overflow-auto">
   <div class="mr-4 w-4/5">
-    <div class="flex items-center mt-4">
+    <div class="mt-4 flex items-center">
       <mat-icon fontIcon="task_alt"></mat-icon>
 
-
       <input
-      type="text"
-      class="ml-2 w-full rounded-md border-none bg-transparent px-4 py-2 text-2xl font-semibold focus:border"
-      [(ngModel)]="task.taskTitle"
-      placeholder="Enter task title"
-      (blur)="save()"
-    />
+        type="text"
+        class="ml-2 w-full rounded-md border-none bg-transparent px-4 py-2 text-2xl font-semibold focus:border"
+        [(ngModel)]="task.taskTitle"
+        placeholder="Enter task title"
+        (blur)="save()"
+      />
     </div>
 
-    <div class="flex items-center mt-4 text-purple-800">
-        <mat-icon fontIcon="pending_actions"></mat-icon>
-        <div class="ml-6 text-xl font-semibold">Trạng thái:</div>
-        <select class="ml-4 px-2 py-1 text-lg rounded-lg appearance-none bg-purple-200 border-2 border-transparent hover:border-black" (select)="save()" [(ngModel)]="task.status">
-          <option [value]="0">Đang chờ</option>
-          <option [value]="1">Đang làm</option>
-          <option [value]="2">Đã hoàn thành</option>
-        </select>
+    <div class="mt-4 flex items-center text-purple-800">
+      <mat-icon fontIcon="pending_actions"></mat-icon>
+      <div class="ml-6 text-xl font-semibold">Trạng thái:</div>
+      <select
+        class="ml-4 appearance-none rounded-lg border-2 border-transparent bg-purple-200 px-2 py-1 text-lg hover:border-black"
+        (change)="save()"
+        [(ngModel)]="task.status"
+      >
+        <option [ngValue]="0">Đang chờ</option>
+        <option [ngValue]="1">Đang làm</option>
+        <option [ngValue]="2">Đã hoàn thành</option>
+      </select>
     </div>
 
     <div class="mt-4 text-purple-800">

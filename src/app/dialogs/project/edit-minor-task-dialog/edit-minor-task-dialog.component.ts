@@ -34,7 +34,7 @@ export class EditMinorTaskDialogComponent {
 
   ngOnInit() {
     this.task = this.data.task;
-
+    this.id = this.data.id;
     this.dialogRef.backdropClick().subscribe(() => {
       this.dialogRef.close(this.task);
     });

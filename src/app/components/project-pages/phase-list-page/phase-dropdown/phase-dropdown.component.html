@@ -10,24 +10,19 @@
         {{ phase.phaseName }}</a
       >
       <mat-icon
-        class="ml-2 scale-75 cursor-pointer hover:bg-gray-500"
+        class="ml-2 scale-75 cursor-pointer"
         fontIcon="edit"
         (click)="showEditPopup($event)"
-      ></mat-icon>
-      <mat-icon
-        class="scale-75 cursor-pointer hover:bg-gray-500"
-        fontIcon="delete"
-        (click)="showDeletePopup($event)"
       ></mat-icon>
       <div class="flex-grow"></div>
       <mat-icon
         *ngIf="!expanded"
-        class="cursor-pointer hover:bg-gray-500"
+        class="cursor-pointer"
         fontIcon="expand_more"
       ></mat-icon>
       <mat-icon
         *ngIf="expanded"
-        class="cursor-pointer hover:bg-gray-500"
+        class="cursor-pointer"
         fontIcon="expand_less"
       ></mat-icon>
     </div>
