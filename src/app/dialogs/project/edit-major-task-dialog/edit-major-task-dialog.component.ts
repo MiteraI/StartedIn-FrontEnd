@@ -17,8 +17,8 @@ import { MajorTaskEditInfo } from '../../../../shared/models/task/major-task-edi
 })
 export class EditMajorTaskDialogComponent {
   taskDialog: MajorTaskDialogInfo | null = null;
+  majorTaskId: string = '';
   majorTask: MajorTaskEditInfo = {
-    id: '',
     taskTitle: '',
     description: '',
   };
@@ -31,8 +31,8 @@ export class EditMajorTaskDialogComponent {
 
   ngOnInit() {
     this.taskDialog = this.data.task;
+    this.majorTaskId = this.taskDialog?.majorTask.id || '';
     this.majorTask = {
-      id: this.taskDialog?.majorTask.id || '',
       taskTitle: this.taskDialog?.majorTask?.taskTitle || '',
       description: this.taskDialog?.majorTask.description || '',
     };
@@ -53,13 +53,13 @@ export class EditMajorTaskDialogComponent {
     }, 200);
   }
   saveMajorTask() {
-    this.taskService.editMajorTask(this.majorTask).subscribe(() => {
+    this.taskService.editMajorTask(this.majorTaskId, this.majorTask).subscribe(() => {
       this.showSaveButton = false;
     });
   }
 
   saveMajorTitle() {
-    this.taskService.editMajorTask(this.majorTask).subscribe(() => {});
+    this.taskService.editMajorTask(this.majorTaskId, this.majorTask).subscribe(() => {});
   }
 
   addData() {
