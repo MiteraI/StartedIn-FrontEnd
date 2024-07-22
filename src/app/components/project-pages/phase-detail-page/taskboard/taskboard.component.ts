@@ -4,7 +4,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { Taskboard } from '../../../../../shared/models/task/taskboard.model';
-import { TaskService } from '../../../../services/task.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MinorTaskMoveModel } from '../../../../../shared/models/task/minor-task-move.model';
 import { catchError, throwError } from 'rxjs';

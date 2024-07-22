@@ -13,7 +13,6 @@ import { PhaseListItem } from '../../../../../shared/models/project/phase-list-i
 import { MajorTaskCardComponent } from '../major-task-card/major-task-card.component';
 import { MajorTaskCreateComponent } from '../major-task-create/major-task-create.component';
 import { MajorTaskCreateModel } from '../../../../../shared/models/task/major-task-create.model';
-import { TaskService } from '../../../../services/task.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, throwError } from 'rxjs';
 import { MajorTaskMoveModel } from '../../../../../shared/models/task/major-task-move.model';

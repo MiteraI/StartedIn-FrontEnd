@@ -2,7 +2,6 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { TaskService } from '../../../services/task.service';
 import { MajorTaskDialogInfo } from '../../../../shared/models/task/major-task-dialog-info.model';
 import { MinorTaskTitleCardComponent } from '../../../components/project-pages/phase-list-page/minor-task-title-card/minor-task-title-card.component';
 import { FormsModule } from '@angular/forms';
