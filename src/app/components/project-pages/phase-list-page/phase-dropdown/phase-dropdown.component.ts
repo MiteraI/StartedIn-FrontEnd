@@ -17,6 +17,7 @@ import { TaskService } from '../../../../services/task.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, throwError } from 'rxjs';
 import { MajorTaskMoveModel } from '../../../../../shared/models/task/major-task-move.model';
+import { MajorTaskService } from '../../../../services/major-task.service';
 
 @Component({
   selector: 'phase-dropdown',
@@ -48,7 +49,7 @@ export class PhaseDropdownComponent {
   teamId: string | null = null;
 
   constructor(
-    private taskService: TaskService,
+    private majorTaskService: MajorTaskService,
     private activatedRoute: ActivatedRoute,
     private snackBar: MatSnackBar
   ) {}
@@ -83,7 +84,7 @@ export class PhaseDropdownComponent {
       position: task.position,
     };
     this.phase.majorTasks.push(newItem);
-    this.taskService
+    this.majorTaskService
       .createMajorTask(task)
       .pipe(
         catchError(error => {
@@ -155,7 +156,7 @@ export class PhaseDropdownComponent {
       phaseId: this.phase.id,
       needsReposition: needsReposition,
     };
-    this.taskService
+    this.majorTaskService
       .moveMajorTask(movement)
       .pipe(
         catchError(error => {
@@ -216,7 +217,7 @@ export class PhaseDropdownComponent {
       phaseId: this.phase.id,
       needsReposition: needsReposition,
     };
-    this.taskService
+    this.majorTaskService
       .moveMajorTask(movement)
       .pipe(
         catchError(error => {

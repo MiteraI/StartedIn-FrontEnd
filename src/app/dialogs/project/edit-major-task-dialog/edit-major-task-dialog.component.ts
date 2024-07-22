@@ -7,6 +7,7 @@ import { MajorTaskDialogInfo } from '../../../../shared/models/task/major-task-d
 import { MinorTaskTitleCardComponent } from '../../../components/project-pages/phase-list-page/minor-task-title-card/minor-task-title-card.component';
 import { FormsModule } from '@angular/forms';
 import { MajorTaskEditInfo } from '../../../../shared/models/task/major-task-edit-info.model';
+import { MajorTaskService } from '../../../services/major-task.service';
 
 @Component({
   selector: 'app-edit-major-task-dialog',
@@ -25,7 +26,7 @@ export class EditMajorTaskDialogComponent {
   showSaveButton = false;
   constructor(
     private dialogRef: MatDialogRef<EditMajorTaskDialogComponent>,
-    private taskService: TaskService,
+    private majorTaskService: MajorTaskService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
@@ -53,13 +54,13 @@ export class EditMajorTaskDialogComponent {
     }, 200);
   }
   saveMajorTask() {
-    this.taskService.editMajorTask(this.majorTaskId, this.majorTask).subscribe(() => {
+    this.majorTaskService.editMajorTask(this.majorTaskId, this.majorTask).subscribe(() => {
       this.showSaveButton = false;
     });
   }
 
   saveMajorTitle() {
-    this.taskService.editMajorTask(this.majorTaskId, this.majorTask).subscribe(() => {});
+    this.majorTaskService.editMajorTask(this.majorTaskId, this.majorTask).subscribe(() => {});
   }
 
   addData() {

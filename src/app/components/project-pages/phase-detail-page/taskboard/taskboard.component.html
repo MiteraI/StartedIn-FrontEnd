@@ -1,13 +1,21 @@
 <div
-  class="w-72 m-4 bg-white border rounded-xl"
+  class="m-4 w-72 rounded-xl border bg-white"
   cdkDrag
   cdkDropList
   [cdkDropListData]="taskboard"
-  (cdkDropListDropped)="drop($event)">
-  <div class="p-2 text-xl text-center font-semibold bg-purple-400 rounded-t-xl cursor-pointer">{{taskboard.title}}</div>
+  (cdkDropListDropped)="drop($event)"
+>
+  <div
+    class="flex items-center justify-between rounded-t-xl bg-purple-400 px-4 py-2 text-xl font-semibold"
+  >
+    <input
+      class="w-56 rounded-md border-2 border-transparent bg-purple-400 px-2 focus:border-white focus:bg-purple-300 focus:outline-none"
+      [value]="taskboard.title"
+    />
+    <mat-icon fontIcon="more_horiz"></mat-icon>
+  </div>
   <div class="mx-2">
     <mini-task-item *ngFor="let task of taskboard.minorTasks" [task]="task"></mini-task-item>
     <minor-task-create (taskSubmit)="submitTask($event)"></minor-task-create>
   </div>
 </div>
-

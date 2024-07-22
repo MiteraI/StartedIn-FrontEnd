@@ -10,6 +10,7 @@ import { MinorTaskMoveModel } from '../../../../../shared/models/task/minor-task
 import { catchError, throwError } from 'rxjs';
 import { MinorTaskCreateComponent } from '../minor-task-create/minor-task-create.component';
 import { MinorTaskCreateModel } from '../../../../../shared/models/task/minor-task-create.model';
+import { MinorTaskService } from '../../../../services/minor-task.service';
 
 @Component({
   selector: 'taskboard',
@@ -32,7 +33,7 @@ export class TaskboardComponent {
   private upperBoundPos = 1 << 30; // 2^30 or 1,073,741,824
 
   constructor(
-    private taskService: TaskService,
+    private minorTaskService: MinorTaskService,
     private snackBar: MatSnackBar
   ) {}
 
@@ -56,7 +57,7 @@ export class TaskboardComponent {
       status: "Đang chờ"
     };
     this.taskboard.minorTasks.push(newItem);
-    this.taskService
+    this.minorTaskService
       .createMinorTask(task)
       .pipe(
         catchError(error => {
@@ -128,7 +129,7 @@ export class TaskboardComponent {
       taskboardId: this.taskboard.id,
       needsReposition: needsReposition,
     };
-    this.taskService.moveMinorTask(movement).pipe(
+    this.minorTaskService.moveMinorTask(movement).pipe(
       catchError(error => {
         this.snackBar.open(
           'Đã xảy ra lỗi! Những thay đổi của bạn có thể sẽ không được lưu. Hãy tải lại trang.',
@@ -187,7 +188,7 @@ export class TaskboardComponent {
       taskboardId: this.taskboard.id,
       needsReposition: needsReposition,
     };
-    this.taskService.moveMinorTask(movement).pipe(
+    this.minorTaskService.moveMinorTask(movement).pipe(
       catchError(error => {
         this.snackBar.open(
           'Đã xảy ra lỗi! Những thay đổi của bạn có thể sẽ không được lưu. Hãy tải lại trang.',
