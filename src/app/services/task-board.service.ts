@@ -28,4 +28,11 @@ export class TaskBoardService {
       movement
     );
   }
+
+  editTaskboard(title: string, id: string): Observable<any> {
+    return this.http.put(
+      this.applicationConfigService.getEndpointFor(`/api/taskboard/edit/${id}`),
+      { title: title }
+    );
+  }
 }
