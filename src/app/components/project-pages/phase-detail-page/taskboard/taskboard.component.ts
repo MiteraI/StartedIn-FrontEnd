@@ -1,38 +1,54 @@
 import { Component, Input } from '@angular/core';
 import { MiniTaskItemComponent } from '../mini-task-item/mini-task-item.component';
 import { MatIconModule } from '@angular/material/icon';
-import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import {
+  CdkDragDrop,
+  DragDropModule,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { Taskboard } from '../../../../../shared/models/task/taskboard.model';
-import { TaskService } from '../../../../services/task.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MinorTaskMoveModel } from '../../../../../shared/models/task/minor-task-move.model';
 import { catchError, throwError } from 'rxjs';
 import { MinorTaskCreateComponent } from '../minor-task-create/minor-task-create.component';
 import { MinorTaskCreateModel } from '../../../../../shared/models/task/minor-task-create.model';
+import { MinorTaskService } from '../../../../services/minor-task.service';
+import { ClickOutsideDirective } from '../../../../../shared/directives/click-outside.directive';
+import { TaskBoardService } from '../../../../services/task-board.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'taskboard',
   standalone: true,
-  imports: [MiniTaskItemComponent, MinorTaskCreateComponent, MatIconModule, DragDropModule, CommonModule],
+  imports: [
+    MiniTaskItemComponent,
+    MinorTaskCreateComponent,
+    MatIconModule,
+    DragDropModule,
+    CommonModule,
+    ClickOutsideDirective,
+  ],
   templateUrl: './taskboard.component.html',
-  styleUrl: './taskboard.component.css'
+  styleUrl: './taskboard.component.css',
 })
 export class TaskboardComponent {
-  @Input({required: true}) taskboard: Taskboard = {
-    id: "",
-    title: "",
+  @Input({ required: true }) taskboard: Taskboard = {
+    id: '',
+    title: '',
     position: 0,
-    phaseId: "",
-    minorTasks: []
-  }
+    phaseId: '',
+    minorTasks: [],
+  };
   private currMaxPos: number = 0;
   private offset = 1 << 16; // 2^16 or 65536
   private lowerBoundPos = 1 << 4; // 2^4 or 16
   private upperBoundPos = 1 << 30; // 2^30 or 1,073,741,824
 
   constructor(
-    private taskService: TaskService,
+    private minorTaskService: MinorTaskService,
+    private taskboardService: TaskBoardService,
     private snackBar: MatSnackBar
   ) {}
 
@@ -47,7 +63,7 @@ export class TaskboardComponent {
     task.taskboardId = this.taskboard.id;
     this.currMaxPos = task.position;
     var newItem = {
-      id: "",
+      id: '',
       taskTitle: task.taskTitle,
       description: task.description,
       position: task.position,
@@ -55,7 +71,7 @@ export class TaskboardComponent {
       majorTaskId: null
     };
     this.taskboard.minorTasks.push(newItem);
-    this.taskService
+    this.minorTaskService
       .createMinorTask(task)
       .pipe(
         catchError(error => {
@@ -127,17 +143,19 @@ export class TaskboardComponent {
       taskboardId: this.taskboard.id,
       needsReposition: needsReposition,
     };
-    this.taskService.moveMinorTask(movement).pipe(
-      catchError(error => {
-        this.snackBar.open(
-          'Đã xảy ra lỗi! Những thay đổi của bạn có thể sẽ không được lưu. Hãy tải lại trang.',
-          'Close',
-          { duration: 3000 }
-        );
-        return throwError(() => new Error(error.error));
-      })
-    )
-    .subscribe();
+    this.minorTaskService
+      .moveMinorTask(movement)
+      .pipe(
+        catchError(error => {
+          this.snackBar.open(
+            'Đã xảy ra lỗi! Những thay đổi của bạn có thể sẽ không được lưu. Hãy tải lại trang.',
+            'Close',
+            { duration: 3000 }
+          );
+          return throwError(() => new Error(error.error));
+        })
+      )
+      .subscribe();
   }
 
   transferItem(event: CdkDragDrop<Taskboard>) {
@@ -186,17 +204,19 @@ export class TaskboardComponent {
       taskboardId: this.taskboard.id,
       needsReposition: needsReposition,
     };
-    this.taskService.moveMinorTask(movement).pipe(
-      catchError(error => {
-        this.snackBar.open(
-          'Đã xảy ra lỗi! Những thay đổi của bạn có thể sẽ không được lưu. Hãy tải lại trang.',
-          'Close',
-          { duration: 3000 }
-        );
-        return throwError(() => new Error(error.error));
-      })
-    )
-    .subscribe();
+    this.minorTaskService
+      .moveMinorTask(movement)
+      .pipe(
+        catchError(error => {
+          this.snackBar.open(
+            'Đã xảy ra lỗi! Những thay đổi của bạn có thể sẽ không được lưu. Hãy tải lại trang.',
+            'Close',
+            { duration: 3000 }
+          );
+          return throwError(() => new Error(error.error));
+        })
+      )
+      .subscribe();
   }
 
   redistributeTasks() {
@@ -206,5 +226,19 @@ export class TaskboardComponent {
       task.position = newPos;
     }
     this.currMaxPos = newPos;
+  }
+
+  completeEditTaskboardTitle(title: string) {
+    this.taskboardService
+      .editTaskboard(title, this.taskboard.id)
+      .pipe(
+        catchError(error => {
+          if (error instanceof HttpErrorResponse && error.status === 400) {
+            this.snackBar.open(error.error, 'Đóng', { duration: 3000 });
+          }
+          return error;
+        })
+      )
+      .subscribe();
   }
 }

@@ -8,10 +8,10 @@ import { TaskboardCreateComponent } from '../../../components/project-pages/phas
 import { PhaseFullInfo } from '../../../../shared/models/project/phase-full-info.model';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { TaskService } from '../../../services/task.service';
 import { TaskboardMoveModel } from '../../../../shared/models/task/taskboard-move.model';
 import { catchError, throwError } from 'rxjs';
 import { TaskboardCreateModel } from '../../../../shared/models/task/taskboard-create.model';
+import { TaskBoardService } from '../../../services/task-board.service';
 
 @Component({
   selector: 'app-phase-detail-page',
@@ -41,7 +41,7 @@ export class PhaseDetailPageComponent {
 
   constructor(
     private activeRoute: ActivatedRoute,
-    private taskService: TaskService,
+    private taskboardService: TaskBoardService,
     private snackBar: MatSnackBar
   ) {}
 
@@ -102,7 +102,7 @@ export class PhaseDetailPageComponent {
       position: position,
       needsReposition: needsReposition
     }
-    this.taskService
+    this.taskboardService
       .moveTaskboard(movement)
       .pipe(
         catchError(error => {
@@ -134,7 +134,7 @@ export class PhaseDetailPageComponent {
       minorTasks: []
     };
     this.phase.taskboards.push(newItem);
-    this.taskService
+    this.taskboardService
       .createTaskboard(taskboard)
       .pipe(
         catchError(error => {

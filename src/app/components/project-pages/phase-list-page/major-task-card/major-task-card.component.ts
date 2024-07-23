@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { EditMajorTaskDialogComponent } from '../../../../dialogs/project/edit-major-task-dialog/edit-major-task-dialog.component';
 import { firstValueFrom } from 'rxjs';
-import { TaskService } from '../../../../services/task.service';
+import { MajorTaskService } from '../../../../services/major-task.service';
 
 @Component({
   selector: 'major-task-card',
@@ -26,10 +26,10 @@ export class MajorTaskCardComponent {
 
   constructor(
     private dialog: MatDialog,
-    private taskService: TaskService
+    private majorTaskService: MajorTaskService
   ) {}
   async openEditMajorTaskDialog() {
-    const resolvedData = await firstValueFrom(this.taskService.getMajorTaskById(this.task.id));
+    const resolvedData = await firstValueFrom(this.majorTaskService.getMajorTaskById(this.task.id));
     const dialogRef = this.dialog.open(EditMajorTaskDialogComponent, {
       data: {
         task: resolvedData,
