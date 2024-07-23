@@ -24,7 +24,7 @@ export class MiniTaskItemComponent {
 
   constructor(private dialog: MatDialog) {}
 
-  openEditMajorTaskDialog() {
+  openEditMinorTaskDialog() {
     const dialogRef = this.dialog.open(EditMinorTaskDialogComponent, {
       data: {
         id: this.task.id,
@@ -39,15 +39,11 @@ export class MiniTaskItemComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log(result);
         this.task.taskTitle = result.taskTitle;
         this.task.description = result.description;
         this.task.status = result.status;
+        this.task.majorTaskId = result.majorTaskId;
       }
-    });
-
-    dialogRef.backdropClick().subscribe(() => {
-      console.log('backdrop clicked');
     });
   }
 }

@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 import { MajorTaskDialogInfo } from '../../shared/models/task/major-task-dialog-info.model';
 import { MajorTaskMoveModel } from '../../shared/models/task/major-task-move.model';
 import { MajorTaskEditInfo } from '../../shared/models/task/major-task-edit-info.model';
-import { MinorTaskEditModel } from '../../shared/models/task/minor-task-edit.model';
 
 @Injectable({
   providedIn: 'root',
@@ -43,9 +42,5 @@ export class MajorTaskService {
       this.applicationConfigService.getEndpointFor(`/api/majortask/edit/${id}`),
       task
     );
-  }
-
-  editMinorTask(id: string, task: MinorTaskEditModel): Observable<any> {
-    return this.http.put(this.applicationConfigService.getEndpointFor(`/api/minortask/edit/${id}`), task);
   }
 }
