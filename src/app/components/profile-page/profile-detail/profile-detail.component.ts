@@ -31,6 +31,17 @@ export class ProfileDetailComponent {
     this.destroyed$.complete();
   }
 
+  ngOnInit() {
+    this.profileService.refreshNeeded$.pipe(takeUntil(this.destroyed$)).subscribe(() => {
+      this.profileService
+        .getProfile()
+        .pipe(takeUntil(this.destroyed$))
+        .subscribe(account => {
+          this.account = account;
+        });
+    });
+  }
+
   openEditProfileDialog(): void {
     const dialogRef = this.dialog.open(EditProfileDialogComponent, {
       width: '500px',
@@ -71,8 +82,8 @@ export class ProfileDetailComponent {
         this.profileService
           .uploadProfileImage(result.avatar)
           .pipe(
-            tap((response: string) => {
-              this.snackBar.open(response, 'Đóng', { duration: 3000 });
+            tap(() => {
+              this.snackBar.open('Sửa ảnh thành công', 'Đóng', { duration: 3000 });
             }),
             catchError(error => {
               console.error(result.avatar, error);
@@ -96,8 +107,8 @@ export class ProfileDetailComponent {
         this.profileService
           .uploadCoverPhoto(result.avatar)
           .pipe(
-            tap((response: string) => {
-              this.snackBar.open(response, 'Đóng', { duration: 3000 });
+            tap(() => {
+              this.snackBar.open('Sửa ảnh thành công', 'Đóng', { duration: 3000 });
             }),
             catchError(error => {
               console.error(result.avatar, error);

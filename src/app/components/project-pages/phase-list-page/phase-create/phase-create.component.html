@@ -7,7 +7,7 @@
     <div class="flex flex-grow items-center">
       <div class="rounded-s-xl bg-purple-400 px-2 py-6"></div>
       <mat-icon class="ml-2" fontIcon="add"></mat-icon>
-      <div class="ml-2 cursor-pointer text-xl font-bold">Create new phase</div>
+      <div class="ml-2 cursor-pointer text-xl font-bold">Tạo giai đoạn mới</div>
     </div>
   </div>
 </ng-template>
@@ -20,8 +20,8 @@
           type="text"
           id="phaseName"
           formControlName="phaseName"
-          placeholder="Hãy nhập tên cho phase này..."
-          class="mx-4 border-0 bg-transparent text-3xl font-bold focus:outline-none"
+          placeholder="Hãy nhập tên cho giai đoạn này..."
+          class="w-11/12 mx-4 border-0 bg-transparent text-3xl font-bold focus:outline-none"
           [cdkTrapFocusAutoCapture]="isModalOpen"
           [cdkTrapFocus]="isModalOpen"
         />
@@ -31,7 +31,7 @@
       <button
         class="m-2 h-10 cursor-pointer rounded-md bg-purple-200 px-4 py-2 font-semibold hover:bg-purple-300"
       >
-        Tạo phase
+        Tạo giai đoạn
       </button>
       <div
         class="my-2 h-10 cursor-pointer rounded-md p-2 font-semibold hover:bg-slate-300"

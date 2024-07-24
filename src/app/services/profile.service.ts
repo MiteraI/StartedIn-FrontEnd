@@ -43,9 +43,7 @@ export class ProfileService {
     const formData = new FormData();
     formData.append('avatar', file);
     return this.http
-      .post(this.appConfigService.getEndpointFor('/api/profile/avatar'), formData, {
-        responseType: 'text',
-      })
+      .post(this.appConfigService.getEndpointFor('/api/profile/avatar'), formData)
       .pipe(
         tap(() => {
           this._refreshNeeded$.next();
@@ -57,9 +55,7 @@ export class ProfileService {
     const formData = new FormData();
     formData.append('coverPhoto', file);
     return this.http
-      .post(this.appConfigService.getEndpointFor('/api/profile/cover-photo'), formData, {
-        responseType: 'text',
-      })
+      .post(this.appConfigService.getEndpointFor('/api/profile/cover-photo'), formData)
       .pipe(
         tap(() => {
           this._refreshNeeded$.next();

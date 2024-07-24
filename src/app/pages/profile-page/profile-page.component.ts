@@ -35,7 +35,6 @@ export class ProfilePageComponent {
   private getFullProfile() {
     this.activatedRoute.data.subscribe(data => {
       this.profile = data['account'];
-      console.log('Account profile:', this.profile);
     });
   }
 

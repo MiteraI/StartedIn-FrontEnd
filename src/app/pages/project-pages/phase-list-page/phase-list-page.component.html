@@ -1,27 +1,25 @@
-<project-side-nav [opened]="true" [teamId]="project.teamId">
-  <div class="flex min-h-screen justify-center">
-    <div class="mt-5 w-[75vw]">
-      <project-title-card
-        [projectName]="project.projectName"
-        [creatorName]="project.leader.fullName"
-      ></project-title-card>
-      <div
-        *ngIf="project.phases.length > 0"
-        cdkDropListGroup
-        cdkDropList
-        [cdkDropListData]="project.phases"
-        (cdkDropListDropped)="drop($event)"
-      >
-        <phase-dropdown
-          *ngFor="let phase of project.phases.slice(0, project.phases.length - 1)"
-          [phase]="phase"
-        ></phase-dropdown>
-        <phase-dropdown
-          [phase]="project.phases[project.phases.length - 1]"
-          [expanded]="true"
-        ></phase-dropdown>
-      </div>
-      <phase-create (phaseSubmit)="createPhase($event)"></phase-create>
+<div class="flex min-h-screen justify-center">
+  <div class="mt-5 w-[75vw]">
+    <project-title-card
+      [projectName]="project.projectName"
+      [creatorName]="project.leader.fullName"
+    ></project-title-card>
+    <div
+      *ngIf="project.phases.length > 0"
+      cdkDropListGroup
+      cdkDropList
+      [cdkDropListData]="project.phases"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <phase-dropdown
+        *ngFor="let phase of project.phases.slice(0, project.phases.length - 1)"
+        [phase]="phase"
+      ></phase-dropdown>
+      <phase-dropdown
+        [phase]="project.phases[project.phases.length - 1]"
+        [expanded]="true"
+      ></phase-dropdown>
     </div>
+    <phase-create (phaseSubmit)="createPhase($event)"></phase-create>
   </div>
-</project-side-nav>
+</div>

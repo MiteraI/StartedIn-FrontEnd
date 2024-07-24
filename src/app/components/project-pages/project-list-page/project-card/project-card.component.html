@@ -1,7 +1,12 @@
-<div class="mr-4 mb-4">
+<div class="mb-4 mr-4">
   <!-- TODO link correct project -->
-  <div class="w-56 h-24 flex bg-purple-100 rounded-lg shadow-md cursor-pointer hover:bg-purple-200" [routerLink]="['/project', project?.id]">
-    <div class="flex-grow pl-3 pt-2 text-xl font-semibold overflow-hidden">{{project?.projectName}}</div>
+  <div
+    class="flex h-24 w-56 cursor-pointer rounded-lg bg-purple-100 shadow-md hover:bg-purple-200"
+    [routerLink]="['/teams', teamId, 'projects', project?.id]"
+  >
+    <div class="flex-grow overflow-hidden pl-3 pt-2 text-xl font-semibold">
+      {{ project?.projectName }}
+    </div>
     <div class="pr-3 pt-2">
       <mat-icon fontIcon="more_horiz"></mat-icon>
     </div>

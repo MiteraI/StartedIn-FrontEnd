@@ -19,6 +19,5 @@ export class PostDetailComponent {
 
   ngOnInit() {
     this.shownDate = new Date(this.postDetail?.lastUpdatedTime ?? new Date());
-    console.log(this.shownDate.getDate());
   }
 }

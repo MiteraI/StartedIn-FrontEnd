@@ -39,7 +39,12 @@ export class FriendManagementComponent {
 
   loadData() {
     this.networkService.getUserConnectionList(this.currentPage, this.itemsPerPage).subscribe({
-      next: response => (this.connectedUsers = response),
+      next: response => {
+        this.connectedUsers = response;
+        if (response.length < this.itemsPerPage) {
+          this.endOfList = true;
+        }
+      },
       error: error => {
         console.error(error);
         this.endOfList = true;
@@ -51,7 +56,12 @@ export class FriendManagementComponent {
   appendData() {
     this.toggleLoading();
     this.networkService.getUserConnectionList(this.currentPage, this.itemsPerPage).subscribe({
-      next: response => (this.connectedUsers = [...this.connectedUsers, ...response]),
+      next: response => {
+        this.connectedUsers = [...this.connectedUsers, ...response];
+        if (response.length < this.itemsPerPage) {
+          this.endOfList = true;
+        }
+      },
       error: error => {
         console.error(error);
         this.endOfList = true;

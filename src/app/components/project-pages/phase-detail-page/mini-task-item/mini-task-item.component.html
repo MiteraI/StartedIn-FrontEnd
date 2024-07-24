@@ -1,5 +1,21 @@
-<div class="my-4 bg-purple-200 border rounded-lg shadow-lg cursor-pointer hover:bg-purple-300" cdkDrag>
-  <div class="m-2 font-medium text-lg">{{task.taskTitle}}</div>
-  <div class="m-2 text-sm">{{task.description}}</div>
-  <div class="m-2 px-2 py-1 bg-yellow-200 border rounded-lg w-fit">{{task.status}}</div>
+<div
+  class="my-4 cursor-pointer rounded-lg border bg-purple-200 shadow-lg hover:bg-purple-300"
+  cdkDrag
+  (click)="openEditMinorTaskDialog()"
+>
+  <div class="m-2 text-lg font-medium">{{ task.taskTitle }}</div>
+  <div class="m-2 text-sm">
+    {{
+      task.description.length > 25 ? task.description.substring(0, 25) + '...' : task.description
+    }}
+  </div>
+  <div *ngIf="task.status === 0" class="m-2 w-fit rounded-lg border bg-blue-200 px-2 py-1">
+    Đang chờ...
+  </div>
+  <div *ngIf="task.status === 1" class="m-2 w-fit rounded-lg border bg-yellow-200 px-2 py-1">
+    Đang làm...
+  </div>
+  <div *ngIf="task.status === 2" class="m-2 w-fit rounded-lg border bg-green-200 px-2 py-1">
+    Đã hoàn thành
+  </div>
 </div>

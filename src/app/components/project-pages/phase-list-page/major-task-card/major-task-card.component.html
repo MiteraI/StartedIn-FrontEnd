@@ -1,15 +1,21 @@
-<div class="h-20 flex items-center mx-8 my-4 px-4 py-2 bg-purple-200 rounded-md cursor-pointer hover:bg-purple-300" cdkDrag>
+<div
+  (click)="openEditMajorTaskDialog()"
+  class="mx-8 my-4 flex h-20 cursor-pointer items-center rounded-md bg-purple-200 px-4 py-2 hover:bg-purple-300"
+  cdkDrag
+>
   <div class="w-1/2">
-    <div class="font-semibold text-xl">
-      {{task.taskTitle}}
+    <div class="text-xl font-semibold">
+      {{ task.taskTitle }}
     </div>
     <div class="text-sm">
-      {{task.description.length > 50 ? task.description.substring(0, 50) + "..." : task.description}}
+      {{
+        task.description.length > 50 ? task.description.substring(0, 50) + '...' : task.description
+      }}
     </div>
   </div>
 
-  <div *ngIf="progress >= 0" class="flex flex-wrap w-1/2">
-    <div class="font-semibold mb-2">Progress: {{progress}}%</div>
+  <div *ngIf="progress >= 0" class="flex w-1/2 flex-wrap">
+    <div class="mb-2 font-semibold">Progress: {{ progress }}%</div>
     <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
   </div>
 </div>
