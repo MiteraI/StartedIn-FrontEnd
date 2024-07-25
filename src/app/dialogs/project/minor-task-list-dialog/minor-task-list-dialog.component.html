@@ -1,7 +1,7 @@
 <div class="w-80 p-4">
   <div class="flex items-center">
     <div class="w-1/6"></div>
-    <div class="w-2/3 text-center text-xl font-semibold text-purple-800">Danh sách task lớn</div>
+    <div class="w-2/3 text-center text-xl font-semibold text-purple-800">Danh sách task nhỏ</div>
     <div class="flex w-1/6 justify-end">
       <div
         class="flex cursor-pointer items-center rounded-md p-1 hover:bg-red-200"
@@ -19,7 +19,7 @@
       (input)="search()"
     />
   </div>
-  <div class="mt-2 h-40 overflow-auto">
+  <div class="mt-2 h-60 overflow-auto">
     <div *ngIf="shownList.length !== 0; then majorTasks; else noMajorTasks"></div>
     <ng-template #majorTasks>
       <div

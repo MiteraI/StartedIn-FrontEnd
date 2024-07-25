@@ -1,23 +1,20 @@
 import { Component, Input } from '@angular/core';
-import { MinorTaskBasicInfo } from '../../../../../shared/models/task/minor-task-basic-info.model';
+import { MinorTask } from '../../../../../shared/models/task/minor-task.model';
 
 @Component({
-  selector: 'app-minor-task-title-card',
+  selector: 'minor-task-title-card',
   standalone: true,
   imports: [],
   templateUrl: './minor-task-title-card.component.html',
   styleUrl: './minor-task-title-card.component.css',
 })
 export class MinorTaskTitleCardComponent {
-  @Input() minorTask: MinorTaskBasicInfo = {
-    position: 0,
+  @Input() minorTask: MinorTask = {
+    id: '',
     taskTitle: '',
     description: '',
-    status: '',
-    majorTaskId: '',
-    taskboardId: '',
+    status: 0,
+    position: 0,
+    majorTaskId: ''
   };
-  constructor() {}
-
-  ngOnInit() {}
 }

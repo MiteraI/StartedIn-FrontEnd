@@ -8,7 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, throwError } from 'rxjs';
 import { MinorTaskService } from '../../../services/minor-task.service';
 import { MajorTaskBasicInfo } from '../../../../shared/models/task/major-task-basic-info.model';
-import { AssignMinorToMajorDialogComponent } from '../assign-minor-to-major-dialog/assign-minor-to-major-dialog.component';
+import { MajorTaskListDialogComponent } from '../major-task-list-dialog/major-task-list-dialog.component';
 
 @Component({
   selector: 'app-edit-minor-task-dialog',
@@ -113,7 +113,7 @@ export class EditMinorTaskDialogComponent {
     const midX = window.innerWidth / 2;
     const midY = window.innerHeight / 2;
 
-    const assignDialog = this.dialog.open(AssignMinorToMajorDialogComponent, {
+    const assignDialog = this.dialog.open(MajorTaskListDialogComponent, {
       data: this.majorTasks.filter(m => m.id !== this.task.majorTaskId),
       position: {
         left: event.clientX < midX ? event.clientX + "px" : undefined,

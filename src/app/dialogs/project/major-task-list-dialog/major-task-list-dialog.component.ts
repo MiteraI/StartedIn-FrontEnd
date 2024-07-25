@@ -6,18 +6,18 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-assign-minor-to-major-dialog',
+  selector: 'app-major-task-list-dialog',
   standalone: true,
   imports: [MatIconModule, CommonModule, FormsModule],
-  templateUrl: './assign-minor-to-major-dialog.component.html',
-  styleUrl: './assign-minor-to-major-dialog.component.css'
+  templateUrl: './major-task-list-dialog.component.html',
+  styleUrl: './major-task-list-dialog.component.css'
 })
-export class AssignMinorToMajorDialogComponent {
+export class MajorTaskListDialogComponent {
   shownList: MajorTaskBasicInfo[] = [];
   keyword: string = "";
 
   constructor(
-    private dialogRef: MatDialogRef<AssignMinorToMajorDialogComponent>,
+    private dialogRef: MatDialogRef<MajorTaskListDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: MajorTaskBasicInfo[]
   ) {}
 
@@ -26,8 +26,6 @@ export class AssignMinorToMajorDialogComponent {
   }
 
   search() {
-    console.log(this.keyword);
-
     this.shownList = this.data.filter(m => m.taskTitle.toLocaleLowerCase().includes(this.keyword.toLocaleLowerCase()));
   }
 
