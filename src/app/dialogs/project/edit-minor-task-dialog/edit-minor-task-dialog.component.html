@@ -1,13 +1,13 @@
 <div class="m-6 flex h-[600px] w-[800px] flex-row flex-wrap overflow-auto">
   <div class="mr-4 w-4/5">
-    <div class="mt-4 flex items-center">
+    <div class="mt-1 flex items-center">
       <mat-icon fontIcon="task_alt"></mat-icon>
 
       <input
         type="text"
         class="ml-2 w-full rounded-md border-none bg-transparent px-4 py-2 text-2xl font-semibold focus:border"
         [(ngModel)]="task.taskTitle"
-        placeholder="Enter task title"
+        placeholder="Nhập tên Task"
         (blur)="save()"
       />
     </div>
@@ -54,18 +54,27 @@
       </div>
       <div *ngIf="task.majorTaskId; then majorTask; else noMajorTask"></div>
       <ng-template #noMajorTask>
-        <div class="flex items-center my-2 px-10 py-2 rounded-xl cursor-pointer hover:bg-slate-200" (click)="openAssignDialog($event)">
+        <div
+          class="my-2 flex cursor-pointer items-center rounded-xl px-10 py-2 hover:bg-slate-200"
+          (click)="openAssignDialog($event)"
+        >
           <mat-icon class="ml-1" fontIcon="add_circle"></mat-icon>
           <span class="ml-2 font-medium">Gán task nhỏ này vào một task lớn</span>
         </div>
       </ng-template>
       <ng-template #majorTask>
-        <div class="flex items-center my-2 px-10 py-2">
-          <span class="px-2 font-medium">{{majorTaskName}}</span>
-          <div class="flex items-center rounded-xl cursor-pointer hover:text-purple-400" (click)="openAssignDialog($event)">
+        <div class="my-2 flex items-center px-10 py-2">
+          <span class="px-2 font-medium">{{ majorTaskName }}</span>
+          <div
+            class="flex cursor-pointer items-center rounded-xl hover:text-purple-400"
+            (click)="openAssignDialog($event)"
+          >
             <mat-icon fontIcon="edit"></mat-icon>
           </div>
-          <div class="flex items-center rounded-xl cursor-pointer hover:text-purple-400" (click)="removeFromMajorTask()">
+          <div
+            class="flex cursor-pointer items-center rounded-xl hover:text-purple-400"
+            (click)="removeFromMajorTask()"
+          >
             <mat-icon fontIcon="delete"></mat-icon>
           </div>
         </div>
@@ -78,7 +87,7 @@
         <div class="ml-6 text-xl font-semibold">Bình luận</div>
       </div>
       <div class="mt-2 flex items-center">
-        <div class="mr-3 size-5 rounded-full bg-red-500"></div>
+        <div class="mr-3 size-6 min-h-6 min-w-6 rounded-full bg-red-500"></div>
         <input
           type="text"
           class="w-full rounded-md border bg-purple-400 bg-opacity-5 p-3 placeholder-[#a99fbf]"
@@ -89,9 +98,13 @@
   </div>
 
   <div class="flex flex-grow flex-col">
-    <div class="ml-auto">
+    <div class="ml-auto mt-1">
       <mat-icon class="cursor-pointer" fontIcon="close" (click)="onClose()"></mat-icon>
     </div>
-    <div class="mt-5">Thêm vào thẻ</div>
+    <div
+      class="mt-5 flex cursor-pointer justify-center rounded-lg bg-purple-100 py-2 hover:bg-purple-300"
+    >
+      Thêm vào thẻ
+    </div>
   </div>
 </div>

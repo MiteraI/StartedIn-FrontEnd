@@ -1,0 +1,64 @@
+<div class="w-80 p-4">
+  <div class="flex items-center">
+    <div class="w-1/6"></div>
+    <div class="w-2/3 text-center text-xl font-semibold text-purple-800">Danh sách task nhỏ</div>
+    <div class="flex w-1/6 justify-end">
+      <div
+        class="flex cursor-pointer items-center rounded-md p-1 hover:bg-red-200"
+        (click)="onCancel()"
+      >
+        <mat-icon class="scale-75" fontIcon="close"></mat-icon>
+      </div>
+    </div>
+  </div>
+  <div class="mt-4">
+    <input
+      class="w-full rounded-2xl px-4 py-1 outline outline-2 outline-slate-400 focus:outline-purple-800"
+      placeholder="Tìm kiếm..."
+      [(ngModel)]="keyword"
+      (input)="search()"
+    />
+  </div>
+  <div class="mt-2 h-60 overflow-auto">
+    <div *ngIf="shownList.length !== 0; then majorTasks; else noMajorTasks"></div>
+    <ng-template #majorTasks>
+      <div
+        *ngFor="let taskItem of shownList"
+        class="flex cursor-pointer items-center rounded-lg px-4 py-2 hover:bg-purple-200"
+        (click)="toggleSelection(taskItem)"
+      >
+        <div *ngIf="taskItem.selected" class="h-5 w-5 rounded bg-purple-600">
+          <mat-icon class="ml-[-2px] mt-[-2px] scale-50 text-white" fontIcon="check"></mat-icon>
+        </div>
+        <div
+          *ngIf="!taskItem.selected"
+          class="h-5 w-5 rounded border-2 border-purple-600 hover:bg-purple-400"
+        ></div>
+        <div class="ml-2">{{ taskItem.task.taskTitle }}</div>
+      </div>
+    </ng-template>
+    <ng-template #noMajorTasks>
+      <div class="flex h-full items-center justify-center px-4 py-2 font-semibold text-purple-800">
+        Không tìm thấy task lớn nào cả!
+      </div>
+    </ng-template>
+  </div>
+  <div class="flex">
+    <div class="w-1/2">
+      <div
+        class="mx-2 cursor-pointer rounded bg-purple-600 py-2 text-center text-white hover:bg-purple-400"
+        (click)="submit()"
+      >
+        Thêm
+      </div>
+    </div>
+    <div class="w-1/2">
+      <div
+        class="mx-2 cursor-pointer rounded py-2 text-center text-black hover:bg-red-200"
+        (click)="onCancel()"
+      >
+        Hủy
+      </div>
+    </div>
+  </div>
+</div>

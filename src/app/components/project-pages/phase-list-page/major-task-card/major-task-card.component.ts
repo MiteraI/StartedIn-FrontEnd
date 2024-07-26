@@ -28,11 +28,13 @@ export class MajorTaskCardComponent {
     private dialog: MatDialog,
     private majorTaskService: MajorTaskService
   ) {}
+
   async openEditMajorTaskDialog() {
     const resolvedData = await firstValueFrom(this.majorTaskService.getMajorTaskById(this.task.id));
     const dialogRef = this.dialog.open(EditMajorTaskDialogComponent, {
       data: {
-        task: resolvedData,
+        id: this.task.id,
+        dialogInfo: resolvedData,
       },
     });
 
@@ -41,10 +43,6 @@ export class MajorTaskCardComponent {
         this.task.taskTitle = result.taskTitle;
         this.task.description = result.description;
       }
-    });
-
-    dialogRef.backdropClick().subscribe(() => {
-      console.log('backdrop clicked');
     });
   }
 }

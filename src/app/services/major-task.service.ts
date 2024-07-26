@@ -4,9 +4,10 @@ import { ApplicationConfigService } from '../core/config/application-config.serv
 import { MajorTaskCreateModel } from '../../shared/models/task/major-task-create.model';
 import { CreatedResponse } from '../../shared/models/created-response.model';
 import { Observable } from 'rxjs';
-import { MajorTaskDialogInfo } from '../../shared/models/task/major-task-dialog-info.model';
 import { MajorTaskMoveModel } from '../../shared/models/task/major-task-move.model';
-import { MajorTaskEditInfo } from '../../shared/models/task/major-task-edit-info.model';
+import { MajorTaskEditModel } from '../../shared/models/task/major-task-edit.model';
+import { MinorTask } from '../../shared/models/task/minor-task.model';
+import { MajorTaskDialogInfo } from '../../shared/models/task/major-task-dialog-info.model';
 
 @Injectable({
   providedIn: 'root',
@@ -37,10 +38,14 @@ export class MajorTaskService {
     );
   }
 
-  editMajorTask(id: string, task: MajorTaskEditInfo): Observable<any> {
+  editMajorTask(id: string, task: MajorTaskEditModel): Observable<any> {
     return this.http.put(
       this.applicationConfigService.getEndpointFor(`/api/majortask/edit/${id}`),
       task
     );
+  }
+
+  getAssignableMajorTasks(id: string): Observable<any> {
+    return this.http.get<MinorTask[]>(this.applicationConfigService.getEndpointFor(`/api/majortask/${id}/get-assignable-minor-tasks`));
   }
 }
