@@ -34,15 +34,32 @@
     </div>
 
     <div class="mt-4 text-purple-800">
-      <div class="flex">
+      <div class="mb-4 flex">
         <mat-icon fontIcon="assignment"></mat-icon>
         <div class="ml-6 text-xl font-semibold">Task nhỏ</div>
+        <div class="flex-grow"></div>
+        <div
+          class="cursor-pointer rounded bg-purple-100 px-2 py-1 font-medium hover:bg-purple-200"
+          (click)="openAssignDialog($event)"
+        >
+          Thêm
+        </div>
       </div>
-      <div *ngFor="let minorTask of dialogInfo.minorTasks">
-        <minor-task-title-card
-          [minorTask]="minorTask" />
-        <mat-icon fontIcon="delete"></mat-icon>
-      </div>
+      <div *ngIf="dialogInfo.minorTasks.length <= 0; then noMinorTask; else minorTask"></div>
+      <ng-template #noMinorTask>
+        <div class="my-2 text-center">Không có task nhỏ nào trong task lớn này cả!</div>
+      </ng-template>
+      <ng-template #minorTask>
+        <div *ngFor="let minorTask of dialogInfo.minorTasks" class="my-2 flex items-center px-10">
+          <span class="px-2 font-medium">{{ minorTask.taskTitle }}</span>
+          <div
+            class="flex cursor-pointer items-center rounded-xl hover:text-purple-400"
+            (click)="removeMinorTask(minorTask.id)"
+          >
+            <mat-icon fontIcon="delete"></mat-icon>
+          </div>
+        </div>
+      </ng-template>
     </div>
 
     <div class="mt-4 text-purple-800">
@@ -62,7 +79,7 @@
   </div>
 
   <div class="flex flex-grow flex-col">
-    <div class="mt-1 ml-auto">
+    <div class="ml-auto mt-1">
       <mat-icon class="cursor-pointer" fontIcon="close" (click)="onClose()"></mat-icon>
     </div>
     <div

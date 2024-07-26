@@ -72,21 +72,8 @@ export class EditMinorTaskDialogComponent {
   }
 
   saveDescription() {
-    this.taskService
-      .editMinorTask(this.id, this.task)
-      .pipe(
-        catchError(error => {
-          this.snackBar.open(
-            'Đã xảy ra lỗi! Những thay đổi của bạn có thể sẽ không được lưu. Hãy tải lại trang.',
-            'Close',
-            { duration: 3000 }
-          );
-          return throwError(() => new Error(error.error));
-        })
-      )
-      .subscribe(() => {
-        this.showSaveButton = false;
-      });
+    this.save();
+    this.showSaveButton = false;
   }
 
   save() {

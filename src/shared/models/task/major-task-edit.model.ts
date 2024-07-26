@@ -1,5 +1,6 @@
 export interface MajorTaskEditModel {
   taskTitle: string;
   description: string;
-  minorTaskIds: string[];
+  addMinorTaskIds: string[];
+  removeMinorTaskId: string | null;
 }

@@ -13,7 +13,7 @@ import { MinorTask } from '../../../../shared/models/task/minor-task.model';
   styleUrl: './minor-task-list-dialog.component.css'
 })
 export class MinorTaskListDialogComponent {
-  shownList: MinorTask[] = [];
+  shownList: TaskItem[] = [];
   keyword: string = "";
 
   constructor(
@@ -22,18 +22,31 @@ export class MinorTaskListDialogComponent {
   ) {}
 
   ngOnInit() {
-    this.shownList = this.data;
+    this.shownList = this.data.map(mt => new TaskItem(mt));
   }
 
   search() {
-    this.shownList = this.data.filter(m => m.taskTitle.toLocaleLowerCase().includes(this.keyword.toLocaleLowerCase()));
+    this.shownList = this.data.filter(mt => mt.taskTitle.toLocaleLowerCase().includes(this.keyword.toLocaleLowerCase())).map(mt => new TaskItem(mt));
   }
 
-  submit(id: string) {
-    this.dialogRef.close(id);
+  toggleSelection(taskItem: TaskItem) {
+    taskItem.selected = !taskItem.selected;
+  }
+
+  submit() {
+    this.dialogRef.close(this.shownList.filter(item => item.selected).map(item => item.task.id));
   }
 
   onCancel() {
     this.dialogRef.close();
+  }
+}
+
+class TaskItem {
+  task: MinorTask;
+  selected: boolean = false;
+
+  constructor(task: MinorTask) {
+    this.task = task;
   }
 }

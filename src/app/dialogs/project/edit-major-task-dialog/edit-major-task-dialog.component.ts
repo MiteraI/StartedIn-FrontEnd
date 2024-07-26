@@ -26,14 +26,15 @@ export class EditMajorTaskDialogComponent {
       id: '',
       taskTitle: '',
       position: 0,
-      description: ''
+      description: '',
     },
-    minorTasks: []
-  }
+    minorTasks: [],
+  };
   editModel: MajorTaskEditModel = {
     taskTitle: '',
     description: '',
-    minorTaskIds: [],
+    addMinorTaskIds: [],
+    removeMinorTaskId: null,
   };
   showSaveButton = false;
   private assignableMinorTasks: MinorTask[] = [];
@@ -52,7 +53,8 @@ export class EditMajorTaskDialogComponent {
     this.editModel = {
       taskTitle: this.dialogInfo.majorTask.taskTitle,
       description: this.dialogInfo.majorTask.description,
-      minorTaskIds: this.dialogInfo.minorTasks.map(mt => mt.id)
+      addMinorTaskIds: [],
+      removeMinorTaskId: null,
     };
     this.dialogRef.backdropClick().subscribe(() => {
       this.dialogRef.close(this.editModel);
@@ -89,21 +91,8 @@ export class EditMajorTaskDialogComponent {
   }
 
   saveDescription() {
-    this.majorTaskService
-      .editMajorTask(this.majorTaskId, this.editModel)
-      .pipe(
-        catchError(error => {
-          this.snackBar.open(
-            'Đã xảy ra lỗi! Những thay đổi của bạn có thể sẽ không được lưu. Hãy tải lại trang.',
-            'Close',
-            { duration: 3000 }
-          );
-          return throwError(() => new Error(error.error));
-        })
-      )
-      .subscribe(() => {
-        this.showSaveButton = false;
-      });
+    this.save();
+    this.showSaveButton = false;
   }
 
   save() {
@@ -129,21 +118,34 @@ export class EditMajorTaskDialogComponent {
     const assignDialog = this.dialog.open(MinorTaskListDialogComponent, {
       data: this.assignableMinorTasks,
       position: {
-        left: event.clientX < midX ? event.clientX + "px" : undefined,
-        right: event.clientX >= midX ? window.innerWidth - event.clientX + "px" : undefined,
-        top: event.clientY < midY ? event.clientY + "px" : undefined,
-        bottom: event.clientY >= midY ? window.innerHeight - event.clientY + "px" : undefined
-      }
+        left: event.clientX < midX ? event.clientX + 'px' : undefined,
+        right: event.clientX >= midX ? window.innerWidth - event.clientX + 'px' : undefined,
+        top: event.clientY < midY ? event.clientY + 'px' : undefined,
+        bottom: event.clientY >= midY ? window.innerHeight - event.clientY + 'px' : undefined,
+      },
     });
 
     assignDialog.afterClosed().subscribe(result => {
-      if (result) {
-        this.editModel.minorTaskIds = this.editModel.minorTaskIds.concat(result);
+      if (result && result.length) {
+        this.editModel.addMinorTaskIds = result;
         this.save();
-        this.dialogInfo.minorTasks.concat(this.assignableMinorTasks.filter(mt => result.includes(mt.id)));
+        this.editModel.addMinorTaskIds = [];
+        this.dialogInfo.minorTasks = this.dialogInfo.minorTasks.concat(
+          this.assignableMinorTasks.filter(mt => result.includes(mt.id))
+        );
         this.assignableMinorTasks = this.assignableMinorTasks.filter(mt => !result.includes(mt.id));
       }
     });
+  }
+
+  removeMinorTask(minorTaskId: string) {
+    this.editModel.removeMinorTaskId = minorTaskId;
+    this.save();
+    this.editModel.removeMinorTaskId = null;
+    this.assignableMinorTasks = this.assignableMinorTasks.concat(
+      this.dialogInfo.minorTasks.filter(mt => mt.id === minorTaskId)
+    );
+    this.dialogInfo.minorTasks = this.dialogInfo.minorTasks.filter(mt => mt.id !== minorTaskId);
   }
 
   onClose() {
